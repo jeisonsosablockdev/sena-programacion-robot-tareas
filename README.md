@@ -57,7 +57,7 @@ sena-programacion-robot-tareas/
 ├── AGENTS.md                         # Protocolo maestro, guardrails HITL y directivas de agentes
 ├── README.md                         # Este documento de arquitectura y guía de uso
 ├── Academic-Engine/                  # ⚙️ MOTOR DE EJECUCIÓN (Source of Truth de herramientas)
-│   ├── agents/                       # 12 archivos YAML de sub-agentes autónomos
+│   ├── agents/                       # 13 archivos YAML de sub-agentes autónomos
 │   ├── context/                      # Perfil formativo SENA, estándares CS y guías de redacción
 │   │   ├── course-profile.md         # Perfil curricular y competencias SENA
 │   │   ├── cs-standards.md           # Estándares de calidad de software y Clean Code
@@ -91,11 +91,11 @@ sena-programacion-robot-tareas/
 
 ---
 
-## 🤖 El Squad de 12 Sub-Agentes
+## 🤖 El Squad de 13 Sub-Agentes
 
-El motor cuenta con un escuadrón de 12 agentes especializados definidos en `Academic-Engine/agents/*.yaml`:
+El motor cuenta con un escuadrón de 13 agentes especializados definidos en `Academic-Engine/agents/*.yaml`:
 
-### 🎓 Sub-Agentes Académicos & Computer Science (6 agentes)
+### 🎓 Sub-Agentes Académicos, Computer Science & Optimización (7 agentes)
 
 | Identificador | Rol | Misión Principal | Salidas Canónicas |
 |---|---|---|---|
@@ -104,7 +104,8 @@ El motor cuenta con un escuadrón de 12 agentes especializados definidos en `Aca
 | `research-librarian` | Bibliotecario de Investigación Académica | Ingestar PDFs y URLs web, enriquecer metadatos YAML, validar procedencia y gestionar `SOURCES_INDEX.md`. | `Academic Vault/Sources/` |
 | `thesis-writer` | Redactor Académico & Ghostwriter Técnico | Redactar informes técnicos, evidencias escritas y artículos con rigor metodológico (APA 7 / IEEE). | `Academic Vault/Drafts/` |
 | `methodology-consultant` | Consultor Metodológico & Estadístico | Diseñar instrumentos de investigación (encuestas, experimentos), análisis cuantitativo/cualitativo y UML. | `Academic Vault/Concepts/`, `Hypotheses/` |
-| `academic-reviewer` | Revisor Científico y Editorial | Auditar borradores en el bucle autónomo SDD (escala 0-9 pts) evaluando rigor, fuentes, estructura y originalidad. | `Academic Vault/Reviews/` |
+| `academic-reviewer` | Revisor Científico y Editorial (Auditor) | Auditar specs y borradores en bucles autónomos (escala 0-9 pts) evaluando pertinencia, rigor, fuentes y cero clichés. | `Academic Vault/Reviews/` |
+| `task-editor` | Editor Técnico & Optimizador de Calidad | Contraparte editora de los revisores: aplica remediaciones no destructivas a specs y borradores hasta superar >= 8.5/9.0. | `Academic Vault/Drafts/`, `Inbox/Specs/` |
 
 ### 💼 Sub-Agentes de Negocio, Producto & Venture (6 agentes)
 
@@ -119,35 +120,49 @@ El motor cuenta con un escuadrón de 12 agentes especializados definidos en `Aca
 
 ---
 
-## 🛡️ Protocolo SDD con Doble Guardrail Humano (HITL)
+## 🛡️ Protocolo SDD con Doble Bucle Revisor-Editor y Doble Guardrail Humano (HITL)
 
-Para erradicar la alucinación, el texto genérico y la deriva conceptual (*prompt drift*), todas las tareas de generación de entregables siguen el protocolo **Spec-Driven Development (SDD)** de 5 pasos con dos puntos de control humano obligatorio (*Human-in-the-Loop*):
+Para erradicar la alucinación, el texto genérico y la deriva conceptual (*prompt drift*), todas las tareas de generación de especificaciones y entregables siguen la arquitectura de **Doble Bucle Revisor-Editor** con dos puntos de control humano obligatorio (*Human-in-the-Loop*):
 
 ```mermaid
 flowchart TD
-    A["1. Requerimiento del Usuario"] --> B["task-init.sh<br/>(Generación de Spec Formal)"]
-    B --> C{"GUARDRAIL HITL-1<br/>¿Usuario aprueba Spec?"}
-    C -- "No / Refinar" --> D["sdd-manager.sh refine-spec"]
-    D --> B
-    C -- "Sí / Aprobado" --> E["sdd-manager.sh approve-spec"]
-    E --> F["Fase de Redacción Autónoma<br/>(Sub-agentes asignados)"]
-    F --> G["Bucle Evaluador-Optimizador<br/>(academic-reviewer audita)"]
-    G --> H{"¿Nota >= 8.5 / 9.0?<br/>(Cero Clichés de IA)"}
-    H -- "No (hasta 5 ciclos)" --> F
-    H -- "Sí (Calidad Superada)" --> I{"GUARDRAIL HITL-2<br/>¿Usuario aprueba Entregable?"}
-    I -- "No / Refinar" --> J["sdd-manager.sh refine-deliverable"]
-    J --> F
-    I -- "Sí / Aprobado" --> K["sdd-manager.sh approve-deliverable"]
-    K --> L["🚀 Promoción Canónica a Academic Vault/"]
-    L --> M["Cierre y Métricas en task-manager.sh"]
+    subgraph Fase1["FASE 1: BUCLE DEL SPEC (Spec Loop)"]
+        A["1. Requerimiento del Usuario"] --> B["task-init.sh<br/>(Generación de Spec Formal)"]
+        B --> B1["loop-spec: task-editor vs academic-reviewer"]
+        B1 --> B2{"¿Nota Spec >= 8.5/9.0?<br/>(Pertinencia & Criterios)"}
+        B2 -- "No (< 8.5)" --> B1
+        B2 -- "Sí (>= 8.5)" --> C{"GUARDRAIL HITL-1<br/>¿Usuario aprueba Spec?"}
+        C -- "No / Refinar" --> D["sdd-manager.sh refine-spec"]
+        D --> B1
+        C -- "Sí / Aprobado" --> E["sdd-manager.sh approve-spec"]
+    end
+
+    subgraph Fase2["FASE 2: BUCLE DE EJECUCIÓN (Task Loop)"]
+        E --> F["loop-task: Creador/Editor vs academic-reviewer"]
+        F --> G{"¿Nota Entregable >= 8.5/9.0?<br/>(Rigor, Pertinencia & Cero Clichés)"}
+        G -- "No (< 8.5, hasta 5 ciclos)" --> F
+        G -- "Sí (>= 8.5)" --> I{"GUARDRAIL HITL-2<br/>¿Usuario aprueba Entregable?"}
+        I -- "No / Refinar" --> J["sdd-manager.sh refine-deliverable"]
+        J --> F
+        I -- "Sí / Aprobado" --> K["sdd-manager.sh approve-deliverable"]
+    end
+
+    subgraph Fase3["FASE 3: INTEGRACIÓN"]
+        K --> L["🚀 Promoción Canónica a Academic Vault/"]
+        L --> M["Cierre y Métricas en task-manager.sh"]
+    end
 ```
 
-### Dimensiones de Evaluación del Revisor Autónomo (Escala 0 a 9.0)
+### Dimensiones de Evaluación de Pertinencia y Calidad (Escala 0 a 9.0)
 
-1. **Rigor Científico / Técnico (2.5 pts):** Precisión conceptual, ausencia de afirmaciones vacías, consistencia técnica.
-2. **Citación & Fuentes Verificables (2.5 pts):** Respaldo de fuentes reales registradas en `SOURCES_INDEX.md` o contexto.
-3. **Claridad & Estructura (2.0 pts):** Redacción directa, formato institucional, uso adecuado de encabezados y diagramas.
-4. **Originalidad & Análisis Crítico (2.0 pts):** Convicción, asertividad y **cero clichés robóticos** de IA (penalización inmediata si contiene frases como *"en el vertiginoso mundo"*, *"juega un papel crucial"*, *"cambio de paradigma"*, *"en resumen"*, etc.).
+Tanto en la fase de especificación como en la entrega final, el **Agente Revisor** audita contra 4 dimensiones obligatorias:
+
+1. **Pertinencia con los Requisitos & Objetivo Solicitado (2.5 pts):** Cobertura total de los requerimientos pedidos por el usuario, alineación con la audiencia (aprendices SENA / desarrollo de software), claridad del problema y cierre accionable.
+2. **Rigor Científico/Técnico & Estándares de Software (2.5 pts):** Fundamentación en Clean Code, principios SOLID, patrones arquitectónicos, testing riguroso y ausencia de promesas especulativas.
+3. **Claridad, Coherencia & Estructura (2.0 pts):** Jerarquía lógica visual, completitud de secciones, concisión y ausencia de prosa pasiva.
+4. **Originalidad Léxica & Cero Clichés de IA (2.0 pts):** Tolerancia cero a frases hechas de LLMs (penalización automática por muletillas como *"en el vertiginoso mundo"*, *"juega un papel crucial"*, *"cambio de paradigma"*, *"en resumen"*, etc.).
+
+**Umbral Mínimo Aprobatorio:** $\mathbf{\ge 8.5 / 9.0}$.
 
 ---
 
@@ -157,8 +172,28 @@ Todos los scripts cuentan con paridad 1:1 entre entornos UNIX/macOS (`.sh`) y Po
 
 | Tarea Operativa | Comando Bash (macOS / Linux / WSL) | Comando PowerShell (Windows) |
 |---|---|---|
+| **Bucle Autónomo Universal (>= 8.5)** | `bash Academic-Engine/scripts/task-loop.sh <slug> ["<reqs>"] ["<meta>"]` | `powershell -File .\Academic-Engine\scripts\task-loop.ps1 <slug> ...` |
 | **Inicialización Atómica SDD** | `bash Academic-Engine/scripts/task-init.sh <slug> [titulo] [carpeta] [agentes] [icp] [meta]` | `powershell -File .\Academic-Engine\scripts\task-init.ps1 <slug> ...` |
-| **Gestión del Motor SDD** | `bash Academic-Engine/scripts/sdd-manager.sh <init\|preview\|approve-spec\|evaluate\|status\|approve-deliverable>` | `powershell -File .\Academic-Engine\scripts\sdd-manager.ps1 <cmd>` |
+| **Bucle del Spec (Spec-Loop >= 8.5)** | `bash Academic-Engine/scripts/sdd-manager.sh loop-spec <slug>` | `powershell -File .\Academic-Engine\scripts\sdd-manager.ps1 loop-spec <slug>` |
+| **Aprobar Spec (HITL-1)** | `bash Academic-Engine/scripts/sdd-manager.sh approve-spec <slug>` | `powershell -File .\Academic-Engine\scripts\sdd-manager.ps1 approve-spec <slug>` |
+| **Bucle de la Tarea (Task-Loop >= 8.5)** | `bash Academic-Engine/scripts/sdd-manager.sh loop-task <slug> [draft.md]` | `powershell -File .\Academic-Engine\scripts\sdd-manager.ps1 loop-task <slug>` |
+| **Revisar y Aprobar Entregable (HITL-2)** | `bash Academic-Engine/scripts/sdd-manager.sh <review-deliverable\|approve-deliverable> <slug>` | `powershell -File .\Academic-Engine\scripts\sdd-manager.ps1 <cmd> <slug>` |
+| **Auditoría de Texto Libre (0 a 9)** | `bash Academic-Engine/scripts/sdd-manager.sh audit-text <archivo.md>` | `powershell -File .\Academic-Engine\scripts\sdd-manager.ps1 audit-text <archivo.md>` |
+| **Ingesta de PDFs** | `bash Academic-Engine/scripts/ingest-pdf.sh [archivo.pdf]` | `powershell -File .\Academic-Engine\scripts\ingest-pdf.ps1 [archivo.pdf]` |
+| **Ingesta de URLs Web** | `bash Academic-Engine/scripts/ingest-web.sh <url> [titulo]` | `powershell -File .\Academic-Engine\scripts\ingest-web.ps1 <url> [titulo]` |
+| **Sincronizar Índice de Fuentes** | `bash Academic-Engine/scripts/sync-sources-index.sh` | `powershell -File .\Academic-Engine\scripts\sync-sources-index.ps1` |
+| **Scaffold de Nuevo Proyecto** | `bash Academic-Engine/scripts/new-project.sh "<nombre>" "[meta]" "[autor]"` | `powershell -File .\Academic-Engine\scripts\new-project.ps1 "<nombre>" ...` |
+| **Reparación y Linter de Bóveda** | `bash Academic-Engine/scripts/fix-vault.sh` | `powershell -File .\Academic-Engine\scripts\fix-vault.ps1` |
+| **Refinamiento No Destructivo** | `bash Academic-Engine/scripts/refine-note.sh <inspect\|backup\|refine\|branch\|rollback> <ruta>` | `powershell -File .\Academic-Engine\scripts\refine-note.ps1 <cmd> <ruta>` |
+| **Gestión de Sesiones de Tarea** | `bash Academic-Engine/scripts/task-manager.sh <init\|add\|show\|update\|list\|close> ...` | `powershell -File .\Academic-Engine\scripts\task-manager.ps1 <cmd> ...` |
+| **Exportar a PDF / LaTeX** | `bash Academic-Engine/scripts/export-pdf.sh <archivo.md\|.tex> [salida.pdf] [--open]` | `powershell -File .\Academic-Engine\scripts\export-pdf.ps1 <archivo> ...` |
+| **Auditoría de Habilidades** | `bash Academic-Engine/scripts/validate-skills.sh` | `powershell -File .\Academic-Engine\scripts\validate-skills.ps1` |
+| **Activar Habilidades en Agente** | `bash Academic-Engine/scripts/enable-project-skills.sh` | `powershell -File .\Academic-Engine\scripts\enable-project-skills.ps1` |
+| **Inspección de Sub-Agentes** | `bash Academic-Engine/scripts/inspect-squad.sh` | `powershell -File .\Academic-Engine\scripts\inspect-squad.ps1` |
+| **Smoke Test de Integración** | `bash Academic-Engine/tests/smoke-test.sh` | `powershell -File .\Academic-Engine\tests\smoke-test.ps1` |
+| **Pruebas de Idempotencia** | `bash Academic-Engine/tests/test-idempotency.sh` | `powershell -File .\Academic-Engine\tests\test-idempotency.ps1` |
+| **Auditoría de Gobernanza** | `bash Academic-Engine/scripts/validate-vault.sh` | `powershell -File .\Academic-Engine\scripts\validate-vault.ps1` |
+| **Auditoría Anti-Deriva (Enforce)**| `bash Academic-Engine/scripts/enforce-compliance.sh` | `powershell -File .\Academic-Engine\scripts\enforce-compliance.ps1` |
 | **Ingesta de PDFs** | `bash Academic-Engine/scripts/ingest-pdf.sh [archivo.pdf]` | `powershell -File .\Academic-Engine\scripts\ingest-pdf.ps1 [archivo.pdf]` |
 | **Ingesta de URLs Web** | `bash Academic-Engine/scripts/ingest-web.sh <url> [titulo]` | `powershell -File .\Academic-Engine\scripts\ingest-web.ps1 <url> [titulo]` |
 | **Sincronizar Índice de Fuentes** | `bash Academic-Engine/scripts/sync-sources-index.sh` | `powershell -File .\Academic-Engine\scripts\sync-sources-index.ps1` |

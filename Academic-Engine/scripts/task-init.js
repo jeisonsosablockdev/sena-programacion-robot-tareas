@@ -18,7 +18,11 @@ const KNOWN_COMMANDS = [
   'approve',
   'approve-spec',
   'refine-spec',
+  'loop-spec',
+  'run-spec-loop',
   'evaluate',
+  'loop-task',
+  'run-task-loop',
   'review-deliverable',
   'refine-deliverable',
   'approve-deliverable',
@@ -26,6 +30,8 @@ const KNOWN_COMMANDS = [
   'status',
   'list',
   'audit-text',
+  'audit-spec',
+  'auto-loop',
   'test-run'
 ];
 
@@ -66,19 +72,21 @@ function main() {
     console.log(`
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║              task-init.sh - Motor Atómico e Idempotente SDD                  ║
-║                         BRIDS KNOWLEDGE FORT                                 ║
+║                  ACADEMIC AI STUDIO - SENA & CS (DUAL-LOOP)                  ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
 
 Uso Rápido:
   bash Academic-Engine/scripts/task-init.sh <slug> [titulo] [target-folder] [subagents] [icp] [goal]
   bash Academic-Engine/scripts/task-init.sh <slug> "[objetivo]" "[icp]"
 
-Comandos HITL y Gestión del Ciclo de Vida:
+Comandos de Bucles Autónomos y Gestión de Ciclo de Vida:
+  loop-spec <slug>                   Bucle autónomo Revisor <-> Editor para el spec (>= 8.5)
   preview <slug>                     Inspeccionar objeto canónico del spec (HITL-1)
   refine-spec <slug> "<feedback>"    Ajustar especificación con observaciones
   approve-spec <slug>                Aprobar spec formalmente (Libera redacción)
   
-  evaluate <slug> <draft.md>         Auditar borrador en bucle de 2 agentes (>= 8.5)
+  loop-task <slug> [draft.md]        Bucle autónomo Revisor <-> Editor para la tarea (>= 8.5)
+  evaluate <slug> <draft.md>         Auditar ciclo individual en bucle de 2 agentes (>= 8.5)
   review-deliverable <slug>          Revisar entregable pulido (HITL-2)
   refine-deliverable <slug> "<fb>"   Solicitar cambios en el entregable
   approve-deliverable <slug>         Aceptar entregable e integrar en el Vault

@@ -7,8 +7,9 @@
 ## File-Scoped Commands
 | Task | Command |
 |------|---------|
+| Universal Two-Agent Task Loop (>= 8.5) | `bash Academic-Engine/scripts/task-loop.sh <slug> ["<requerimientos>"] ["<meta>"]` |
 | Atomic Task Init & SDD Engine | `bash Academic-Engine/scripts/task-init.sh <slug> [titulo] [target-folder] [subagents] [icp] [goal]` |
-| Spec-Driven Development (SDD) | `bash Academic-Engine/scripts/sdd-manager.sh <init|preview|approve|evaluate|status|list>` |
+| Spec-Driven Development (SDD) | `bash Academic-Engine/scripts/sdd-manager.sh <init|loop-spec|preview|approve|loop-task|evaluate|review-deliverable|approve-deliverable|status|list>` |
 | Ingest Pending PDFs | `bash Academic-Engine/scripts/ingest-pdf.sh [file.pdf]` |
 | Ingest Web URL to Markdown | `bash Academic-Engine/scripts/ingest-web.sh <url> [titulo]` |
 | Reconcile Sources Index | `bash Academic-Engine/scripts/sync-sources-index.sh` |
@@ -60,24 +61,27 @@ Co-Authored-By: Google Gemini <gemini@google.com>
 - Skill activation instructions live in `Academic-Engine/docs/skills-activation.md`
 - For Windows, prefer `enable-project-skills.ps1`
 
-## Anti-Drift Task Execution Protocol (5 Steps con Doble Guardrail HITL)
-To prevent prompt/context drift and ensure consistent quality, every document or content generation task must follow this sequence:
-1. **Solicitud de Usuario & Propuesta SDD:** El usuario expone el requerimiento. Se genera un artefacto de especificación formal usando `bash Academic-Engine/scripts/task-init.sh <slug> "<title>" "<target-folder>" "<subagents>" "[icp]" "[goal]"`. El spec queda en estado `spec_review` y declara obligatoriamente:
-   - Destino canónico en `Academic Vault/` y nombre de archivo.
-   - Sub-agentes asignados del squad (12 agentes disponibles).
-   - Anclas técnicas verificables y filtro anti-clichés de IA.
-2. **Primer Guardrail HITL (Aprobación Humana del Spec):** Se presenta el spec al usuario (`bash Academic-Engine/scripts/sdd-manager.sh preview <slug>`).
-   - **Bloqueo Mandatorio:** Ningún sub-agente comienza a redactar hasta que el usuario apruebe formalmente con `bash Academic-Engine/scripts/sdd-manager.sh approve-spec <slug>`.
-3. **Bucle Evaluador-Optimizador Autónomo (Creador vs Revisor):** Redacción del borrador con los sub-agentes asignados.
-   - **Agente Revisor:** Audita en escala de 0 a 9 puntos en 4 dimensiones:
-     - 1. Rigor Científico/Técnico (2.5 pts)
-     - 2. Citación & Fuentes (2.5 pts)
-     - 3. Claridad & Estructura (2.0 pts)
-     - 4. Originalidad & Análisis Crítico (2.0 pts)
+## Anti-Drift Task Execution Protocol (Doble Bucle Revisor-Editor & Doble Guardrail HITL)
+Para prevenir el drifting contextual y garantizar pertinencia y rigor técnico absoluto, toda tarea o generación de contenido se ejecuta bajo esta arquitectura:
+
+1. **Fase 1: Inicialización & Bucle Autónomo del Spec (Spec-Loop):**
+   - El requerimiento se inicializa con `bash Academic-Engine/scripts/task-init.sh <slug> "<title>" "<target-folder>" "<subagents>" "[icp]" "[goal]"`.
+   - **Bucle Revisor $\leftrightarrow$ Editor del Spec:** Se ejecuta `bash Academic-Engine/scripts/sdd-manager.sh loop-spec <slug>`. El agente `task-editor` y el revisor `academic-reviewer` iteran sobre el documento del spec (`.spec.md` y `.spec.json`), evaluando pertinencia, viabilidad técnica y criterios de aceptación verificables hasta alcanzar una nota $\ge 8.5 / 9.0$.
+2. **Primer Guardrail HITL (Aprobación Humana del Spec):**
+   - Se presenta el spec optimizado al usuario (`bash Academic-Engine/scripts/sdd-manager.sh preview <slug>`).
+   - **Bloqueo Mandatorio:** Ningún agente comienza la ejecución o redacción del entregable hasta que el usuario apruebe formalmente con `bash Academic-Engine/scripts/sdd-manager.sh approve-spec <slug>`.
+3. **Fase 2: Bucle Autónomo de Ejecución de Tarea (Task-Loop):**
+   - Se ejecuta el bucle de optimización de la tarea con `bash Academic-Engine/scripts/sdd-manager.sh loop-task <slug>` (o directamente `bash Academic-Engine/scripts/task-loop.sh <slug>`).
+   - **Bucle Creador/Editor $\leftrightarrow$ Revisor:** El agente creador/editor (`task-editor`, `thesis-writer`, `cs-tutor`) redacta el entregable y el revisor (`academic-reviewer`, `code-reviewer`) audita en escala de 0 a 9 puntos en 4 dimensiones críticas:
+     - 1. **Pertinencia con los Requisitos & Objetivo Solicitado (2.5 pts):** Cobertura total de lo pedido por el usuario, público objetivo e intención pedagógica/técnica.
+     - 2. **Rigor Científico/Técnico & Estándares CS (2.5 pts):** Clean Code, SOLID, patrones, arquitectura, testing y referencias verificables.
+     - 3. **Claridad, Coherencia & Estructura (2.0 pts):** Jerarquía visual, concisión, sin rodeos corporativos ni prosa pasiva.
+     - 4. **Originalidad Léxica & Cero Clichés de IA (2.0 pts):** Tolerancia cero a frases cliché de LLMs.
    - **Condición de Calidad:** Debe superar $\ge 8.5 / 9.0$ (máximo 5 ciclos). Al superar 8.5, pasa a `deliverable_review` (HITL-2).
-4. **Segundo Guardrail HITL (Aprobación del Entregable):** Se presenta el texto al usuario.
-   - **Bloqueo Mandatorio:** NO se escribe en la carpeta de producción de `Academic Vault/` hasta la confirmación formal.
-5. **Medición & Cierre:** Registro del entregable y cierre en `task-manager.sh update`.
+4. **Segundo Guardrail HITL (Aprobación del Entregable):**
+   - Se presenta el entregable final pulido al usuario (`bash Academic-Engine/scripts/sdd-manager.sh review-deliverable <slug>`).
+   - **Bloqueo Mandatorio:** NO se escribe en la carpeta canónica de producción de `Academic Vault/` hasta la confirmación formal del usuario con `bash Academic-Engine/scripts/sdd-manager.sh approve-deliverable <slug>`.
+5. **Medición & Cierre:** Registro del entregable en el Vault con metadata inmutable, changelog v1.0 y cierre en `task-manager.sh update`.
 
 ## Vault Conventions
 - The vault is structured with these core areas under `Academic Vault/`:
@@ -100,8 +104,8 @@ To prevent prompt/context drift and ensure consistent quality, every document or
 - The Obsidian vault is `Academic Vault/`
 - Local REST API is active on HTTPS port `27124` with Bearer token authentication
 
-## Hybrid Agent Squad (Business + Academic/CS)
-The workspace includes 12 specialized sub-agents defined in `Academic-Engine/agents/`:
+## Hybrid Agent Squad (Business + Academic/CS + Optimization)
+The workspace includes 13 specialized sub-agents defined in `Academic-Engine/agents/`:
 
 ### BRIDS Founder & YC Sub-Agent Squad (6 agents)
 | Agent Identifier | Role | Core Mission |
@@ -113,7 +117,7 @@ The workspace includes 12 specialized sub-agents defined in `Academic-Engine/age
 | `b2b-sponsor-lead` | Real Estate Sponsor Acquisition & RevOps | Developer value prop, cold outbound, pilot onboarding |
 | `founder-ghostwriter` | Founder Voice & YC Storyteller | YC application essays, X threads, LinkedIn articles |
 
-### Academic & CS Sub-Agent Squad (6 agents)
+### Academic, CS & Optimization Squad (7 agents)
 | Agent Identifier | Role | Core Mission |
 |---|---|---|
 | `cs-tutor` | CS & Software Development Tutor | Explain CS concepts, guide exercises, review student code |
@@ -121,7 +125,8 @@ The workspace includes 12 specialized sub-agents defined in `Academic-Engine/age
 | `research-librarian` | Academic Research Librarian | PDF/web intake, SOURCES_INDEX.md, metadata enrichment |
 | `thesis-writer` | Academic Writer & Report Ghostwriter | Thesis sections, technical reports, APA 7/IEEE |
 | `methodology-consultant` | Research Methodology & Statistical Consultant | Survey design, statistical analysis, methodological frameworks |
-| `academic-reviewer` | Scientific & Editorial Reviewer | Audit drafts for rigor, coherence, citations, SDD counterpart |
+| `academic-reviewer` | Scientific & Editorial Reviewer (Auditor) | Audit specs and drafts for rigor, coherence, citations, requirements pertinence (>= 8.5/9.0) |
+| `task-editor` | Technical Editor & Continuous Quality Optimizer | Reviewer counterpart: non-destructive remediation of specs and drafts until reaching >= 8.5/9.0 |
 
 - Definitions: Individual YAML files in `Academic-Engine/agents/*.yaml`
 - Verification: `bash Academic-Engine/scripts/inspect-squad.sh`
