@@ -1,98 +1,278 @@
-# Academic AI Studio
+# 🤖 SENA - Robot Tareas | Academic AI Studio
 
-Hybrid workspace for academic research, software development coursework, and business content creation — powered by AI agents, with logic separated from the Obsidian vault.
+> Entorno de desarrollo agéntico híbrido para la formación en **Programación de Software** del **SENA (Servicio Nacional de Aprendizaje)**, ingeniería de software y creación de productos tecnológicos con arquitectura desacoplada y gobernanza estricta.
 
-## What This System Does
+[![Tests Passing](https://img.shields.io/badge/Smoke%20Tests-41%2F41%20Passing-brightgreen)](Academic-Engine/tests/smoke-test.sh)
+[![Idempotency Passing](https://img.shields.io/badge/Idempotency-38%2F38%20(100%25)-blue)](Academic-Engine/tests/test-idempotency.sh)
+[![Skills Verified](https://img.shields.io/badge/Agent%20Skills-65%2F65%20Valid-success)](Academic-Engine/scripts/validate-skills.sh)
+[![Agent Squad](https://img.shields.io/badge/Sub--Agents-12%20Active-blueviolet)](Academic-Engine/scripts/inspect-squad.sh)
+[![SENA Context](https://img.shields.io/badge/SENA-Virtual%20Software%20Dev-orange)](Academic-Engine/context/course-profile.md)
+[![SDD Protocol](https://img.shields.io/badge/Spec--Driven%20Dev-Doble%20HITL%20Active-informational)](Academic-Engine/scripts/sdd-manager.sh)
 
-This workspace combines two capability domains:
+---
 
-1. **Academic & Computer Science** — Assists in software development courses, scientific research, thesis writing, and technical documentation
-2. **Business & Marketing** — Creates pitch decks, marketing content, financial models, and investor materials
+## 📋 Tabla de Contenidos
 
-Both domains share the same infrastructure: Spec-Driven Development (SDD) with double human-in-the-loop guardrails, task management, non-destructive refinement, and multi-format export.
+1. [Visión General & Propósito](#-visión-general--propósito)
+2. [Arquitectura del Sistema (Motor vs. Bóveda)](#-arquitectura-del-sistema-motor-vs-bóveda)
+3. [El Squad de 12 Sub-Agentes](#-el-squad-de-12-sub-agentes)
+4. [Protocolo SDD con Doble Guardrail Humano (HITL)](#-protocolo-sdd-con-doble-guardrail-humano-hitl)
+5. [Catálogo de Comandos Operativos (.sh y .ps1)](#-catálogo-de-comandos-operativos)
+6. [Catálogo de 65 Habilidades (Skills)](#-catálogo-de-65-habilidades-skills)
+7. [Instalación & Activación Rápida](#-instalación--activación-rápida)
+8. [Suites de Verificación & Testing](#-suites-de-verificación--testing)
+9. [Regla de Refinamiento No Destructivo](#-regla-de-refinamiento-no-destructivo)
+10. [Atribución de Commits](#-atribución-de-commits)
 
-## Project Structure
+---
+
+## 🎯 Visión General & Propósito
+
+**SENA - Robot Tareas** es una estación de trabajo de ingeniería de software aumentada con IA diseñada para asistir al aprendiz **Julian David Sosa Rico** en el programa formativo de **Programación de Software** del **SENA (Servicio Nacional de Aprendizaje)** en modalidad **100% Virtual**.
+
+El sistema integra dos dimensiones operativas que comparten el mismo motor de ejecución:
+
+1. **Dimensión Académica & Computer Science (CS):**
+   - Generación y sustentación de evidencias de aprendizaje:
+     - **Evidencias de Conocimiento (EC):** Mapas conceptuales, comparativas técnicas, análisis algorítmicos.
+     - **Evidencias de Desempeño (ED):** Demostraciones, sustentaciones, revisiones de código, pruebas.
+     - **Evidencias de Producto (EP):** Repositorios con pruebas unitarias, diagramas UML, scripts de bases de datos relacionales (MySQL/PostgreSQL), especificaciones SRS (IEEE 830), manuales técnicos e informes en PDF (APA 7).
+   - Aplicación estricta de principios de **Clean Code**, **SOLID**, patrones de diseño (GoF) y arquitectura en capas/MVC.
+
+2. **Dimensión de Producto & Venture:**
+   - Modelado económico y de negocio (SaaS, fee architecture, CAC/LTV).
+   - Preparación de pitch decks institucionales (YC y Sequoia) y exportación nativa a `.pptx`.
+   - Cumplimiento normativo y contratos inteligentes sobre Solana (estándar Metaplex Core).
+   - Generación de parrillas de contenido técnico y prospección B2B.
+
+---
+
+## 🏗️ Arquitectura del Sistema (Motor vs. Bóveda)
+
+El espacio de trabajo mantiene una separación radical entre la lógica de ejecución y la base de conocimiento:
 
 ```text
-SENA - ROBOT TAREAS/
-├── AGENTS.md
-├── README.md
-├── Academic-Engine/
-│   ├── agents/          ← 12 AI agent definitions (6 Business + 6 Academic/CS)
-│   ├── context/         ← Course profile, CS standards, writing guide, export config
-│   ├── docs/            ← Workflows, organization rules, skills reference
-│   ├── scripts/         ← Automation scripts (task init, SDD, export, validation)
-│   ├── skills/          ← 65 skills (56 marketing + 9 CS/academic)
-│   ├── templates/       ← Note, spec, LaTeX, and evaluation templates
-│   ├── tests/           ← Smoke tests and idempotency verification
-│   ├── brand/           ← (reserved for institutional assets)
-│   └── outputs/         ← Temporary build outputs
-└── Academic Vault/
-    ├── 00 System/       ← Workflow references, templates, agent instructions
-    ├── Sources/         ← PDF and web source library
-    ├── Reviews/         ← Thematic syntheses by project
-    ├── Hypotheses/      ← Testable claims by project
-    ├── Drafts/          ← Manuscript sections by project
-    ├── Concepts/        ← Global conceptual notes
-    ├── Projects/        ← Project indexes, requirements, manifests
-    ├── Inbox/           ← Raw captures and teacher instructions
-    ├── Exports/         ← Compiled PDFs, DOCX, LaTeX
-    └── MASTER_INDEX.md  ← Global operational dashboard
+sena-programacion-robot-tareas/
+├── .gitignore
+├── AGENTS.md                         # Protocolo maestro, guardrails HITL y directivas de agentes
+├── README.md                         # Este documento de arquitectura y guía de uso
+├── Academic-Engine/                  # ⚙️ MOTOR DE EJECUCIÓN (Source of Truth de herramientas)
+│   ├── agents/                       # 12 archivos YAML de sub-agentes autónomos
+│   ├── context/                      # Perfil formativo SENA, estándares CS y guías de redacción
+│   │   ├── course-profile.md         # Perfil curricular y competencias SENA
+│   │   ├── cs-standards.md           # Estándares de calidad de software y Clean Code
+│   │   ├── academic-writing-guide.md # Guía de estilo APA 7, IEEE y redacción técnica
+│   │   └── export-config.md          # Configuración del pipeline Pandoc / LaTeX
+│   ├── docs/                         # Manuales de workflows y taxonomía de archivos
+│   ├── outputs/                      # Salidas temporales generadas (decks .pptx, etc.)
+│   ├── scripts/                      # 24 scripts automatizados con paridad .sh y .ps1
+│   ├── skills/                       # 65 habilidades validadas (Agent Skills Specification)
+│   ├── templates/                    # Plantillas Markdown, LaTeX y esquemas JSON
+│   └── tests/                        # Suites de smoke test y verificación de idempotencia
+└── Academic Vault/                   # 📚 BÓVEDA OBSIDIAN (Base de conocimiento y entregables)
+    ├── .obsidian/                    # Configuración de Obsidian (plugins y temas)
+    ├── 00 System/                    # Vistas de workflows, plantillas locales y gobernanza
+    ├── Concepts/                     # Notas atómicas de conceptos teóricos y tecnológicos
+    ├── Drafts/                       # Secciones de manuscritos, evidencias formativas y posts
+    ├── Exports/                      # Salidas compiladas finales (PDF, DOCX, LaTeX)
+    ├── Hypotheses/                   # Reivindicaciones comprobables y diseño experimental
+    ├── Inbox/                        # Capturas crudas, sesiones de tarea y specs SDD
+    │   ├── Archive/                  # Snapshots automáticos de seguridad (refinamiento)
+    │   └── Specs/                    # Especificaciones formales en ciclo HITL
+    ├── Projects/                     # Proyectos estructurados (vistas symlinks relativas)
+    │   └── Requirements/             # Requisitos funcionales y no funcionales
+    ├── Reviews/                      # Revisiones de código, literatura y síntesis temáticas
+    └── Sources/                      # Biblioteca canónica de fuentes ingresadas (PDF y Web)
+        ├── PDF Converted/            # PDFs transformados a Markdown estructurado
+        ├── PDF Unconverted/          # Bandeja de entrada para PDFs pendientes de ingesta
+        ├── Web Converted/            # Artículos web ingestados con procedencia y metadata
+        └── SOURCES_INDEX.md          # Registro canónico maestro de todas las fuentes
 ```
 
-## The 12-Agent Squad
+---
 
-### Academic & CS Agents
-| Agent | Role | Best For |
+## 🤖 El Squad de 12 Sub-Agentes
+
+El motor cuenta con un escuadrón de 12 agentes especializados definidos en `Academic-Engine/agents/*.yaml`:
+
+### 🎓 Sub-Agentes Académicos & Computer Science (6 agentes)
+
+| Identificador | Rol | Misión Principal | Salidas Canónicas |
+|---|---|---|---|
+| `cs-tutor` | Tutor de CS & Desarrollo de Software | Explicar algoritmos, estructuras de datos, POO, bases de datos y guiar ejercicios prácticos con feedback formativo. | `Academic Vault/Drafts/`, `Concepts/` |
+| `code-reviewer` | Arquitecto de Calidad & Code Reviewer | Auditar código bajo Clean Code, SOLID, patrones GoF, cobertura de tests y seguridad OWASP. | `Academic Vault/Reviews/` |
+| `research-librarian` | Bibliotecario de Investigación Académica | Ingestar PDFs y URLs web, enriquecer metadatos YAML, validar procedencia y gestionar `SOURCES_INDEX.md`. | `Academic Vault/Sources/` |
+| `thesis-writer` | Redactor Académico & Ghostwriter Técnico | Redactar informes técnicos, evidencias escritas y artículos con rigor metodológico (APA 7 / IEEE). | `Academic Vault/Drafts/` |
+| `methodology-consultant` | Consultor Metodológico & Estadístico | Diseñar instrumentos de investigación (encuestas, experimentos), análisis cuantitativo/cualitativo y UML. | `Academic Vault/Concepts/`, `Hypotheses/` |
+| `academic-reviewer` | Revisor Científico y Editorial | Auditar borradores en el bucle autónomo SDD (escala 0-9 pts) evaluando rigor, fuentes, estructura y originalidad. | `Academic Vault/Reviews/` |
+
+### 💼 Sub-Agentes de Negocio, Producto & Venture (6 agentes)
+
+| Identificador | Rol | Misión Principal | Salidas Canónicas |
+|---|---|---|---|
+| `business-consultant` | Arquitecto de Modelos de Negocio | Diseñar arquitectura de tarifas SaaS, proyecciones pro forma a 3-5 años y viabilidad económica para aceleradoras (YC). | `Academic Vault/Drafts/`, `Concepts/` |
+| `market-research-analyst` | Analista de Mercado & TAM/SAM/SOM | Dimensionamiento de mercado (top-down y bottom-up) y matrices comparativas de competidores. | `Academic Vault/Drafts/`, `Concepts/` |
+| `pitch-deck-architect` | Arquitecto de Pitch Decks (YC/Sequoia) | Estructurar narrativas de 10-12 slides y generar archivos `.pptx` nativos mediante `python-pptx`. | `Academic Vault/Drafts/`, `outputs/decks/` |
+| `compliance-officer` | Oficial de Cumplimiento & RWA | Desacoplamiento corporativo (Delaware C-Corp vs SPV), KYC/AML con Stripe Identity y gobernanza multi-sig. | `Academic Vault/Drafts/`, `Reviews/` |
+| `b2b-sponsor-lead` | Adquisición de Sponsors & RevOps | Propuesta de valor para desarrolladores B2B, secuencias de prospección en frío y flujos de onboarding. | `Academic Vault/Drafts/` |
+| `founder-ghostwriter` | Storyteller & Voz Fundadora | Ensayos de aplicación a YC, artículos técnicos en LinkedIn y reflexiones de arquitectura en X (Twitter). | `Academic Vault/Drafts/` |
+
+---
+
+## 🛡️ Protocolo SDD con Doble Guardrail Humano (HITL)
+
+Para erradicar la alucinación, el texto genérico y la deriva conceptual (*prompt drift*), todas las tareas de generación de entregables siguen el protocolo **Spec-Driven Development (SDD)** de 5 pasos con dos puntos de control humano obligatorio (*Human-in-the-Loop*):
+
+```mermaid
+flowchart TD
+    A["1. Requerimiento del Usuario"] --> B["task-init.sh<br/>(Generación de Spec Formal)"]
+    B --> C{"GUARDRAIL HITL-1<br/>¿Usuario aprueba Spec?"}
+    C -- "No / Refinar" --> D["sdd-manager.sh refine-spec"]
+    D --> B
+    C -- "Sí / Aprobado" --> E["sdd-manager.sh approve-spec"]
+    E --> F["Fase de Redacción Autónoma<br/>(Sub-agentes asignados)"]
+    F --> G["Bucle Evaluador-Optimizador<br/>(academic-reviewer audita)"]
+    G --> H{"¿Nota >= 8.5 / 9.0?<br/>(Cero Clichés de IA)"}
+    H -- "No (hasta 5 ciclos)" --> F
+    H -- "Sí (Calidad Superada)" --> I{"GUARDRAIL HITL-2<br/>¿Usuario aprueba Entregable?"}
+    I -- "No / Refinar" --> J["sdd-manager.sh refine-deliverable"]
+    J --> F
+    I -- "Sí / Aprobado" --> K["sdd-manager.sh approve-deliverable"]
+    K --> L["🚀 Promoción Canónica a Academic Vault/"]
+    L --> M["Cierre y Métricas en task-manager.sh"]
+```
+
+### Dimensiones de Evaluación del Revisor Autónomo (Escala 0 a 9.0)
+
+1. **Rigor Científico / Técnico (2.5 pts):** Precisión conceptual, ausencia de afirmaciones vacías, consistencia técnica.
+2. **Citación & Fuentes Verificables (2.5 pts):** Respaldo de fuentes reales registradas en `SOURCES_INDEX.md` o contexto.
+3. **Claridad & Estructura (2.0 pts):** Redacción directa, formato institucional, uso adecuado de encabezados y diagramas.
+4. **Originalidad & Análisis Crítico (2.0 pts):** Convicción, asertividad y **cero clichés robóticos** de IA (penalización inmediata si contiene frases como *"en el vertiginoso mundo"*, *"juega un papel crucial"*, *"cambio de paradigma"*, *"en resumen"*, etc.).
+
+---
+
+## 💻 Catálogo de Comandos Operativos
+
+Todos los scripts cuentan con paridad 1:1 entre entornos UNIX/macOS (`.sh`) y PowerShell nativo en Windows (`.ps1`):
+
+| Tarea Operativa | Comando Bash (macOS / Linux / WSL) | Comando PowerShell (Windows) |
 |---|---|---|
-| `cs-tutor` | CS & Software Dev Tutor | Concepts, exercises, code review feedback |
-| `code-reviewer` | Code Quality Architect | Clean code, SOLID, testing, security reviews |
-| `research-librarian` | Source Intake Specialist | PDF/web conversion, source indexing |
-| `thesis-writer` | Academic Writer | Thesis sections, technical reports |
-| `methodology-consultant` | Research Methodology | Surveys, statistics, experimental design |
-| `academic-reviewer` | Editorial Reviewer | Draft auditing, SDD quality loop |
+| **Inicialización Atómica SDD** | `bash Academic-Engine/scripts/task-init.sh <slug> [titulo] [carpeta] [agentes] [icp] [meta]` | `powershell -File .\Academic-Engine\scripts\task-init.ps1 <slug> ...` |
+| **Gestión del Motor SDD** | `bash Academic-Engine/scripts/sdd-manager.sh <init\|preview\|approve-spec\|evaluate\|status\|approve-deliverable>` | `powershell -File .\Academic-Engine\scripts\sdd-manager.ps1 <cmd>` |
+| **Ingesta de PDFs** | `bash Academic-Engine/scripts/ingest-pdf.sh [archivo.pdf]` | `powershell -File .\Academic-Engine\scripts\ingest-pdf.ps1 [archivo.pdf]` |
+| **Ingesta de URLs Web** | `bash Academic-Engine/scripts/ingest-web.sh <url> [titulo]` | `powershell -File .\Academic-Engine\scripts\ingest-web.ps1 <url> [titulo]` |
+| **Sincronizar Índice de Fuentes** | `bash Academic-Engine/scripts/sync-sources-index.sh` | `powershell -File .\Academic-Engine\scripts\sync-sources-index.ps1` |
+| **Scaffold de Nuevo Proyecto** | `bash Academic-Engine/scripts/new-project.sh "<nombre>" "[meta]" "[autor]"` | `powershell -File .\Academic-Engine\scripts\new-project.ps1 "<nombre>" ...` |
+| **Reparación y Linter de Bóveda** | `bash Academic-Engine/scripts/fix-vault.sh` | `powershell -File .\Academic-Engine\scripts\fix-vault.ps1` |
+| **Refinamiento No Destructivo** | `bash Academic-Engine/scripts/refine-note.sh <inspect\|backup\|refine\|branch\|rollback> <ruta>` | `powershell -File .\Academic-Engine\scripts\refine-note.ps1 <cmd> <ruta>` |
+| **Gestión de Sesiones de Tarea** | `bash Academic-Engine/scripts/task-manager.sh <init\|add\|show\|update\|list\|close> ...` | `powershell -File .\Academic-Engine\scripts\task-manager.ps1 <cmd> ...` |
+| **Exportar a PDF / LaTeX** | `bash Academic-Engine/scripts/export-pdf.sh <archivo.md\|.tex> [salida.pdf] [--open]` | `powershell -File .\Academic-Engine\scripts\export-pdf.ps1 <archivo> ...` |
+| **Auditoría de Habilidades** | `bash Academic-Engine/scripts/validate-skills.sh` | `powershell -File .\Academic-Engine\scripts\validate-skills.ps1` |
+| **Activar Habilidades en Agente** | `bash Academic-Engine/scripts/enable-project-skills.sh` | `powershell -File .\Academic-Engine\scripts\enable-project-skills.ps1` |
+| **Inspección de Sub-Agentes** | `bash Academic-Engine/scripts/inspect-squad.sh` | `powershell -File .\Academic-Engine\scripts\inspect-squad.ps1` |
+| **Smoke Test de Integración** | `bash Academic-Engine/tests/smoke-test.sh` | `powershell -File .\Academic-Engine\tests\smoke-test.ps1` |
+| **Pruebas de Idempotencia** | `bash Academic-Engine/tests/test-idempotency.sh` | `powershell -File .\Academic-Engine\tests\test-idempotency.ps1` |
+| **Auditoría de Gobernanza** | `bash Academic-Engine/scripts/validate-vault.sh` | `powershell -File .\Academic-Engine\scripts\validate-vault.ps1` |
+| **Auditoría Anti-Deriva (Enforce)**| `bash Academic-Engine/scripts/enforce-compliance.sh` | `powershell -File .\Academic-Engine\scripts\enforce-compliance.ps1` |
+| **Generador de Post Social** | `bash Academic-Engine/scripts/create-social-post.sh <red> "<idea>" [tipo] [ref] [activo]` | `powershell -File .\Academic-Engine\scripts\create-social-post.ps1 ...` |
+| **Generador de Carrusel (4 Slides)**| `bash Academic-Engine/scripts/create-social-carousel.sh "<idea>" [img] [activo] [ref]` | `powershell -File .\Academic-Engine\scripts\create-social-carousel.ps1 ...` |
+| **Sincronizador de Parrilla** | `bash Academic-Engine/scripts/sync-content-grid.sh <audit\|sync\|update>` | `powershell -File .\Academic-Engine\scripts\sync-content-grid.ps1 <cmd>` |
+| **Generador de Prompts Visuales** | `bash Academic-Engine/scripts/generate-publication-assets.sh <nota\|slug>` | `powershell -File .\Academic-Engine\scripts\generate-publication-assets.ps1 ...` |
 
-### Business & Marketing Agents
-| Agent | Role | Best For |
-|---|---|---|
-| `business-consultant` | Business Model Architect | Unit economics, financial models |
-| `market-research-analyst` | TAM/SAM/SOM Analyst | Market sizing, competitor benchmarks |
-| `pitch-deck-architect` | Pitch Deck Architect | Investor decks, `.pptx` generation |
-| `compliance-officer` | Legal & Compliance | Corporate structure, KYC/AML |
-| `b2b-sponsor-lead` | B2B Acquisition | Outbound sequences, pilot onboarding |
-| `founder-ghostwriter` | Founder Voice | YC essays, thought leadership |
+---
 
-## How To Use
+## 🧰 Catálogo de 65 Habilidades (Skills)
 
-1. Fill or refine `Academic-Engine/context/course-profile.md` with your course details
-2. Choose the task: academic (thesis, report, coding exercise) or business (pitch, marketing)
-3. Use the appropriate agent and skill for your task
-4. Save final outputs in the matching folder inside `Academic Vault/`
-5. Follow `Academic-Engine/docs/document-organization.md` for folder conventions
-6. Export deliverables using `bash Academic-Engine/scripts/export-pdf.sh`
+Ubicadas en `Academic-Engine/skills/`, cada habilidad cumple la especificación formal de [Agent Skills](https://agentskills.io/specification.md):
 
-## Key Commands
+* **Computer Science & Calidad de Código:** `cs-fundamentals`, `software-engineering`, `code-quality`, `project-scaffolding`.
+* **Investigación Científica & Académica:** `scientific-writing`, `life-science-research`, `librarian`, `export-document`, `fix-vault`.
+* **Venture & Modelos de Negocio:** `business-plan-ppt`, `fundraising-bp-planner`, `investor-pitch-planner`, `investor-research`, `investor-due-diligence`, `pitch-deck-creator`, `raskin-narrative-bp`, `sequoia-structured-bp`, `yc-insight-driven-bp`.
+* **Marketing de Producto & Crecimiento (MAS):** `mas-copywriting`, `mas-copy-editing`, `mas-cold-email`, `mas-content-strategy`, `mas-seo-audit`, `mas-ai-seo`, `mas-page-cro`, `mas-form-cro`, `mas-signup-flow-cro`, `mas-onboarding-cro`, `mas-email-sequence`, `mas-paid-ads`, `mas-pricing-strategy`, `mas-sales-enablement`, `mas-revops`, `mas-referral-program`, `mas-churn-prevention`, `mas-analytics-tracking`, `mas-site-architecture`, etc.
 
-| Task | Command |
-|---|---|
-| Initialize a task | `bash Academic-Engine/scripts/task-init.sh <slug> [args]` |
-| Run SDD workflow | `bash Academic-Engine/scripts/sdd-manager.sh <command>` |
-| Ingest Pending PDFs | `bash Academic-Engine/scripts/ingest-pdf.sh [file.pdf]` |
-| Ingest Web URL | `bash Academic-Engine/scripts/ingest-web.sh <url> [titulo]` |
-| Reconcile Sources Index | `bash Academic-Engine/scripts/sync-sources-index.sh` |
-| Scaffold New Project | `bash Academic-Engine/scripts/new-project.sh "<nombre>" "[meta]" "[autor]"` |
-| Repair Vault Drift & Symlinks | `bash Academic-Engine/scripts/fix-vault.sh` |
-| Export to PDF | `bash Academic-Engine/scripts/export-pdf.sh <file> [output]` |
-| Validate vault | `bash Academic-Engine/scripts/validate-vault.sh` |
-| Inspect agents | `bash Academic-Engine/scripts/inspect-squad.sh` |
-| Validate skills | `bash Academic-Engine/scripts/validate-skills.sh` |
-| Run smoke test | `bash Academic-Engine/tests/smoke-test.sh` |
+---
 
-## Working Rules
+## 🚀 Instalación & Activación Rápida
 
-- Keep logic, scripts, templates, and skills in `Academic-Engine/`
-- Keep final readable deliverables and research in `Academic Vault/`
-- Canonical writing lives in `Drafts/<Project>/`, not in `Projects/<Project>/`
-- `Projects/<Project>/Drafts` etc. are symlink views only
-- Update `SOURCES_INDEX.md` on every source conversion
-- Use the SDD protocol for quality-critical deliverables
+### Requisitos Previos
+
+- **Node.js** v18 o superior instalado.
+- **Git** instalado.
+- **Obsidian** (opcional, para visualización de la bóveda `Academic Vault/`).
+- **Pandoc** y **Tectonic / XeLaTeX** (opcionales, requeridos exclusivamente si se compilan PDFs desde Markdown).
+- **Python 3** con `python-pptx` (opcional, para generación de archivos `.pptx`).
+
+### Pasos de Inicio Rápido
+
+1. **Clonar el repositorio:**
+   ```bash
+   git clone https://github.com/jeisonsosablockdev/sena-programacion-robot-tareas.git
+   cd sena-programacion-robot-tareas
+   ```
+
+2. **Verificar estado de salud del sistema:**
+   ```bash
+   bash Academic-Engine/tests/smoke-test.sh
+   ```
+
+3. **Activar las habilidades en el agente local:**
+   ```bash
+   # En macOS / Linux:
+   bash Academic-Engine/scripts/enable-project-skills.sh
+
+   # En Windows:
+   powershell -ExecutionPolicy Bypass -File .\Academic-Engine\scripts\enable-project-skills.ps1
+   ```
+
+4. **Abrir la Bóveda:**
+   - Abre Obsidian y selecciona **"Open folder as vault"**.
+   - Elige la carpeta `Academic Vault/`.
+
+---
+
+## 🧪 Suites de Verificación & Testing
+
+El proyecto se prueba de manera determinista para certificar cero derivas y cero defectos:
+
+```bash
+# 1. Validar las 65 habilidades contra la especificación
+bash Academic-Engine/scripts/validate-skills.sh
+
+# 2. Validar los 12 sub-agentes del escuadrón
+bash Academic-Engine/scripts/inspect-squad.sh
+
+# 3. Ejecutar el Smoke Test integral de punta a punta (41 pruebas)
+bash Academic-Engine/tests/smoke-test.sh
+
+# 4. Comprobar la idempotencia matemática de todas las operaciones (38 pruebas)
+bash Academic-Engine/tests/test-idempotency.sh
+
+# 5. Auditar el cumplimiento y anti-drifting
+bash Academic-Engine/scripts/enforce-compliance.sh
+```
+
+---
+
+## 🛡️ Regla de Refinamiento No Destructivo
+
+> [!CAUTION]
+> **REGLA CRÍTICA:** Queda estrictamente prohibido sobrescribir o eliminar de forma destructiva archivos de la bóveda.
+
+Toda modificación a una nota establecida debe ejecutarse mediante refinamiento incremental:
+1. Inspeccionar metadatos y versión con `refine-note.sh inspect <path>`.
+2. Generar snapshot automático de seguridad en `Academic Vault/Inbox/Archive/<timestamp>-nota.md`.
+3. Aplicar los cambios preservando las secciones preexistentes e incrementando la versión en el changelog:
+   ```bash
+   bash Academic-Engine/scripts/refine-note.sh refine "Academic Vault/Drafts/mi-evidencia.md" "Incorporación de diagramas de secuencia UML"
+   ```
+4. Si se requiere deshacer cambios, restaurar con `refine-note.sh rollback "Academic Vault/Drafts/mi-evidencia.md"`.
+
+---
+
+## ✍️ Atribución de Commits
+
+Todos los commits generados con asistencia de inteligencia artificial deben incluir la línea obligatoria de atribución al final del mensaje de commit:
+
+```text
+Co-Authored-By: Google Gemini <gemini@google.com>
+```
