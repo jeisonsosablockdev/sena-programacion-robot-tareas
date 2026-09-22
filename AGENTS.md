@@ -2,30 +2,34 @@
 
 ## Package Manager
 - Content-first workspace; no package manager required for normal work
-- Skill validation: `bash BRIDS-Engine/scripts/validate-skills.sh`
+- Skill validation: `bash Academic-Engine/scripts/validate-skills.sh`
 
 ## File-Scoped Commands
 | Task | Command |
 |------|---------|
-| Atomic Task Init & SDD Engine | `bash BRIDS-Engine/scripts/task-init.sh <slug> [titulo] [target-folder] [subagents] [icp] [goal]` |
-| Spec-Driven Development (SDD) | `bash BRIDS-Engine/scripts/sdd-manager.sh <init|preview|approve|evaluate|status|list>` |
-| Context-Aware Asset Generator | `bash BRIDS-Engine/scripts/generate-publication-assets.sh <nota|slug> [--input-image img]` |
-| Sync Master Content Grid | `bash BRIDS-Engine/scripts/sync-content-grid.sh [audit|sync|update]` |
-| Generate 4-Slide Carousel | `bash BRIDS-Engine/scripts/create-social-carousel.sh "<idea>" [img] [asset] [ref]` |
-| Generate Social Post | `bash BRIDS-Engine/scripts/create-social-post.sh <red> "<idea>" [tipo] [ref] [asset]` |
-| Verify Idempotency | `bash BRIDS-Engine/tests/test-idempotency.sh` |
-| Anti-Drift Compliance Audit | `bash BRIDS-Engine/scripts/enforce-compliance.sh` |
-| Manage Task Lifecycle | `bash BRIDS-Engine/scripts/task-manager.sh <init|add|show|update|list|close>` |
-| Non-Destructive Refine | `bash BRIDS-Engine/scripts/refine-note.sh <inspect|backup|refine|branch|rollback>` |
+| Atomic Task Init & SDD Engine | `bash Academic-Engine/scripts/task-init.sh <slug> [titulo] [target-folder] [subagents] [icp] [goal]` |
+| Spec-Driven Development (SDD) | `bash Academic-Engine/scripts/sdd-manager.sh <init|preview|approve|evaluate|status|list>` |
+| Ingest Pending PDFs | `bash Academic-Engine/scripts/ingest-pdf.sh [file.pdf]` |
+| Ingest Web URL to Markdown | `bash Academic-Engine/scripts/ingest-web.sh <url> [titulo]` |
+| Reconcile Sources Index | `bash Academic-Engine/scripts/sync-sources-index.sh` |
+| Scaffold New Project | `bash Academic-Engine/scripts/new-project.sh "<nombre>" "[meta]" "[autor]"` |
+| Repair Vault Drift & Symlinks | `bash Academic-Engine/scripts/fix-vault.sh` |
+| Context-Aware Asset Generator | `bash Academic-Engine/scripts/generate-publication-assets.sh <nota|slug> [--input-image img]` |
+| Sync Master Content Grid | `bash Academic-Engine/scripts/sync-content-grid.sh [audit|sync|update]` |
+| Generate 4-Slide Carousel | `bash Academic-Engine/scripts/create-social-carousel.sh "<idea>" [img] [asset] [ref]` |
+| Generate Social Post | `bash Academic-Engine/scripts/create-social-post.sh <red> "<idea>" [tipo] [ref] [asset]` |
+| Verify Idempotency | `bash Academic-Engine/tests/test-idempotency.sh` |
+| Anti-Drift Compliance Audit | `bash Academic-Engine/scripts/enforce-compliance.sh` |
+| Manage Task Lifecycle | `bash Academic-Engine/scripts/task-manager.sh <init|add|show|update|list|close>` |
+| Non-Destructive Refine | `bash Academic-Engine/scripts/refine-note.sh <inspect|backup|refine|branch|rollback>` |
 | Read Markdown | `sed -n '1,160p' path/to/file.md` |
-| List vault folders | `find "BRIDS-Brain" -maxdepth 3 -type d | sort` |
-| Validate skills | `bash BRIDS-Engine/scripts/validate-skills.sh` |
-| Activate project skills | `bash BRIDS-Engine/scripts/enable-project-skills.sh` |
-| Activate project skills (Windows) | `powershell -ExecutionPolicy Bypass -File .\BRIDS-Engine\scripts\enable-project-skills.ps1` |
-| Inspect Agent Squad | `bash BRIDS-Engine/scripts/inspect-squad.sh` |
-| End-to-End System Smoke Test | `bash BRIDS-Engine/tests/smoke-test.sh` |
-| Sync Technical Docs & Brand (OKF) | `bash BRIDS-Engine/scripts/sync-technical-docs.sh [--force]` |
-| Export LaTeX / Markdown to PDF | `bash BRIDS-Engine/scripts/export-pdf.sh <file.md\|file.tex> [out.pdf] [--raw] [--open]` |
+| List vault folders | `find "Academic Vault" -maxdepth 3 -type d \| sort` |
+| Validate skills | `bash Academic-Engine/scripts/validate-skills.sh` |
+| Activate project skills | `bash Academic-Engine/scripts/enable-project-skills.sh` |
+| Activate project skills (Windows) | `powershell -ExecutionPolicy Bypass -File .\Academic-Engine\scripts\enable-project-skills.ps1` |
+| Inspect Agent Squad | `bash Academic-Engine/scripts/inspect-squad.sh` |
+| End-to-End System Smoke Test | `bash Academic-Engine/tests/smoke-test.sh` |
+| Export LaTeX / Markdown to PDF | `bash Academic-Engine/scripts/export-pdf.sh <file.md\|file.tex> [out.pdf] [--raw] [--open]` |
 
 ## Commit Attribution
 - AI commits MUST include:
@@ -36,83 +40,93 @@ Co-Authored-By: Google Gemini <gemini@google.com>
 ## Non-Destructive Content Refinement Rule (CRITICAL)
 - NEVER wipe or destructively overwrite existing document content unless explicitly requested by the user with unambiguous deletion keywords ('delete', 'remove', 'erase', 'elimina', 'borra').
 - When asked to perform a task or update an existing note, the default behavior is **incremental refinement**: read the existing note, preserve established insights, and augment/refine the specific sections requested.
-- Use `bash BRIDS-Engine/scripts/refine-note.sh refine <path> "<summary>"` to maintain safety snapshots, bump versioning, and update the document changelog.
-- For major structural pivots or alternative campaign angles, create a new versioned file (e.g. `homepage-copy-v2-aug-2026.md`) rather than destroying previous drafts.
+- Use `bash Academic-Engine/scripts/refine-note.sh refine <path> "<summary>"` to maintain safety snapshots, bump versioning, and update the document changelog.
+- For major structural pivots, create a new versioned file rather than destroying previous drafts.
 
 ## Workspace Layout
-- `BRIDS-Engine/`: source of truth for skills, agents, automation scripts, docs, and brand context
-- `BRIDS-Brain/`: Obsidian vault, persistent knowledge base and final Markdown deliverables
+- `Academic-Engine/`: source of truth for skills, agents, automation scripts, docs, and context
+- `Academic Vault/`: Obsidian vault, persistent knowledge base and final Markdown deliverables
 
 ## Content Workflow
-- Read `BRIDS-Engine/context/product-marketing-context.md` before creating marketing deliverables
-- Save final content as Markdown inside the matching folder in `BRIDS-Brain/`
-- Keep logic, experiments, and skill adaptation work in `BRIDS-Engine/`
-- Follow `BRIDS-Engine/docs/document-organization.md` before creating folders or moving files
+- Read `Academic-Engine/context/course-profile.md` before creating course-related deliverables
+- Read `Academic-Engine/context/cs-standards.md` for code quality and engineering standards
+- Read `Academic-Engine/context/academic-writing-guide.md` for writing standards
+- Save final content as Markdown inside the matching folder in `Academic Vault/`
+- Keep logic, experiments, and skill adaptation work in `Academic-Engine/`
+- Follow `Academic-Engine/docs/document-organization.md` before creating folders or moving files
 
 ## Skills
-- Local adaptations live in `BRIDS-Engine/skills/`
-- Skill activation instructions live in `BRIDS-Engine/docs/skills-activation.md`
-- For Windows, prefer `enable-project-skills.ps1` and `sync-brand-context.ps1`
+- Local adaptations live in `Academic-Engine/skills/`
+- Skill activation instructions live in `Academic-Engine/docs/skills-activation.md`
+- For Windows, prefer `enable-project-skills.ps1`
 
 ## Anti-Drift Task Execution Protocol (5 Steps con Doble Guardrail HITL)
 To prevent prompt/context drift and ensure consistent quality, every document or content generation task must follow this sequence:
-1. **Solicitud de Usuario & Propuesta SDD:** El usuario expone el requerimiento o idea comercial. Se genera un artefacto de especificación formal previo usando `bash BRIDS-Engine/scripts/task-init.sh <slug> "<title>" "<target-folder>" "<subagents>" "[icp]" "[goal]"` (o `sdd-manager.sh init`). El spec queda en estado `spec_review` y declara obligatoriamente:
-   - Destino canónico en `BRIDS-Brain/` (`01 Negocio` o `02 Marketing`) y nombre de archivo.
-   - Sub-agentes asignados del squad (`business-consultant`, `market-research-analyst`, `pitch-deck-architect`, `compliance-officer`, `b2b-sponsor-lead`, `founder-ghostwriter`).
-   - Anclas técnicas verificables (Solana, Metaplex Core Freeze/Recovery, Delaware SPV, Stripe Identity) y filtro anti-clichés de IA.
-2. **Primer Guardrail HITL (Aprobación Humana del Spec):** Se presenta el objeto canónico del spec al usuario (`bash BRIDS-Engine/scripts/sdd-manager.sh preview <slug>`).
-   - Si el usuario solicita ajustes: se corre el optimizador (`bash BRIDS-Engine/scripts/sdd-manager.sh refine-spec <slug> "<observaciones>"`).
-   - **Bloqueo Mandatorio:** Ningún sub-agente comienza a redactar hasta que el usuario apruebe formalmente con `bash BRIDS-Engine/scripts/sdd-manager.sh approve-spec <slug>`.
-3. **Bucle Evaluador-Optimizador Autónomo (Creador vs Revisor):** Redacción del borrador con los sub-agentes asignados respetando el spec aprobado.
-   - **Agente Revisor (`sdd-reviewer`):** Audita en escala de 0 a 9 puntos en 4 dimensiones:
-     - 1. Cumplimiento del Objetivo & ICP (2.5 pts)
-     - 2. Veracidad Técnica & Fuentes (2.5 pts)
-     - 3. Voz Fundadora vs Tono Robot (2.0 pts)
-     - 4. Originalidad Léxica & Cero Clichés (2.0 pts)
-   - **Condición de Calidad:** Debe superar una calificación $\ge 8.5 / 9.0$ (máximo 5 ciclos iterativos). Si no alcanza 8.5 en el ciclo 5, se congela para arbitraje (`frozen_for_arbitration`). Al superar 8.5, el texto pasa a estado `deliverable_review` (HITL-2).
-4. **Segundo Guardrail HITL (Aprobación del Entregable & Integración en Vault):** Se presenta el texto pulido al usuario (`bash BRIDS-Engine/scripts/sdd-manager.sh review-deliverable <slug>`).
-   - Si el usuario solicita cambios: se re-ejecuta el bucle (`bash BRIDS-Engine/scripts/sdd-manager.sh refine-deliverable <slug> "<observaciones>"`).
-   - **Bloqueo Mandatorio:** El archivo **NO se escribe en la carpeta de producción de `BRIDS-Brain/`** hasta la confirmación formal del usuario con `bash BRIDS-Engine/scripts/sdd-manager.sh approve-deliverable <slug>`.
-   - Al aprobarse, el motor promueve el entregable de forma atómica e idempotente con metadatos de calidad, tags `sdd-approved`, `hitl-validated` y changelog.
-5. **Medición & Cierre:** Registro del entregable, asignación de eventos y KPIs, y cierre en `task-manager.sh update`.
+1. **Solicitud de Usuario & Propuesta SDD:** El usuario expone el requerimiento. Se genera un artefacto de especificación formal usando `bash Academic-Engine/scripts/task-init.sh <slug> "<title>" "<target-folder>" "<subagents>" "[icp]" "[goal]"`. El spec queda en estado `spec_review` y declara obligatoriamente:
+   - Destino canónico en `Academic Vault/` y nombre de archivo.
+   - Sub-agentes asignados del squad (12 agentes disponibles).
+   - Anclas técnicas verificables y filtro anti-clichés de IA.
+2. **Primer Guardrail HITL (Aprobación Humana del Spec):** Se presenta el spec al usuario (`bash Academic-Engine/scripts/sdd-manager.sh preview <slug>`).
+   - **Bloqueo Mandatorio:** Ningún sub-agente comienza a redactar hasta que el usuario apruebe formalmente con `bash Academic-Engine/scripts/sdd-manager.sh approve-spec <slug>`.
+3. **Bucle Evaluador-Optimizador Autónomo (Creador vs Revisor):** Redacción del borrador con los sub-agentes asignados.
+   - **Agente Revisor:** Audita en escala de 0 a 9 puntos en 4 dimensiones:
+     - 1. Rigor Científico/Técnico (2.5 pts)
+     - 2. Citación & Fuentes (2.5 pts)
+     - 3. Claridad & Estructura (2.0 pts)
+     - 4. Originalidad & Análisis Crítico (2.0 pts)
+   - **Condición de Calidad:** Debe superar $\ge 8.5 / 9.0$ (máximo 5 ciclos). Al superar 8.5, pasa a `deliverable_review` (HITL-2).
+4. **Segundo Guardrail HITL (Aprobación del Entregable):** Se presenta el texto al usuario.
+   - **Bloqueo Mandatorio:** NO se escribe en la carpeta de producción de `Academic Vault/` hasta la confirmación formal.
+5. **Medición & Cierre:** Registro del entregable y cierre en `task-manager.sh update`.
 
 ## Vault Conventions
-- The vault is structured into two core macro-domains under `BRIDS-Brain/`:
-  - `01 Negocio/`: Estrategia & Modelo, Producto & Ingeniería (OKF sync), Legal & Cumplimiento, Finanzas & YC Investors, Sponsors B2B & Ventas, Operaciones & Gobernanza.
-  - `02 Marketing/`: Contexto de Marca, Estrategia & Parrilla, Redes Sociales & Contenido, Copywriting & Web, Email Marketing, SEO & Descubrimiento, Analítica & Crecimiento.
-  - `00 Inbox/`: Raw captures, drafts, and SDD specs under review.
-- Prefer descriptive file names like `linkedin-post-ideas-apr-2026.md`
-- Keep one note per deliverable or per coherent working artifact
-- Create a new subfolder only when there are 3+ related deliverables that do not fit an existing subfolder cleanly
-- Do not create top-level folders beyond `00 Inbox`, `01 Negocio`, and `02 Marketing`
-- Prefer saving drafts in `00 Inbox` when the final destination is unclear
+- The vault is structured with these core areas under `Academic Vault/`:
+  - `Sources/`: PDF Unconverted, PDF Converted, Web Converted, SOURCES_INDEX.md
+  - `Reviews/<Project>/`: Thematic syntheses and literature comparisons
+  - `Hypotheses/<Project>/`: Testable mechanistic claims
+  - `Drafts/<Project>/`: Manuscript sections and thesis chapters
+  - `Concepts/`: Global conceptual notes
+  - `Projects/<Project>/`: PROJECT_INDEX.md, requirements, manifest, symlink views
+  - `Inbox/`: Raw captures, teacher instructions, drafts
+  - `Exports/`: Compiled outputs (PDF, DOCX, TEX)
+  - `00 System/`: Workflows, templates, agent instructions (references Engine docs)
+- Canonical writing lives in `Drafts/<Project>/`, `Reviews/<Project>/`, `Hypotheses/<Project>/`
+- `Projects/<Project>/Drafts`, `Reviews`, `Hypotheses` are **symlink views only**
+- Prefer descriptive file names
+- Keep one note per deliverable
+- Save drafts in `Inbox/` when the final destination is unclear
 
 ## Obsidian Integration
-- The Obsidian vault is `BRIDS-Brain/`
+- The Obsidian vault is `Academic Vault/`
 - Local REST API is active on HTTPS port `27124` with Bearer token authentication
-- Sincroniza el contexto usando `bash BRIDS-Engine/scripts/sync-brand-context.sh`
 
-## BRIDS Founder & YC Sub-Agent Squad
-The workspace includes 6 specialized sub-agents defined in `BRIDS-Engine/agents/` and registered via `define_subagent` to build the business and prepare for Y Combinator:
+## Hybrid Agent Squad (Business + Academic/CS)
+The workspace includes 12 specialized sub-agents defined in `Academic-Engine/agents/`:
 
-| Agent Identifier | Role | Output Vault Path | Core Mission |
-|---|---|---|---|
-| `business-consultant` | Business Model & Unit Economics Architect | `01 Negocio/04 Finanzas & YC Investors/`, `01 Negocio/01 Estrategia & Modelo/` | Fee architecture (SaaS, processing, recovery), CAC/LTV, 3-5y pro forma projections. |
-| `market-research-analyst` | Market Research & TAM/SAM/SOM Analyst | `01 Negocio/01 Estrategia & Modelo/market-research/` | Quantitative market sizing, live web research, competitor benchmarks (Lofty, RealT, Blocksquare). |
-| `pitch-deck-architect` | YC & Sequoia Pitch Deck Architect | `01 Negocio/04 Finanzas & YC Investors/pitch-decks/` | 10-12 slide investor decks, native `.pptx` generation with `python-pptx`, slide scripts. |
-| `compliance-officer` | Legal Structuring & RWA Compliance Officer | `01 Negocio/03 Legal & Cumplimiento/` | Dual-entity separation (Delaware C-Corp vs SPV LLCs), non-broker-dealer status, Stripe Identity KYC/AML, Metaplex Core Freeze/Recovery plugins, Data Room preparation. |
-| `b2b-sponsor-lead` | Real Estate Sponsor Acquisition & RevOps | `01 Negocio/05 Sponsors B2B & Ventas/` | Developer/GP value prop, institutional one-pagers, cold outbound sequences, pilot onboarding. |
-| `founder-ghostwriter` | Founder Voice, Thought Leadership & YC Storyteller | `02 Marketing/03 Redes Sociales & Contenido/`, `01 Negocio/04 Finanzas & YC Investors/` | YC application essays ("Why now?", "Unique insight"), X/Twitter threads on Solana RWA, LinkedIn articles, investor updates. |
+### BRIDS Founder & YC Sub-Agent Squad (6 agents)
+| Agent Identifier | Role | Core Mission |
+|---|---|---|
+| `business-consultant` | Business Model & Unit Economics Architect | Fee architecture, CAC/LTV, 3-5y pro forma projections |
+| `market-research-analyst` | Market Research & TAM/SAM/SOM Analyst | Market sizing, competitor benchmarks |
+| `pitch-deck-architect` | YC & Sequoia Pitch Deck Architect | 10-12 slide investor decks, `.pptx` generation |
+| `compliance-officer` | Legal Structuring & RWA Compliance Officer | Dual-entity separation, KYC/AML, Metaplex Core plugins |
+| `b2b-sponsor-lead` | Real Estate Sponsor Acquisition & RevOps | Developer value prop, cold outbound, pilot onboarding |
+| `founder-ghostwriter` | Founder Voice & YC Storyteller | YC application essays, X threads, LinkedIn articles |
 
-- Definitions: Individual autonomous YAML files in `BRIDS-Engine/agents/*.yaml`
-- Verification: `bash BRIDS-Engine/scripts/inspect-squad.sh`
+### Academic & CS Sub-Agent Squad (6 agents)
+| Agent Identifier | Role | Core Mission |
+|---|---|---|
+| `cs-tutor` | CS & Software Development Tutor | Explain CS concepts, guide exercises, review student code |
+| `code-reviewer` | Code Reviewer & Quality Architect | Clean code, SOLID, testing, security, performance reviews |
+| `research-librarian` | Academic Research Librarian | PDF/web intake, SOURCES_INDEX.md, metadata enrichment |
+| `thesis-writer` | Academic Writer & Report Ghostwriter | Thesis sections, technical reports, APA 7/IEEE |
+| `methodology-consultant` | Research Methodology & Statistical Consultant | Survey design, statistical analysis, methodological frameworks |
+| `academic-reviewer` | Scientific & Editorial Reviewer | Audit drafts for rigor, coherence, citations, SDD counterpart |
+
+- Definitions: Individual YAML files in `Academic-Engine/agents/*.yaml`
+- Verification: `bash Academic-Engine/scripts/inspect-squad.sh`
 
 ## Solana Developer MCP Integration (mcp.solana.com)
-The workspace integrates the canonical **Solana Developer MCP** (`https://mcp.solana.com/mcp`):
 - **Active Server Identifiers:** `solana-mcp-server` (HTTP) and `solana-mcp-sse` (SSE).
 - **Core MCP Tools:** `list_sections`, `get_documentation`, `Solana_Documentation_Search`, `Solana_Expert__Ask_For_Help`, `program_autofixer`.
-- **Enforcement Rule:** All sub-agents (`compliance-officer`, `pitch-deck-architect`, `business-consultant`) must prioritize live Solana MCP queries over outdated model training weights when reasoning about Metaplex Core, Solana Kit, Anchor, and on-chain governance.
-- **Reference Guide:** `BRIDS-Engine/docs/solana-mcp-integration.md`
-
-
-
+- **Reference Guide:** `Academic-Engine/docs/solana-mcp-integration.md`

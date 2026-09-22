@@ -1,0 +1,61 @@
+% ═══════════════════════════════════════════════════════════════════════════
+% 🏛️ ACADEMIC ENGINE - LATEX TEMPLATE HEADER
+% ═══════════════════════════════════════════════════════════════════════════
+
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{amsmath,amssymb}
+\usepackage{hyperref}
+
+% Academic Neutral Palette
+\definecolor{acadNavy}{HTML}{1A1A2E}      % Dark Navy
+\definecolor{acadBlue}{HTML}{0077B6}      % Accent Blue
+\definecolor{acadTextGray}{HTML}{333333}  % Text Gray
+\definecolor{acadLight}{HTML}{F8F9FA}     % Light Background
+\definecolor{acadBorder}{HTML}{E2E8F0}    % Borders
+\definecolor{acadMuted}{HTML}{64748B}     % Muted Text
+
+% Configuración de Hipervínculos
+\hypersetup{
+    colorlinks=true,
+    linkcolor=acadBlue,
+    filecolor=acadBlue,
+    urlcolor=acadBlue,
+    citecolor=acadNavy
+}
+
+% Formato de Secciones y Encabezados
+\titleformat{\section}
+  {\color{acadNavy}\normalfont\Large\bfseries}
+  {\thesection}{1em}{}
+  [{\color{acadBlue}\titlerule[1.2pt]}]
+
+\titleformat{\subsection}
+  {\color{acadNavy}\normalfont\large\bfseries}
+  {\thesubsection}{1em}{}
+
+\titleformat{\subsubsection}
+  {\color{acadTextGray}\normalfont\normalsize\bfseries}
+  {\thesubsubsection}{1em}{}
+
+% Encabezados y Pies de Página
+\pagestyle{fancy}
+\fancyhf{}
+\setlength{\headheight}{28pt}
+
+% Header
+\lhead{\footnotesize\textcolor{acadMuted}{\textbf{Academic Project} \textbar\ Documentation}}
+% \rhead{\includegraphics[height=0.55cm]{logo.pdf}} % Uncomment to add logo
+
+% Footer
+\lfoot{\footnotesize\textcolor{acadMuted}{\copyright\ Academic Engine}}
+\rfoot{\footnotesize\textcolor{acadMuted}{Page \thepage}}
+
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{acadBorder}\leaders\hrule height \headrulewidth\hfill}}
+\renewcommand{\footrule}{\hbox to\headwidth{\color{acadBorder}\leaders\hrule height \footrulewidth\hfill}}
