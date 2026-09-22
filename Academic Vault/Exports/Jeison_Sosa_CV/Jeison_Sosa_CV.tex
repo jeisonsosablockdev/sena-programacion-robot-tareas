@@ -1,0 +1,158 @@
+\documentclass[10pt,letterpaper]{article}
+
+\usepackage[letterpaper,margin=0.48in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[scaled=0.95]{helvet}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titlesec}
+\usepackage{ragged2e}
+
+\renewcommand{\familydefault}{\sfdefault}
+\pagenumbering{gobble}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\setlength{\emergencystretch}{2em}
+\setlist[itemize]{leftmargin=1.1em,itemsep=1pt,topsep=1pt,parsep=0pt}
+\renewcommand\labelitemi{\textcolor{accent}{\small\textbullet}}
+
+\definecolor{accent}{HTML}{1F6F78}
+\definecolor{ink}{HTML}{1E2933}
+\definecolor{muted}{HTML}{5B6770}
+\definecolor{soft}{HTML}{E8F2F3}
+
+\titleformat{\section}
+  {\large\bfseries\color{accent}}
+  {}
+  {0pt}
+  {}
+  [\vspace{-3pt}\color{accent}\titlerule]
+\titlespacing*{\section}{0pt}{7pt}{4pt}
+
+\newcommand{\contactsep}{\hspace{0.55em}\textcolor{accent}{|}\hspace{0.55em}}
+\newcommand{\cvtag}[1]{%
+  \begingroup
+  \setlength{\fboxsep}{3pt}%
+  \colorbox{soft}{\textcolor{ink}{\footnotesize #1}}%
+  \endgroup
+}
+
+\newcommand{\role}[4]{%
+  \textbf{\color{ink}#1}\hfill{\color{muted}\small #2}\\
+  {\itshape #3}\hfill{\color{muted}\small #4}
+}
+
+\newcommand{\compactrole}[3]{%
+  \textbf{\color{ink}#1} \hfill {\color{muted}\small #2}\\
+  {\itshape #3}
+}
+
+\begin{document}
+
+{\Huge\bfseries\color{ink} Jeison Julian Sosa}\\[3pt]
+{\large\color{accent} Technical Support Engineer}\\[6pt]
+{\small
+Bogota, Colombia
+\contactsep 302 842 2233
+\contactsep \href{mailto:jeisonjsosar@gmail.com}{jeisonjsosar@gmail.com}
+}
+
+\vspace{8pt}
+
+\section{Profile}
+Bilingual Spanish-English Technical Support Engineer with over 2 years of experience in high-tier, client-facing technical support and full-stack software development. Proven expertise in API integrations, web ecosystem technology stacks, and general-purpose programming languages. Adept at debugging code, troubleshooting complex deliverability and connectivity issues, and managing high-pressure situations with diplomacy. Combines deep technical fluency with outstanding communication skills to de-escalate tense situations and translate complex technical architecture into concise, actionable feedback for both developers and enterprise clients.
+
+\section{Core Strengths}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\cvtag{Technical troubleshooting \& code debugging} & \cvtag{REST APIs \& web ecosystem infrastructure} \\
+\cvtag{Twilio product exposure} & \cvtag{Client-facing bilingual support} \\
+\cvtag{Cross-functional collaboration} & \cvtag{Incident de-escalation \& customer success} \\
+\cvtag{CRM pipeline \& ticket management} & \cvtag{Workflow optimization \& process betterment} \\
+\end{tabularx}
+
+\section{Professional Experience}
+
+\role{Asurion / Soluto}{May 2024 -- Jul 2025}{Premium Technical Support Representative, Bilingual}{Bogota, Colombia}
+\begin{itemize}
+  \item Provided high-tier, bilingual technical support for enterprise software ecosystems, maintaining exceptional customer satisfaction metrics and survey outcomes.
+  \item Gained direct exposure to Twilio's communication products, utilizing platform workflows to ensure efficient support and connectivity.
+  \item Resolved complex mobile, network, and phone-service issues through rigorous analytical troubleshooting and personalized code/technical guidance.
+  \item De-escalated tense customer situations in live environments, providing diplomatic, professional, and empathetic conflict resolution.
+  \item Managed case pipelines and documentation adhering strictly to standard operational processes and ticketing workflows.
+\end{itemize}
+
+\role{3dordi.io}{Jan 2026 -- Present}{Blockchain Full Stack Developer}{Bogota, Colombia}
+\begin{itemize}
+  \item Execute full-stack software development, debugging client-side and server-side code, and managing RESTful API integrations across decentralized architectures.
+  \item Architect Model Context Protocol (MCP) servers to automate communication workflows and integrate AI agents with core product APIs.
+  \item Collaborate closely with engineering teams via Slack and issue tracking tools to document reproducible bugs, manage feature requests, and align infrastructure with industry standards.
+\end{itemize}
+
+\role{brids.io}{Jan 2026 -- Present}{Solana Blockchain \& Full Stack Developer}{Bogota, Colombia}
+\begin{itemize}
+  \item Lead the development and technical optimization of a crypto fintech application using modern web technology stacks including Next.js, Tailwind CSS, and NeonDB.
+  \item Troubleshoot complex web infrastructure issues, including asynchronous data fetching, third-party API wallet interactions, and state management.
+\end{itemize}
+
+\role{Asurion / AT\&T In-Warranty}{Apr 2024 -- May 2024}{Bilingual Support Representative}{Bogota, Colombia}
+\begin{itemize}
+  \item Assisted customers with warranty claims, device replacements, and product support while ensuring strict policy compliance.
+  \item Developed advanced time management skills to handle high-volume email and chat queues under pressure.
+\end{itemize}
+
+\role{Asurion}{Sep 2023 -- Mar 2024}{Customer Care and Sales Representative, Bilingual}{Bogota, Colombia}
+\begin{itemize}
+  \item Delivered inbound troubleshooting, product recommendations, and digital security support for home technology users.
+  \item Improved customer experience KPIs by translating complex technical problems into user-friendly instructions.
+\end{itemize}
+
+\role{Concentrix}{Oct 2022 -- Mar 2023}{UHG / UHC DSNP Advocate, Customer Support Agent}{Bogota, Colombia}
+\begin{itemize}
+  \item Provided accurate technical and plan information to members, reinforcing strong active listening, empathy, and technical reading comprehension.
+\end{itemize}
+
+\role{Bersacon}{Jul 2021 -- Aug 2022}{Business Development Representative}{Bogota, Colombia}
+\begin{itemize}
+  \item Managed pipeline activity, lead tracking, and workflows within CRM platforms for complex enterprise (B2B) opportunities.
+\end{itemize}
+
+\section{Education \& Certifications}
+\textbf{Universidad Distrital Francisco Jose de Caldas} \hfill {\color{muted}\small Bogota, Colombia}\\
+Licenciatura en Educacion Artistica, four semesters completed
+
+\vspace{4pt}
+\textbf{Anthropic}\\
+Claude Full Cycle Certification (Generative AI \& Prompt Engineering workflows)
+
+\vspace{4pt}
+\textbf{Solana / Buildspace} \hfill {\color{muted}\small Online}\\
+SOLANA CORE (Advanced Software Architecture)
+
+\vspace{4pt}
+\textbf{University of Nicosia} \hfill {\color{muted}\small Online}\\
+BLOC511: Digital Currencies
+
+\vspace{4pt}
+\textbf{HubSpot Academy / SV Academy}\\
+Inbound Sales / Sales Development Success
+
+\section{Technical Skills}
+\begin{itemize}
+  \item \textbf{Programming languages:} JavaScript, TypeScript, Solidity, Rust (functional knowledge for code reading and debugging).
+  \item \textbf{Tools \& frameworks:} Jira, Slack, REST APIs, Next.js, GitHub, CRM platforms.
+  \item \textbf{Languages:} Spanish (native), English (full professional fluency).
+\end{itemize}
+
+\section{Personal Professional References}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.28\textwidth}>{\raggedright\arraybackslash}X>{\raggedleft\arraybackslash}p{0.24\textwidth}@{}}
+\textbf{Camilo Valero} & Soluto Coach, Asurion; former supervisor & +57 (300) 8284878 \\
+\textbf{Julian Bernal} & Supervisor, Bersacon; former supervisor & +57 (320) 4339255 \\
+\textbf{Jorge Pelaez} & Engineer, 3dOrdi; brother-in-law & +1 (281) 7310014 \\
+\textbf{Camilo Zambrano} & Engineer; friend & +57 (314) 8212870 \\
+\end{tabularx}
+
+\end{document}

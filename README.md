@@ -1,191 +1,313 @@
-# Marketing Agent Studio
+# 🤖 SENA - Robot Tareas | Academic AI Studio
 
-Marketing workspace for creating, organizing, and refining brand content with AI agents, while keeping logic separate from the Obsidian vault.
+> Entorno de desarrollo agéntico híbrido para la formación en **Programación de Software** del **SENA (Servicio Nacional de Aprendizaje)**, ingeniería de software y creación de productos tecnológicos con arquitectura desacoplada y gobernanza estricta.
 
-## Origin
+[![Tests Passing](https://img.shields.io/badge/Smoke%20Tests-41%2F41%20Passing-brightgreen)](Academic-Engine/tests/smoke-test.sh)
+[![Idempotency Passing](https://img.shields.io/badge/Idempotency-38%2F38%20(100%25)-blue)](Academic-Engine/tests/test-idempotency.sh)
+[![Skills Verified](https://img.shields.io/badge/Agent%20Skills-65%2F65%20Valid-success)](Academic-Engine/scripts/validate-skills.sh)
+[![Agent Squad](https://img.shields.io/badge/Sub--Agents-12%20Active-blueviolet)](Academic-Engine/scripts/inspect-squad.sh)
+[![SENA Context](https://img.shields.io/badge/SENA-Virtual%20Software%20Dev-orange)](Academic-Engine/context/course-profile.md)
+[![SDD Protocol](https://img.shields.io/badge/Spec--Driven%20Dev-Doble%20HITL%20Active-informational)](Academic-Engine/scripts/sdd-manager.sh)
 
-This project is based on the idea and skill library from [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills), a repository of agent skills for marketing tasks such as copywriting, SEO, CRO, analytics, growth, and sales enablement.
+---
 
-## What We Implemented
+## 📋 Tabla de Contenidos
 
-This workspace adds a project structure around that idea:
+1. [Visión General & Propósito](#-visión-general--propósito)
+2. [Arquitectura del Sistema (Motor vs. Bóveda)](#-arquitectura-del-sistema-motor-vs-bóveda)
+3. [El Squad de 12 Sub-Agentes](#-el-squad-de-12-sub-agentes)
+4. [Protocolo SDD con Doble Guardrail Humano (HITL)](#-protocolo-sdd-con-doble-guardrail-humano-hitl)
+5. [Catálogo de Comandos Operativos (.sh y .ps1)](#-catálogo-de-comandos-operativos)
+6. [Catálogo de 65 Habilidades (Skills)](#-catálogo-de-65-habilidades-skills)
+7. [Instalación & Activación Rápida](#-instalación--activación-rápida)
+8. [Suites de Verificación & Testing](#-suites-de-verificación--testing)
+9. [Regla de Refinamiento No Destructivo](#-regla-de-refinamiento-no-destructivo)
+10. [Atribución de Commits](#-atribución-de-commits)
 
-- `BRIDS-Engine/`
-  - imported upstream skills
-  - local skill adaptations
-  - persistent brand context
-  - project docs
-  - cross-platform skill activation scripts for Codex
-- `BRIDS-Brain/`
-  - Obsidian vault
-  - folders for each major marketing content category
-  - final Markdown deliverables
-  - installed `Agent Client` plugin configured for Codex
+---
 
-## Project Structure
+## 🎯 Visión General & Propósito
+
+**SENA - Robot Tareas** es una estación de trabajo de ingeniería de software aumentada con IA diseñada para asistir al aprendiz **Julian David Sosa Rico** en el programa formativo de **Programación de Software** del **SENA (Servicio Nacional de Aprendizaje)** en modalidad **100% Virtual**.
+
+El sistema integra dos dimensiones operativas que comparten el mismo motor de ejecución:
+
+1. **Dimensión Académica & Computer Science (CS):**
+   - Generación y sustentación de evidencias de aprendizaje:
+     - **Evidencias de Conocimiento (EC):** Mapas conceptuales, comparativas técnicas, análisis algorítmicos.
+     - **Evidencias de Desempeño (ED):** Demostraciones, sustentaciones, revisiones de código, pruebas.
+     - **Evidencias de Producto (EP):** Repositorios con pruebas unitarias, diagramas UML, scripts de bases de datos relacionales (MySQL/PostgreSQL), especificaciones SRS (IEEE 830), manuales técnicos e informes en PDF (APA 7).
+   - Aplicación estricta de principios de **Clean Code**, **SOLID**, patrones de diseño (GoF) y arquitectura en capas/MVC.
+
+2. **Dimensión de Producto & Venture:**
+   - Modelado económico y de negocio (SaaS, fee architecture, CAC/LTV).
+   - Preparación de pitch decks institucionales (YC y Sequoia) y exportación nativa a `.pptx`.
+   - Cumplimiento normativo y contratos inteligentes sobre Solana (estándar Metaplex Core).
+   - Generación de parrillas de contenido técnico y prospección B2B.
+
+---
+
+## 🏗️ Arquitectura del Sistema (Motor vs. Bóveda)
+
+El espacio de trabajo mantiene una separación radical entre la lógica de ejecución y la base de conocimiento:
 
 ```text
-BRIDS KNOWLEDGE FORT/
-├── AGENTS.md
-├── README.md
-├── BRIDS-Engine/
-│   ├── agents/
-│   ├── context/
-│   ├── docs/
-│   ├── scripts/
-│   ├── skills/
-│   └── templates/
-└── BRIDS-Brain/
-    ├── 00 Inbox/
-    │   ├── Specs/
-    │   └── Archive/
-    ├── 01 Negocio/
-    │   ├── 01 Estrategia & Modelo/
-    │   ├── 02 Producto & Ingenieria/
-    │   ├── 03 Legal & Cumplimiento/
-    │   ├── 04 Finanzas & YC Investors/
-    │   ├── 05 Sponsors B2B & Ventas/
-    │   └── 06 Operaciones & Gobernanza/
-    ├── 02 Marketing/
-    │   ├── 01 Contexto de Marca/
-    │   ├── 02 Estrategia & Parrilla/
-    │   ├── 03 Redes Sociales & Contenido/
-    │   ├── 04 Copywriting & Web/
-    │   ├── 05 Email Marketing/
-    │   ├── 06 SEO & Descubrimiento/
-    │   └── 07 Analitica & Crecimiento/
-    └── Workspace Map.md
+sena-programacion-robot-tareas/
+├── .gitignore
+├── AGENTS.md                         # Protocolo maestro, guardrails HITL y directivas de agentes
+├── README.md                         # Este documento de arquitectura y guía de uso
+├── Academic-Engine/                  # ⚙️ MOTOR DE EJECUCIÓN (Source of Truth de herramientas)
+│   ├── agents/                       # 13 archivos YAML de sub-agentes autónomos
+│   ├── context/                      # Perfil formativo SENA, estándares CS y guías de redacción
+│   │   ├── course-profile.md         # Perfil curricular y competencias SENA
+│   │   ├── cs-standards.md           # Estándares de calidad de software y Clean Code
+│   │   ├── academic-writing-guide.md # Guía de estilo APA 7, IEEE y redacción técnica
+│   │   └── export-config.md          # Configuración del pipeline Pandoc / LaTeX
+│   ├── docs/                         # Manuales de workflows y taxonomía de archivos
+│   ├── outputs/                      # Salidas temporales generadas (decks .pptx, etc.)
+│   ├── scripts/                      # 24 scripts automatizados con paridad .sh y .ps1
+│   ├── skills/                       # 65 habilidades validadas (Agent Skills Specification)
+│   ├── templates/                    # Plantillas Markdown, LaTeX y esquemas JSON
+│   └── tests/                        # Suites de smoke test y verificación de idempotencia
+└── Academic Vault/                   # 📚 BÓVEDA OBSIDIAN (Base de conocimiento y entregables)
+    ├── .obsidian/                    # Configuración de Obsidian (plugins y temas)
+    ├── 00 System/                    # Vistas de workflows, plantillas locales y gobernanza
+    ├── Concepts/                     # Notas atómicas de conceptos teóricos y tecnológicos
+    ├── Drafts/                       # Secciones de manuscritos, evidencias formativas y posts
+    ├── Exports/                      # Salidas compiladas finales (PDF, DOCX, LaTeX)
+    ├── Hypotheses/                   # Reivindicaciones comprobables y diseño experimental
+    ├── Inbox/                        # Capturas crudas, sesiones de tarea y specs SDD
+    │   ├── Archive/                  # Snapshots automáticos de seguridad (refinamiento)
+    │   └── Specs/                    # Especificaciones formales en ciclo HITL
+    ├── Projects/                     # Proyectos estructurados (vistas symlinks relativas)
+    │   └── Requirements/             # Requisitos funcionales y no funcionales
+    ├── Reviews/                      # Revisiones de código, literatura y síntesis temáticas
+    └── Sources/                      # Biblioteca canónica de fuentes ingresadas (PDF y Web)
+        ├── PDF Converted/            # PDFs transformados a Markdown estructurado
+        ├── PDF Unconverted/          # Bandeja de entrada para PDFs pendientes de ingesta
+        ├── Web Converted/            # Artículos web ingestados con procedencia y metadata
+        └── SOURCES_INDEX.md          # Registro canónico maestro de todas las fuentes
 ```
-
-## Brand Context
-
-The persistent context file lives at:
-
-- `BRIDS-Engine/context/product-marketing-context.md`
-
-It is also exposed inside the vault through:
-
-- `BRIDS-Brain/02 Marketing/01 Contexto de Marca/product-marketing-context.md`
-
-Use that file to keep product, audience, positioning, proof points, tone, and goals available for all future work.
-
-## How To Use
-
-1. Fill or refine the brand context file.
-2. Choose the marketing task or skill family you want to work on.
-3. Use imported skills as reference and adapt local skills only when needed.
-4. Save final outputs as Markdown in the matching folder inside `BRIDS-Brain/`.
-5. Review and iterate inside Obsidian without mixing business content with core logic.
-6. Follow `BRIDS-Engine/docs/document-organization.md` when a new folder or document structure is needed.
-7. If you want Codex to use the project-local skills, run `bash BRIDS-Engine/scripts/enable-project-skills.sh`.
-8. Open Obsidian, enable `Agent Client` if it is not already active, and use Codex as the default agent inside the vault.
-
-On Windows PowerShell, use:
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\BRIDS-Engine\scripts\enable-project-skills.ps1
-```
-
-## Folder Purpose
-
-### 01 Negocio (Corporate, Technical & Commercial)
-- `01 Estrategia & Modelo`: business model, unit economics, TAM/SAM/SOM market research, master business concepts (`master-business-concepts.md`, `Business Concepts/`).
-- `02 Producto & Ingenieria`: single source of truth for technical architecture, OKF sync, Solana stack, Metaplex Core plugins, security audits, database schemas, and RFCs.
-- `03 Legal & Cumplimiento`: Delaware C-Corp governance, SPVs (Series LLC), Data Room, Stripe Identity KYC/AML compliance, non-broker-dealer memos.
-- `04 Finanzas & YC Investors`: 3-5y pro forma financial models, Cap Table, Squads Multi-Sig treasury governance, Y Combinator applications, and pitch decks.
-- `05 Sponsors B2B & Ventas`: Real Estate Sponsor acquisition collateral, developer battlecards, cold outbound sequences, and pilot onboarding.
-- `06 Operaciones & Gobernanza`: institutional SOPs, hiring scorecards, advisor agreements, board resolutions, and operational compliance.
-
-### 02 Marketing (Growth, Brand & Distribution)
-- `01 Contexto de Marca`: persistent brand and product context (`product-marketing-context.md`), ICP, positioning, and brand glossary.
-- `02 Estrategia & Parrilla`: 15-day master editorial content grid (`parrilla-publicaciones-redes-sociales.md`) and launch roadmaps.
-- `03 Redes Sociales & Contenido`: publications (Instagram, LinkedIn, X, Telegram), 4-slide carousels, thought leadership, and publication manifests (`Assets/`).
-- `04 Copywriting & Web`: homepage copy, landing pages, website rewrites, and conversion rate optimization (CRO).
-- `05 Email Marketing`: cold email outbound sequences, lead magnet follow-ups, and lifecycle nurture sequences.
-- `06 SEO & Descubrimiento`: SEO audits, AI SEO / Generative Engine Optimization (GEO), competitor comparisons, and schema markup.
-- `07 Analitica & Crecimiento`: event tracking plans (GA4, Mixpanel), KPI dashboards, growth loops, and referral systems.
-
-## Project Scripts & Automation
-
-This project includes a suite of utility and automation scripts located in `BRIDS-Engine/scripts/`:
-
-| Script | Command | Purpose |
-| :--- | :--- | :--- |
-| **`task-init.sh`** | `bash BRIDS-Engine/scripts/task-init.sh <slug> [args]` | **Atomic Task Init & SDD Engine:** Inicializador unificado para tareas y SDD con Doble Guardrail HITL. Crea la especificación formal, bloquea la ejecución hasta la aprobación humana (HITL-1) y coordina el bucle evaluador-optimizador hasta HITL-2. |
-| **`sdd-manager.sh`** | `bash BRIDS-Engine/scripts/sdd-manager.sh <cmd>` | **Spec-Driven Development & Quality Optimizer con Doble HITL:** Gestiona specs y bucle Creador vs Revisor ($\ge 8.5/9.0$, máx 5 ciclos). Guardrails humanos: HITL-1 (`approve-spec`, `refine-spec`) e HITL-2 (`review-deliverable`, `approve-deliverable`, `refine-deliverable`). |
-| **`create-social-carousel.sh`** | `bash BRIDS-Engine/scripts/create-social-carousel.sh "<idea>" [img] [prenda] [ref]` | **4-Slide Social Carousel Pipeline:** Generates 4:5 carousels (Hero, Line-Art Figurine, PAS Details, Conversion CTA) with dedicated Obsidian asset folders. |
-| **`create-social-post.sh`** | `bash BRIDS-Engine/scripts/create-social-post.sh <red> "<idea>" [tipo] [ref] [prenda]` | **Social Content Extractor & Generator:** Instantiates production-ready social media posts from the protected SOP with automatic `YYYY-MM-DD-redsocial-idea.md` naming. |
-| **`smoke-test.sh`** | `bash BRIDS-Engine/tests/smoke-test.sh` | **End-to-End System Smoke Test:** Ejecuta en segundos una validación integral de punta a punta: Squad YC, Taxonomía 00-15, Motor SDD con doble guardrail HITL, Parrilla RWA y Wrappers. |
-| **`test-idempotency.sh`** | `bash BRIDS-Engine/tests/test-idempotency.sh` | **Automated Idempotency Test Suite:** Verifies deterministic behavior across task initialization, state transitions, context sync, note refinement, rollback, SDD lifecycle, and skill symlinks. |
-| **`enforce-compliance.sh`** | `bash BRIDS-Engine/scripts/enforce-compliance.sh` | **Master Anti-Drift Compliance Suite:** Runs end-to-end audit of Brand Context Gate, Vault Linter, Task Sessions, and Skills. |
-| **`validate-context.sh`** | `bash BRIDS-Engine/scripts/validate-context.sh` | Audits `product-marketing-context.md` to ensure value proposition, ICP, and pain points are ready before drafting. |
-| **`validate-vault.sh`** | `bash BRIDS-Engine/scripts/validate-vault.sh` | Lints `BRIDS-Brain/` deliverables for kebab-case naming, valid taxonomy folders (00-15), YAML properties, and changelogs. |
-| **`task-manager.sh`** | `bash BRIDS-Engine/scripts/task-manager.sh <cmd>` | **Full Task Lifecycle Manager:** `init`, `list`, `add`, `update`, `show`, and `close` task sessions with dependency tracking and progress dashboards. |
-| **`refine-note.sh`** | `bash BRIDS-Engine/scripts/refine-note.sh <cmd>` | **Non-Destructive Content Refinement:** `inspect`, `backup`, `refine`, `branch`, and `rollback` notes with safety snapshots, version bumping, and changelog tracking. |
-| **`check-obsidian-api.sh`** | `bash BRIDS-Engine/scripts/check-obsidian-api.sh` | Healthcheck and smoketest for **Obsidian Local REST API** (HTTPS port `27124`). Tests Bearer token authentication and queries vault status. |
-| **`init-task.sh`** | `bash BRIDS-Engine/scripts/init-task.sh <session-name> "<goal>" "<icp>"` | Alias / retrocompatibilidad hacia `task-init.sh`. Inicializa sesiones de tarea con guardrails estructurados. |
-| **`sync-technical-docs.sh`** | `bash BRIDS-Engine/scripts/sync-technical-docs.sh [--force]` | **Automated Technical OKF Sync Engine:** Clona o sincroniza incrementalmente la documentación técnica OKF v0.1 desde `jeisonsosablockdev/brids:knowledge`, generando notas canónicas en `13 Product & Engineering/`. |
-| **`sync-brand-context.sh`** | `bash BRIDS-Engine/scripts/sync-brand-context.sh` | Syncs `product-marketing-context.md` from `BRIDS-Engine/context/` directly into `BRIDS-Brain/01 Brand Context/`. |
-| **`validate-skills.sh`** | `bash BRIDS-Engine/scripts/validate-skills.sh` | Audits and validates marketing skills against the formal Agent Skills Specification (YAML frontmatter, naming, trigger phrases, <500 lines). |
-
-For Windows PowerShell users:
-- `powershell -ExecutionPolicy Bypass -File .\BRIDS-Engine\scripts\sync-technical-docs.ps1`
-- `powershell -ExecutionPolicy Bypass -File .\BRIDS-Engine\tests\smoke-test.ps1`
-- `powershell -ExecutionPolicy Bypass -File .\BRIDS-Engine\scripts\task-init.ps1 <args>`
-- `powershell -ExecutionPolicy Bypass -File .\BRIDS-Engine\scripts\sdd-manager.ps1 <args>`
-- `powershell -ExecutionPolicy Bypass -File .\BRIDS-Engine\scripts\create-social-carousel.ps1 <args>`
-- `powershell -ExecutionPolicy Bypass -File .\BRIDS-Engine\scripts\create-social-post.ps1 <args>`
-- `powershell -ExecutionPolicy Bypass -File .\BRIDS-Engine\tests\test-idempotency.ps1`
-- `powershell -ExecutionPolicy Bypass -File .\BRIDS-Engine\scripts\enforce-compliance.ps1`
-- `powershell -ExecutionPolicy Bypass -File .\BRIDS-Engine\scripts\validate-context.ps1`
-- `powershell -ExecutionPolicy Bypass -File .\BRIDS-Engine\scripts\validate-vault.ps1`
-- `powershell -ExecutionPolicy Bypass -File .\BRIDS-Engine\scripts\task-manager.ps1 <cmd>`
-- `powershell -ExecutionPolicy Bypass -File .\BRIDS-Engine\scripts\refine-note.ps1 <cmd>`
-- `powershell -ExecutionPolicy Bypass -File .\BRIDS-Engine\scripts\enable-project-skills.ps1`
-- `powershell -ExecutionPolicy Bypass -File .\BRIDS-Engine\scripts\sync-brand-context.ps1`
 
 ---
 
-## Marketing Task Lifecycle & Harness (5-Step Protocol)
+## 🤖 El Squad de 13 Sub-Agentes
 
-Every marketing initiative follows an automated 5-step lifecycle:
+El motor cuenta con un escuadrón de 13 agentes especializados definidos en `Academic-Engine/agents/*.yaml`:
+
+### 🎓 Sub-Agentes Académicos, Computer Science & Optimización (7 agentes)
+
+| Identificador | Rol | Misión Principal | Salidas Canónicas |
+|---|---|---|---|
+| `cs-tutor` | Tutor de CS & Desarrollo de Software | Explicar algoritmos, estructuras de datos, POO, bases de datos y guiar ejercicios prácticos con feedback formativo. | `Academic Vault/Drafts/`, `Concepts/` |
+| `code-reviewer` | Arquitecto de Calidad & Code Reviewer | Auditar código bajo Clean Code, SOLID, patrones GoF, cobertura de tests y seguridad OWASP. | `Academic Vault/Reviews/` |
+| `research-librarian` | Bibliotecario de Investigación Académica | Ingestar PDFs y URLs web, enriquecer metadatos YAML, validar procedencia y gestionar `SOURCES_INDEX.md`. | `Academic Vault/Sources/` |
+| `thesis-writer` | Redactor Académico & Ghostwriter Técnico | Redactar informes técnicos, evidencias escritas y artículos con rigor metodológico (APA 7 / IEEE). | `Academic Vault/Drafts/` |
+| `methodology-consultant` | Consultor Metodológico & Estadístico | Diseñar instrumentos de investigación (encuestas, experimentos), análisis cuantitativo/cualitativo y UML. | `Academic Vault/Concepts/`, `Hypotheses/` |
+| `academic-reviewer` | Revisor Científico y Editorial (Auditor) | Auditar specs y borradores en bucles autónomos (escala 0-9 pts) evaluando pertinencia, rigor, fuentes y cero clichés. | `Academic Vault/Reviews/` |
+| `task-editor` | Editor Técnico & Optimizador de Calidad | Contraparte editora de los revisores: aplica remediaciones no destructivas a specs y borradores hasta superar >= 8.5/9.0. | `Academic Vault/Drafts/`, `Inbox/Specs/` |
+
+### 💼 Sub-Agentes de Negocio, Producto & Venture (6 agentes)
+
+| Identificador | Rol | Misión Principal | Salidas Canónicas |
+|---|---|---|---|
+| `business-consultant` | Arquitecto de Modelos de Negocio | Diseñar arquitectura de tarifas SaaS, proyecciones pro forma a 3-5 años y viabilidad económica para aceleradoras (YC). | `Academic Vault/Drafts/`, `Concepts/` |
+| `market-research-analyst` | Analista de Mercado & TAM/SAM/SOM | Dimensionamiento de mercado (top-down y bottom-up) y matrices comparativas de competidores. | `Academic Vault/Drafts/`, `Concepts/` |
+| `pitch-deck-architect` | Arquitecto de Pitch Decks (YC/Sequoia) | Estructurar narrativas de 10-12 slides y generar archivos `.pptx` nativos mediante `python-pptx`. | `Academic Vault/Drafts/`, `outputs/decks/` |
+| `compliance-officer` | Oficial de Cumplimiento & RWA | Desacoplamiento corporativo (Delaware C-Corp vs SPV), KYC/AML con Stripe Identity y gobernanza multi-sig. | `Academic Vault/Drafts/`, `Reviews/` |
+| `b2b-sponsor-lead` | Adquisición de Sponsors & RevOps | Propuesta de valor para desarrolladores B2B, secuencias de prospección en frío y flujos de onboarding. | `Academic Vault/Drafts/` |
+| `founder-ghostwriter` | Storyteller & Voz Fundadora | Ensayos de aplicación a YC, artículos técnicos en LinkedIn y reflexiones de arquitectura en X (Twitter). | `Academic Vault/Drafts/` |
+
+---
+
+## 🛡️ Protocolo SDD con Doble Bucle Revisor-Editor y Doble Guardrail Humano (HITL)
+
+Para erradicar la alucinación, el texto genérico y la deriva conceptual (*prompt drift*), todas las tareas de generación de especificaciones y entregables siguen la arquitectura de **Doble Bucle Revisor-Editor** con dos puntos de control humano obligatorio (*Human-in-the-Loop*):
 
 ```mermaid
-flowchart LR
-    A["1. Intent Capture<br/>(Goal, ICP, Constraints)"] --> B["2. Task Decomposition<br/>(Atomic Tasks & Dependencies)"]
-    B --> C["3. Workflow Chaining<br/>(Orchestrating W1-W8)"]
-    C --> D["4. Execution & Vault Save<br/>(Structured Markdown Note)"]
-    D --> E["5. Measurement & Closure<br/>(GA4 Events & KPIs)"]
+flowchart TD
+    subgraph Fase1["FASE 1: BUCLE DEL SPEC (Spec Loop)"]
+        A["1. Requerimiento del Usuario"] --> B["task-init.sh<br/>(Generación de Spec Formal)"]
+        B --> B1["loop-spec: task-editor vs academic-reviewer"]
+        B1 --> B2{"¿Nota Spec >= 8.5/9.0?<br/>(Pertinencia & Criterios)"}
+        B2 -- "No (< 8.5)" --> B1
+        B2 -- "Sí (>= 8.5)" --> C{"GUARDRAIL HITL-1<br/>¿Usuario aprueba Spec?"}
+        C -- "No / Refinar" --> D["sdd-manager.sh refine-spec"]
+        D --> B1
+        C -- "Sí / Aprobado" --> E["sdd-manager.sh approve-spec"]
+    end
+
+    subgraph Fase2["FASE 2: BUCLE DE EJECUCIÓN (Task Loop)"]
+        E --> F["loop-task: Creador/Editor vs academic-reviewer"]
+        F --> G{"¿Nota Entregable >= 8.5/9.0?<br/>(Rigor, Pertinencia & Cero Clichés)"}
+        G -- "No (< 8.5, hasta 5 ciclos)" --> F
+        G -- "Sí (>= 8.5)" --> I{"GUARDRAIL HITL-2<br/>¿Usuario aprueba Entregable?"}
+        I -- "No / Refinar" --> J["sdd-manager.sh refine-deliverable"]
+        J --> F
+        I -- "Sí / Aprobado" --> K["sdd-manager.sh approve-deliverable"]
+    end
+
+    subgraph Fase3["FASE 3: INTEGRACIÓN"]
+        K --> L["🚀 Promoción Canónica a Academic Vault/"]
+        L --> M["Cierre y Métricas en task-manager.sh"]
+    end
 ```
 
-1. **Intent Capture:** Captures the raw prompt, measurable business goal, target ICP, and constraints while verifying `product-marketing-context.md`.
-2. **Atomic Task Decomposition:** Breaks down the high-level objective into sequential, manageable tasks (`TASK-001`, `TASK-002`, etc.) with explicit `depends_on` relations.
-3. **Workflow Chaining:** Maps each atomic task to one of the 8 specialized workflows and selects relevant skills from the 36 available modules.
-4. **Execution & Vault Save:** Drafts structured Markdown deliverables using `note-template.md` (Obsidian Properties, `> [!NOTE]` callouts, and wikilinks) and writes to `BRIDS-Brain/` via Local REST API or filesystem.
-5. **Measurement & Closure:** Assigns tracking events and KPIs to measure impact, updating `status: completed` in the tracking JSON.
+### Dimensiones de Evaluación de Pertinencia y Calidad (Escala 0 a 9.0)
+
+Tanto en la fase de especificación como en la entrega final, el **Agente Revisor** audita contra 4 dimensiones obligatorias:
+
+1. **Pertinencia con los Requisitos & Objetivo Solicitado (2.5 pts):** Cobertura total de los requerimientos pedidos por el usuario, alineación con la audiencia (aprendices SENA / desarrollo de software), claridad del problema y cierre accionable.
+2. **Rigor Científico/Técnico & Estándares de Software (2.5 pts):** Fundamentación en Clean Code, principios SOLID, patrones arquitectónicos, testing riguroso y ausencia de promesas especulativas.
+3. **Claridad, Coherencia & Estructura (2.0 pts):** Jerarquía lógica visual, completitud de secciones, concisión y ausencia de prosa pasiva.
+4. **Originalidad Léxica & Cero Clichés de IA (2.0 pts):** Tolerancia cero a frases hechas de LLMs (penalización automática por muletillas como *"en el vertiginoso mundo"*, *"juega un papel crucial"*, *"cambio de paradigma"*, *"en resumen"*, etc.).
+
+**Umbral Mínimo Aprobatorio:** $\mathbf{\ge 8.5 / 9.0}$.
 
 ---
 
-## The 8 Marketing Workflows
+## 💻 Catálogo de Comandos Operativos
 
-| Workflow | Focus | Core Skills | Vault Destination | Typical Deliverables |
-| :--- | :--- | :--- | :--- | :--- |
-| **W1: Brand Strategy** | Brand identity, ICP & value prop | `mas-product-marketing-context`, `mas-customer-research` | `02 Marketing/01 Contexto de Marca/`, `01 Negocio/01 Estrategia & Modelo/` | `product-marketing-context.md`, `brand-positioning-framework.md` |
-| **W2: Landing Pages & Copy** | High-conversion copy & page architecture | `mas-copywriting`, `mas-copy-editing`, `mas-page-cro` | `02 Marketing/04 Copywriting & Web/` | `homepage-copy-v1.md`, `lead-magnet-landing-page.md` |
-| **W3: SEO & AI SEO (GEO)** | Search engines & LLM citation optimization | `mas-seo-audit`, `mas-ai-seo`, `mas-schema-markup` | `02 Marketing/06 SEO & Descubrimiento/` | `ai-seo-strategy.md`, `competitor-vs-matrix.md` |
-| **W4: Email Lifecycle** | Cold outbound, onboarding & nurture sequences | `mas-cold-email`, `mas-email-sequence`, `mas-copy-editing`| `02 Marketing/05 Email Marketing/` | `cold-outreach-sequence-b2b.md`, `welcome-nurture-flow.md` |
-| **W5: Content & Social** | Demand generation, LinkedIn/X & lead magnets | `mas-content-strategy`, `mas-social-content`, `mas-lead-magnets` | `02 Marketing/03 Redes Sociales & Contenido/`, `02 Marketing/02 Estrategia & Parrilla/` | `linkedin-editorial-calendar.md`, `lead-magnet-guide.md` |
-| **W6: CRO & Funnel** | Registration flow, forms & A/B testing | `mas-signup-flow-cro`, `mas-onboarding-cro`, `mas-ab-test-setup` | `02 Marketing/04 Copywriting & Web/` | `ab-test-plan-signup.md`, `paywall-pricing-audit.md` |
-| **W7: Sales & Retention** | Battlecards, objection handling & churn reduction | `mas-sales-enablement`, `mas-churn-prevention`, `mas-revops` | `01 Negocio/05 Sponsors B2B & Ventas/`, `02 Marketing/07 Analitica & Crecimiento/` | `sales-battlecard-vs-competitors.md`, `churn-playbook.md` |
-| **W8: Analytics & Metrics** | GA4/Mixpanel tracking plans, scorecards & ROI | `mas-analytics-tracking`, `mas-ab-test-setup`, `mas-revops` | `02 Marketing/07 Analitica & Crecimiento/` | `ga4-tracking-plan.md`, `monthly-performance-scorecard.md` |
+Todos los scripts cuentan con paridad 1:1 entre entornos UNIX/macOS (`.sh`) y PowerShell nativo en Windows (`.ps1`):
+
+| Tarea Operativa | Comando Bash (macOS / Linux / WSL) | Comando PowerShell (Windows) |
+|---|---|---|
+| **Bucle Autónomo Universal (>= 8.5)** | `bash Academic-Engine/scripts/task-loop.sh <slug> ["<reqs>"] ["<meta>"]` | `powershell -File .\Academic-Engine\scripts\task-loop.ps1 <slug> ...` |
+| **Inicialización Atómica SDD** | `bash Academic-Engine/scripts/task-init.sh <slug> [titulo] [carpeta] [agentes] [icp] [meta]` | `powershell -File .\Academic-Engine\scripts\task-init.ps1 <slug> ...` |
+| **Bucle del Spec (Spec-Loop >= 8.5)** | `bash Academic-Engine/scripts/sdd-manager.sh loop-spec <slug>` | `powershell -File .\Academic-Engine\scripts\sdd-manager.ps1 loop-spec <slug>` |
+| **Aprobar Spec (HITL-1)** | `bash Academic-Engine/scripts/sdd-manager.sh approve-spec <slug>` | `powershell -File .\Academic-Engine\scripts\sdd-manager.ps1 approve-spec <slug>` |
+| **Bucle de la Tarea (Task-Loop >= 8.5)** | `bash Academic-Engine/scripts/sdd-manager.sh loop-task <slug> [draft.md]` | `powershell -File .\Academic-Engine\scripts\sdd-manager.ps1 loop-task <slug>` |
+| **Revisar y Aprobar Entregable (HITL-2)** | `bash Academic-Engine/scripts/sdd-manager.sh <review-deliverable\|approve-deliverable> <slug>` | `powershell -File .\Academic-Engine\scripts\sdd-manager.ps1 <cmd> <slug>` |
+| **Auditoría de Texto Libre (0 a 9)** | `bash Academic-Engine/scripts/sdd-manager.sh audit-text <archivo.md>` | `powershell -File .\Academic-Engine\scripts\sdd-manager.ps1 audit-text <archivo.md>` |
+| **Ingesta de PDFs** | `bash Academic-Engine/scripts/ingest-pdf.sh [archivo.pdf]` | `powershell -File .\Academic-Engine\scripts\ingest-pdf.ps1 [archivo.pdf]` |
+| **Ingesta de URLs Web** | `bash Academic-Engine/scripts/ingest-web.sh <url> [titulo]` | `powershell -File .\Academic-Engine\scripts\ingest-web.ps1 <url> [titulo]` |
+| **Sincronizar Índice de Fuentes** | `bash Academic-Engine/scripts/sync-sources-index.sh` | `powershell -File .\Academic-Engine\scripts\sync-sources-index.ps1` |
+| **Scaffold de Nuevo Proyecto** | `bash Academic-Engine/scripts/new-project.sh "<nombre>" "[meta]" "[autor]"` | `powershell -File .\Academic-Engine\scripts\new-project.ps1 "<nombre>" ...` |
+| **Reparación y Linter de Bóveda** | `bash Academic-Engine/scripts/fix-vault.sh` | `powershell -File .\Academic-Engine\scripts\fix-vault.ps1` |
+| **Refinamiento No Destructivo** | `bash Academic-Engine/scripts/refine-note.sh <inspect\|backup\|refine\|branch\|rollback> <ruta>` | `powershell -File .\Academic-Engine\scripts\refine-note.ps1 <cmd> <ruta>` |
+| **Gestión de Sesiones de Tarea** | `bash Academic-Engine/scripts/task-manager.sh <init\|add\|show\|update\|list\|close> ...` | `powershell -File .\Academic-Engine\scripts\task-manager.ps1 <cmd> ...` |
+| **Exportar a PDF / LaTeX** | `bash Academic-Engine/scripts/export-pdf.sh <archivo.md\|.tex> [salida.pdf] [--open]` | `powershell -File .\Academic-Engine\scripts\export-pdf.ps1 <archivo> ...` |
+| **Auditoría de Habilidades** | `bash Academic-Engine/scripts/validate-skills.sh` | `powershell -File .\Academic-Engine\scripts\validate-skills.ps1` |
+| **Activar Habilidades en Agente** | `bash Academic-Engine/scripts/enable-project-skills.sh` | `powershell -File .\Academic-Engine\scripts\enable-project-skills.ps1` |
+| **Inspección de Sub-Agentes** | `bash Academic-Engine/scripts/inspect-squad.sh` | `powershell -File .\Academic-Engine\scripts\inspect-squad.ps1` |
+| **Smoke Test de Integración** | `bash Academic-Engine/tests/smoke-test.sh` | `powershell -File .\Academic-Engine\tests\smoke-test.ps1` |
+| **Pruebas de Idempotencia** | `bash Academic-Engine/tests/test-idempotency.sh` | `powershell -File .\Academic-Engine\tests\test-idempotency.ps1` |
+| **Auditoría de Gobernanza** | `bash Academic-Engine/scripts/validate-vault.sh` | `powershell -File .\Academic-Engine\scripts\validate-vault.ps1` |
+| **Auditoría Anti-Deriva (Enforce)**| `bash Academic-Engine/scripts/enforce-compliance.sh` | `powershell -File .\Academic-Engine\scripts\enforce-compliance.ps1` |
+| **Ingesta de PDFs** | `bash Academic-Engine/scripts/ingest-pdf.sh [archivo.pdf]` | `powershell -File .\Academic-Engine\scripts\ingest-pdf.ps1 [archivo.pdf]` |
+| **Ingesta de URLs Web** | `bash Academic-Engine/scripts/ingest-web.sh <url> [titulo]` | `powershell -File .\Academic-Engine\scripts\ingest-web.ps1 <url> [titulo]` |
+| **Sincronizar Índice de Fuentes** | `bash Academic-Engine/scripts/sync-sources-index.sh` | `powershell -File .\Academic-Engine\scripts\sync-sources-index.ps1` |
+| **Scaffold de Nuevo Proyecto** | `bash Academic-Engine/scripts/new-project.sh "<nombre>" "[meta]" "[autor]"` | `powershell -File .\Academic-Engine\scripts\new-project.ps1 "<nombre>" ...` |
+| **Reparación y Linter de Bóveda** | `bash Academic-Engine/scripts/fix-vault.sh` | `powershell -File .\Academic-Engine\scripts\fix-vault.ps1` |
+| **Refinamiento No Destructivo** | `bash Academic-Engine/scripts/refine-note.sh <inspect\|backup\|refine\|branch\|rollback> <ruta>` | `powershell -File .\Academic-Engine\scripts\refine-note.ps1 <cmd> <ruta>` |
+| **Gestión de Sesiones de Tarea** | `bash Academic-Engine/scripts/task-manager.sh <init\|add\|show\|update\|list\|close> ...` | `powershell -File .\Academic-Engine\scripts\task-manager.ps1 <cmd> ...` |
+| **Exportar a PDF / LaTeX** | `bash Academic-Engine/scripts/export-pdf.sh <archivo.md\|.tex> [salida.pdf] [--open]` | `powershell -File .\Academic-Engine\scripts\export-pdf.ps1 <archivo> ...` |
+| **Auditoría de Habilidades** | `bash Academic-Engine/scripts/validate-skills.sh` | `powershell -File .\Academic-Engine\scripts\validate-skills.ps1` |
+| **Activar Habilidades en Agente** | `bash Academic-Engine/scripts/enable-project-skills.sh` | `powershell -File .\Academic-Engine\scripts\enable-project-skills.ps1` |
+| **Inspección de Sub-Agentes** | `bash Academic-Engine/scripts/inspect-squad.sh` | `powershell -File .\Academic-Engine\scripts\inspect-squad.ps1` |
+| **Smoke Test de Integración** | `bash Academic-Engine/tests/smoke-test.sh` | `powershell -File .\Academic-Engine\tests\smoke-test.ps1` |
+| **Pruebas de Idempotencia** | `bash Academic-Engine/tests/test-idempotency.sh` | `powershell -File .\Academic-Engine\tests\test-idempotency.ps1` |
+| **Auditoría de Gobernanza** | `bash Academic-Engine/scripts/validate-vault.sh` | `powershell -File .\Academic-Engine\scripts\validate-vault.ps1` |
+| **Auditoría Anti-Deriva (Enforce)**| `bash Academic-Engine/scripts/enforce-compliance.sh` | `powershell -File .\Academic-Engine\scripts\enforce-compliance.ps1` |
+| **Generador de Post Social** | `bash Academic-Engine/scripts/create-social-post.sh <red> "<idea>" [tipo] [ref] [activo]` | `powershell -File .\Academic-Engine\scripts\create-social-post.ps1 ...` |
+| **Generador de Carrusel (4 Slides)**| `bash Academic-Engine/scripts/create-social-carousel.sh "<idea>" [img] [activo] [ref]` | `powershell -File .\Academic-Engine\scripts\create-social-carousel.ps1 ...` |
+| **Sincronizador de Parrilla** | `bash Academic-Engine/scripts/sync-content-grid.sh <audit\|sync\|update>` | `powershell -File .\Academic-Engine\scripts\sync-content-grid.ps1 <cmd>` |
+| **Generador de Prompts Visuales** | `bash Academic-Engine/scripts/generate-publication-assets.sh <nota\|slug>` | `powershell -File .\Academic-Engine\scripts\generate-publication-assets.ps1 ...` |
 
 ---
 
-## Working Rules
+## 🧰 Catálogo de 65 Habilidades (Skills)
 
-- Keep the logic, scripts, templates, and adapted skills in `BRIDS-Engine/`
-- Keep final readable text deliverables and persistent knowledge in `BRIDS-Brain/`
-- Use `BRIDS-Engine/templates/task-tracking-template.json` to monitor multi-step campaigns and dependencies
-- Use `BRIDS-Engine/templates/note-template.md` for consistent Obsidian Markdown formatting
-- Use the PowerShell scripts on Windows when symlinks or Bash are inconvenient
+Ubicadas en `Academic-Engine/skills/`, cada habilidad cumple la especificación formal de [Agent Skills](https://agentskills.io/specification.md):
 
+* **Computer Science & Calidad de Código:** `cs-fundamentals`, `software-engineering`, `code-quality`, `project-scaffolding`.
+* **Investigación Científica & Académica:** `scientific-writing`, `life-science-research`, `librarian`, `export-document`, `fix-vault`.
+* **Venture & Modelos de Negocio:** `business-plan-ppt`, `fundraising-bp-planner`, `investor-pitch-planner`, `investor-research`, `investor-due-diligence`, `pitch-deck-creator`, `raskin-narrative-bp`, `sequoia-structured-bp`, `yc-insight-driven-bp`.
+* **Marketing de Producto & Crecimiento (MAS):** `mas-copywriting`, `mas-copy-editing`, `mas-cold-email`, `mas-content-strategy`, `mas-seo-audit`, `mas-ai-seo`, `mas-page-cro`, `mas-form-cro`, `mas-signup-flow-cro`, `mas-onboarding-cro`, `mas-email-sequence`, `mas-paid-ads`, `mas-pricing-strategy`, `mas-sales-enablement`, `mas-revops`, `mas-referral-program`, `mas-churn-prevention`, `mas-analytics-tracking`, `mas-site-architecture`, etc.
+
+---
+
+## 🚀 Instalación & Activación Rápida
+
+### Requisitos Previos
+
+- **Node.js** v18 o superior instalado.
+- **Git** instalado.
+- **Obsidian** (opcional, para visualización de la bóveda `Academic Vault/`).
+- **Pandoc** y **Tectonic / XeLaTeX** (opcionales, requeridos exclusivamente si se compilan PDFs desde Markdown).
+- **Python 3** con `python-pptx` (opcional, para generación de archivos `.pptx`).
+
+### Pasos de Inicio Rápido
+
+1. **Clonar el repositorio:**
+   ```bash
+   git clone https://github.com/jeisonsosablockdev/sena-programacion-robot-tareas.git
+   cd sena-programacion-robot-tareas
+   ```
+
+2. **Verificar estado de salud del sistema:**
+   ```bash
+   bash Academic-Engine/tests/smoke-test.sh
+   ```
+
+3. **Activar las habilidades en el agente local:**
+   ```bash
+   # En macOS / Linux:
+   bash Academic-Engine/scripts/enable-project-skills.sh
+
+   # En Windows:
+   powershell -ExecutionPolicy Bypass -File .\Academic-Engine\scripts\enable-project-skills.ps1
+   ```
+
+4. **Abrir la Bóveda:**
+   - Abre Obsidian y selecciona **"Open folder as vault"**.
+   - Elige la carpeta `Academic Vault/`.
+
+---
+
+## 🧪 Suites de Verificación & Testing
+
+El proyecto se prueba de manera determinista para certificar cero derivas y cero defectos:
+
+```bash
+# 1. Validar las 65 habilidades contra la especificación
+bash Academic-Engine/scripts/validate-skills.sh
+
+# 2. Validar los 12 sub-agentes del escuadrón
+bash Academic-Engine/scripts/inspect-squad.sh
+
+# 3. Ejecutar el Smoke Test integral de punta a punta (41 pruebas)
+bash Academic-Engine/tests/smoke-test.sh
+
+# 4. Comprobar la idempotencia matemática de todas las operaciones (38 pruebas)
+bash Academic-Engine/tests/test-idempotency.sh
+
+# 5. Auditar el cumplimiento y anti-drifting
+bash Academic-Engine/scripts/enforce-compliance.sh
+```
+
+---
+
+## 🛡️ Regla de Refinamiento No Destructivo
+
+> [!CAUTION]
+> **REGLA CRÍTICA:** Queda estrictamente prohibido sobrescribir o eliminar de forma destructiva archivos de la bóveda.
+
+Toda modificación a una nota establecida debe ejecutarse mediante refinamiento incremental:
+1. Inspeccionar metadatos y versión con `refine-note.sh inspect <path>`.
+2. Generar snapshot automático de seguridad en `Academic Vault/Inbox/Archive/<timestamp>-nota.md`.
+3. Aplicar los cambios preservando las secciones preexistentes e incrementando la versión en el changelog:
+   ```bash
+   bash Academic-Engine/scripts/refine-note.sh refine "Academic Vault/Drafts/mi-evidencia.md" "Incorporación de diagramas de secuencia UML"
+   ```
+4. Si se requiere deshacer cambios, restaurar con `refine-note.sh rollback "Academic Vault/Drafts/mi-evidencia.md"`.
+
+---
+
+## ✍️ Atribución de Commits
+
+Todos los commits generados con asistencia de inteligencia artificial deben incluir la línea obligatoria de atribución al final del mensaje de commit:
+
+```text
+Co-Authored-By: Google Gemini <gemini@google.com>
+```

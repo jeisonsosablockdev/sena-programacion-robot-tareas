@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SDDCriticismReport",
+  "description": "Rúbrica y reporte formal de evaluación emitido por el Agente Revisor en el ciclo Evaluador-Optimizador de Academic-Engine con escala de 0 a 9 y umbral >= 8.5.",
+  "spec_id": "SPEC-{{SLUG}}",
+  "cycle": 1,
+  "max_cycles": 5,
+  "timestamp": "2026-09-21T12:00:00Z",
+  "reviewer_agent": "academic-reviewer",
+  "editor_agent": "task-editor",
+  "hitl_stage": "DRAFT_OPTIMIZATION",
+  "target_file": "Academic Vault/{{CATEGORY_FOLDER}}/{{FILENAME}}.md",
+  "scoring_dimensions": {
+    "1_requirements_and_pertinence": {
+      "name": "Pertinencia con los Requisitos & Objetivo Solicitado",
+      "score": 2.5,
+      "max_score": 2.5,
+      "passed": true,
+      "evaluation_criteria": "Alineación directa con el problema y requerimientos solicitados por el usuario, público objetivo e intención del entregable",
+      "findings": []
+    },
+    "2_technical_rigor_and_standards": {
+      "name": "Rigor Científico/Técnico & Estándares de Software",
+      "score": 2.5,
+      "max_score": 2.5,
+      "passed": true,
+      "evaluation_criteria": "Exactitud conceptual, Clean Code, principios SOLID, patrones de arquitectura, testing y referencias verificables",
+      "findings": []
+    },
+    "3_clarity_and_structure": {
+      "name": "Claridad, Coherencia & Estructura",
+      "score": 2.0,
+      "max_score": 2.0,
+      "passed": true,
+      "evaluation_criteria": "Estructura lógica, flujo argumental sólido, concisión, ausencia de prosa pasiva y formato académico/técnico",
+      "findings": []
+    },
+    "4_lexical_originality_and_anti_drift": {
+      "name": "Originalidad Léxica & Cero Clichés de IA",
+      "score": 2.0,
+      "max_score": 2.0,
+      "passed": true,
+      "evaluation_criteria": "Tolerancia cero a muletillas y frases hechas de LLMs (en resumen, es importante destacar, juega un papel crucial, etc.)",
+      "banned_phrases_found": [],
+      "findings": []
+    }
+  },
+  "total_score": 9.0,
+  "scale_max": 9.0,
+  "passing_threshold": 8.5,
+  "passed": true,
+  "status": "ready_for_hitl_2",
+  "banned_phrases_detected": [],
+  "actionable_feedback": [
+    "Mantener la concisión de los argumentos técnicos y la trazabilidad metodológica."
+  ],
+  "user_adjustments_applied": [],
+  "remediation_directives": []
+}

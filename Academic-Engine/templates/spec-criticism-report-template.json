@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SDDSpecCriticismReport",
+  "description": "Rúbrica y reporte formal de evaluación del Spec emitido por el Agente Revisor en el bucle Spec-Loop antes de HITL-1 (Escala 0 a 9, umbral >= 8.5).",
+  "spec_id": "SPEC-{{SLUG}}",
+  "cycle": 1,
+  "max_cycles": 5,
+  "timestamp": "2026-09-21T12:00:00Z",
+  "reviewer_agent": "academic-reviewer",
+  "editor_agent": "task-editor",
+  "hitl_stage": "SPEC_OPTIMIZATION",
+  "target_file": "Academic Vault/Inbox/Specs/{{SLUG}}.spec.md",
+  "scoring_dimensions": {
+    "1_requirements_and_pertinence": {
+      "name": "Pertinencia con los Requisitos & Objetivo Solicitado",
+      "score": 2.5,
+      "max_score": 2.5,
+      "passed": true,
+      "evaluation_criteria": "Alineación estricta del spec con los requisitos del usuario, desglose claro del problema e idoneidad del público objetivo (ICP/SENA)",
+      "findings": []
+    },
+    "2_technical_rigor_and_standards": {
+      "name": "Rigor Técnico, Criterios de Aceptación & Viabilidad",
+      "score": 2.5,
+      "max_score": 2.5,
+      "passed": true,
+      "evaluation_criteria": "Criterios de aceptación verificables, pasos atómicos accionables, dependencias claras y alineación con estándares de ingeniería",
+      "findings": []
+    },
+    "3_clarity_and_structure": {
+      "name": "Claridad Estructural & Desglose de Pasos",
+      "score": 2.0,
+      "max_score": 2.0,
+      "passed": true,
+      "evaluation_criteria": "Estructura formal completa (metadata, contexto, pasos, guardrails), sin ambigüedades ni inconsistencias",
+      "findings": []
+    },
+    "4_lexical_originality_and_anti_drift": {
+      "name": "Originalidad Léxica & Cero Clichés de IA",
+      "score": 2.0,
+      "max_score": 2.0,
+      "passed": true,
+      "evaluation_criteria": "Ausencia absoluta de muletillas de IA en las descripciones del requerimiento",
+      "banned_phrases_found": [],
+      "findings": []
+    }
+  },
+  "total_score": 9.0,
+  "scale_max": 9.0,
+  "passing_threshold": 8.5,
+  "passed": true,
+  "status": "ready_for_hitl_1",
+  "banned_phrases_detected": [],
+  "actionable_feedback": [],
+  "user_adjustments_applied": [],
+  "remediation_directives": []
+}
