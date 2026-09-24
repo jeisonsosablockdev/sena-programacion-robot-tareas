@@ -65,9 +65,9 @@ async function runSmokeTest() {
   // ───────────────────────────────────────────────────────────────────────────
   // PASO 1: SQUAD DE SUB-AGENTES AUTÓNOMOS (12 AGENTES)
   // ───────────────────────────────────────────────────────────────────────────
-  printHeader(1, 'SQUAD DE SUB-AGENTES HÍBRIDO (12 AGENTES)', 
-    'El sistema opera con 12 sub-agentes especializados:\n' +
-    '   6 de Negocio/Estrategia (YC) + 6 de Computación y Academia (SENA/CS).\n' +
+  printHeader(1, 'SQUAD DE SUB-AGENTES HÍBRIDO (17 AGENTES)', 
+    'El sistema opera con 17 sub-agentes especializados:\n' +
+    '   6 de Negocio/Estrategia (YC) + 7 de Computación/Academia + 4 de Desarrollo Software.\n' +
     '   Cada agente cuenta con contrato YAML autónomo, herramientas y roles delimitados.');
 
   const expectedAgents = [
@@ -78,13 +78,19 @@ async function runSmokeTest() {
     'founder-ghostwriter',
     'market-research-analyst',
     'pitch-deck-architect',
-    // Academic / CS Squad
+    // Academic / CS & Optimization Squad
     'cs-tutor',
     'code-reviewer',
     'research-librarian',
     'thesis-writer',
     'methodology-consultant',
-    'academic-reviewer'
+    'academic-reviewer',
+    'task-editor',
+    // Software Engineering & Developer Squad
+    'typescript-developer',
+    'rust-developer',
+    'python-developer',
+    'node-developer'
   ];
 
   let agentsFound = 0;
@@ -104,7 +110,7 @@ async function runSmokeTest() {
       assert(false, `Sub-agente '${agent}' no encontrado`);
     }
   }
-  assert(agentsFound === 12, 'Todos los 12 sub-agentes del squad están operativos (12/12)');
+  assert(agentsFound === expectedAgents.length, `Todos los ${expectedAgents.length} sub-agentes del squad están operativos (${agentsFound}/${expectedAgents.length})`);
 
   // ───────────────────────────────────────────────────────────────────────────
   // PASO 2: TAXONOMÍA CANÓNICA DE LA BÓVEDA OBSIDIAN

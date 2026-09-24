@@ -351,6 +351,29 @@ Comienza clonando el repositorio y agenda una sesión de revisión técnica con 
     execSync(`bash "${sddScript}" approve-deliverable "${testSddSlug}"`, { stdio: 'pipe' });
     const deliverableContent = fs.readFileSync(sddDeliverable, 'utf8');
     assert(deliverableContent.includes('sdd-approved') && deliverableContent.includes('hitl-validated'), 'El entregable final incluye metadatos de calidad y validación HITL');
+    console.log('');
+
+    // -------------------------------------------------------------
+    // TEST 8: Vault Search Engine Idempotency & Zero Mutation
+    // -------------------------------------------------------------
+    console.log('[TEST 8/8] Verificando Idempotencia y Cero Mutación en Motor de Búsqueda (vault-search)...');
+    const searchScript = path.join(SCRIPTS_DIR, 'vault-search.sh');
+    const testDocPath = path.join(VAULT_DIR, '00 System', 'THESIS_WORKFLOW.md');
+    const initialDocHash = getHash(testDocPath);
+
+    // 3 consecutive identical searches
+    const searchOut1 = execSync(`bash "${searchScript}" "SOLID" --limit 3 --json`, { encoding: 'utf8' });
+    const searchOut2 = execSync(`bash "${searchScript}" "SOLID" --limit 3 --json`, { encoding: 'utf8' });
+    const searchOut3 = execSync(`bash "${searchScript}" "SOLID" --limit 3 --json`, { encoding: 'utf8' });
+
+    assert(searchOut1 === searchOut2 && searchOut2 === searchOut3, 'vault-search genera resultados JSON byte a byte idénticos tras múltiples ejecuciones');
+
+    const parsedResults = JSON.parse(searchOut1);
+    assert(Array.isArray(parsedResults) && parsedResults.length > 0, 'vault-search devuelve resultados válidos y estructurados');
+
+    const finalDocHash = getHash(testDocPath);
+    assert(initialDocHash === finalDocHash, 'vault-search es 100% de solo lectura (cero mutación o efectos secundarios en el vault)');
+    console.log('');
 
     // -------------------------------------------------------------
     // SUMMARY

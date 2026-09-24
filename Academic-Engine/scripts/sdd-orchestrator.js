@@ -15,6 +15,7 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const { execSync } = require('child_process');
 
 const ROOT_DIR = path.resolve(__dirname, '../..');
 const VAULT_DIR = path.join(ROOT_DIR, 'Academic Vault');
@@ -39,7 +40,12 @@ const VALID_SUBAGENTS = [
   'thesis-writer',
   'methodology-consultant',
   'academic-reviewer',
-  'task-editor'
+  'task-editor',
+  // Software Engineering & Developer Squad
+  'typescript-developer',
+  'rust-developer',
+  'python-developer',
+  'node-developer'
 ];
 
 const VALID_VAULT_PREFIXES = [
@@ -511,6 +517,28 @@ function initSpec(slug, title, targetFolder, subagentsStr, icp, goal) {
   const defaultGoal = goal || `Especificación formal para ${title} en el contexto del programa de Software SENA.`;
   const defaultIcp = icp || 'Aprendices e Instructores SENA, Desarrolladores de Software';
 
+  // Automated Idempotent Context Retrieval via vault-search.ts
+  let vaultReferences = [
+    'Perfil de Curso SENA - Programación de Software (course-profile.md)',
+    'Guía de Estándares Clean Code y SOLID (cs-standards.md)'
+  ];
+  let contextChunks = [];
+  try {
+    const searchScript = path.join(__dirname, 'vault-search.ts');
+    const searchQuery = `${title} ${defaultGoal}`.replace(/["`$]/g, ' ');
+    const searchOut = execSync(`node --experimental-strip-types "${searchScript}" "${searchQuery}" --limit 3 --json`, {
+      encoding: 'utf8',
+      stdio: ['pipe', 'pipe', 'ignore']
+    });
+    const parsed = JSON.parse(searchOut);
+    if (Array.isArray(parsed) && parsed.length > 0) {
+      contextChunks = parsed;
+      vaultReferences = parsed.map(p => `${p.heading} (${p.relativePath})`);
+    }
+  } catch {
+    // Graceful fallback to default references if search fails or in offline tests
+  }
+
   const specMd = templateContent
     .replace(/\{\{SLUG\}\}/g, cleanSlug)
     .replace(/\{\{TITLE\}\}/g, title)
@@ -524,8 +552,8 @@ function initSpec(slug, title, targetFolder, subagentsStr, icp, goal) {
     .replace(/\{\{TARGET_ICP\}\}/g, defaultIcp)
     .replace(/\{\{PRIMARY_CTA\}\}/g, 'Revisar e implementar los módulos de código y especificaciones técnicas.')
     .replace(/\{\{PRIMARY_KPI\}\}/g, 'Superación de pruebas unitarias >= 90% y nota de auditoría >= 8.5/9.0')
-    .replace(/\{\{REFERENCE_DOC_1\}\}/g, 'Perfil de Curso SENA - Programación de Software')
-    .replace(/\{\{REFERENCE_DOC_2\}\}/g, 'Guía de Estándares Clean Code y SOLID')
+    .replace(/\{\{REFERENCE_DOC_1\}\}/g, vaultReferences[0] || 'course-profile.md')
+    .replace(/\{\{REFERENCE_DOC_2\}\}/g, vaultReferences[1] || 'cs-standards.md')
     .replace(/\{\{WORD_COUNT_RANGE\}\}/g, '500 - 1200 palabras');
 
   fs.writeFileSync(paths.specMdPath, specMd, 'utf8');
@@ -538,6 +566,7 @@ function initSpec(slug, title, targetFolder, subagentsStr, icp, goal) {
     target_vault_folder: normalizedTarget,
     target_file: canonicalVaultFile,
     subagents_involved: subagents,
+    context_retrieval: contextChunks,
     status: 'spec_review', // HITL-1 Review / Spec-Loop
     created_at: now,
     updated_at: now,

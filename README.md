@@ -91,9 +91,9 @@ sena-programacion-robot-tareas/
 
 ---
 
-## 🤖 El Squad de 13 Sub-Agentes
+## 🤖 El Squad de 17 Sub-Agentes
 
-El motor cuenta con un escuadrón de 13 agentes especializados definidos en `Academic-Engine/agents/*.yaml`:
+El motor cuenta con un escuadrón de 17 agentes especializados definidos en `Academic-Engine/agents/*.yaml`:
 
 ### 🎓 Sub-Agentes Académicos, Computer Science & Optimización (7 agentes)
 
@@ -106,6 +106,15 @@ El motor cuenta con un escuadrón de 13 agentes especializados definidos en `Aca
 | `methodology-consultant` | Consultor Metodológico & Estadístico | Diseñar instrumentos de investigación (encuestas, experimentos), análisis cuantitativo/cualitativo y UML. | `Academic Vault/Concepts/`, `Hypotheses/` |
 | `academic-reviewer` | Revisor Científico y Editorial (Auditor) | Auditar specs y borradores en bucles autónomos (escala 0-9 pts) evaluando pertinencia, rigor, fuentes y cero clichés. | `Academic Vault/Reviews/` |
 | `task-editor` | Editor Técnico & Optimizador de Calidad | Contraparte editora de los revisores: aplica remediaciones no destructivas a specs y borradores hasta superar >= 8.5/9.0. | `Academic Vault/Drafts/`, `Inbox/Specs/` |
+
+### 💻 Sub-Agentes de Desarrollo & Software Engineering (4 agentes)
+
+| Identificador | Rol | Misión Principal | Salidas Canónicas |
+|---|---|---|---|
+| `typescript-developer` | Arquitecto TypeScript & Tipado Estricto | Desarrollar aplicaciones type-safe, validación Zod, generics avanzados, builds ESM y soporte fullstack. | `Academic-Engine/`, `Drafts/`, `Projects/` |
+| `rust-developer` | Ingeniero de Sistemas & Alto Rendimiento (Rust) | Desarrollar herramientas CLI ultrarrápidas (`clap`), workspaces Cargo, concurrencia (`tokio`) y apps Tauri v2+. | `Academic-Engine/`, `Drafts/`, `Projects/` |
+| `python-developer` | Ingeniero Backend & Automatización Python | APIs (FastAPI/Flask), estilo Ruff/mypy, patrones de diseño, ejecución segura y auditoría Trail of Bits. | `Academic-Engine/`, `Drafts/`, `Projects/` |
+| `node-developer` | Ingeniero de Runtime & Herramientas Node.js | Microservicios backend, extensiones del harness y orquestador SDD, pipelines con streams y tests nativos. | `Academic-Engine/`, `Drafts/`, `Projects/` |
 
 ### 💼 Sub-Agentes de Negocio, Producto & Venture (6 agentes)
 

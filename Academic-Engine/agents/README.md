@@ -6,7 +6,7 @@ Each sub-agent lives as an individual, self-contained YAML file containing metad
 
 ---
 
-## The 13 Sub-Agents
+## The 17 Sub-Agents
 
 ### BRIDS Founder & YC Sub-Agent Squad (6 agents)
 
@@ -30,6 +30,15 @@ Each sub-agent lives as an individual, self-contained YAML file containing metad
 | `methodology-consultant` | [`methodology-consultant.yaml`](methodology-consultant.yaml) | Research Methodology & Statistical Consultant | Design research instruments, statistical analysis, methodological frameworks, process diagrams. |
 | `academic-reviewer` | [`academic-reviewer.yaml`](academic-reviewer.yaml) | Scientific & Editorial Reviewer (Auditor) | Audit specs and drafts for rigor, coherence, requirements pertinence, and zero clichés. Scores across 4 dimensions (0-9, threshold >= 8.5). |
 | `task-editor` | [`task-editor.yaml`](task-editor.yaml) | Technical Editor & Continuous Quality Optimizer (Editor Counterpart) | Remediation and optimization counterpart to the reviewers. Ingests criticism reports, applies non-destructive fixes, and drives iterations to >= 8.5/9.0. |
+
+### Software Engineering & Developer Squad (4 agents)
+
+| Agent Identifier | YAML Definition | Role | Core Focus |
+|---|---|---|---|
+| `typescript-developer` | [`typescript-developer.yaml`](typescript-developer.yaml) | TypeScript Application & Type-Safe Architect | Strictly typed TypeScript applications, Zod boundary validation, generics, utility types, ESM builds, and full-stack integration. |
+| `rust-developer` | [`rust-developer.yaml`](rust-developer.yaml) | Rust Systems & High-Performance Engineer | Memory-safe systems programming, Cargo workspaces, high-performance CLI utilities (`clap`), concurrency (`tokio`), Tauri v2+ desktop/mobile apps. |
+| `python-developer` | [`python-developer.yaml`](python-developer.yaml) | Python Backend & Automation Engineer | Python 3.10+ APIs/CLIs, Ruff styling, strict mypy, design patterns, safe execution, and Trail of Bits security auditing. |
+| `node-developer` | [`node-developer.yaml`](node-developer.yaml) | Node.js Runtime & Harness Tooling Engineer | Server-side Node.js applications, automation scripts, harness workflow extensions, safe child process management, streams, and native test runners. |
 
 ---
 

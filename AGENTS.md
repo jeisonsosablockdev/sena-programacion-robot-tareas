@@ -31,6 +31,7 @@
 | Inspect Agent Squad | `bash Academic-Engine/scripts/inspect-squad.sh` |
 | End-to-End System Smoke Test | `bash Academic-Engine/tests/smoke-test.sh` |
 | Export LaTeX / Markdown to PDF | `bash Academic-Engine/scripts/export-pdf.sh <file.md\|file.tex> [out.pdf] [--raw] [--open]` |
+| Lean Vault & Context Search (TS) | `bash Academic-Engine/scripts/vault-search.sh "<termino>" [--category <cat>] [--limit 5] [--json]` |
 
 ## Commit Attribution
 - AI commits MUST include:
@@ -104,8 +105,8 @@ Para prevenir el drifting contextual y garantizar pertinencia y rigor técnico a
 - The Obsidian vault is `Academic Vault/`
 - Local REST API is active on HTTPS port `27124` with Bearer token authentication
 
-## Hybrid Agent Squad (Business + Academic/CS + Optimization)
-The workspace includes 13 specialized sub-agents defined in `Academic-Engine/agents/`:
+## Hybrid Agent Squad (Business + Academic/CS + Development + Optimization)
+The workspace includes 17 specialized sub-agents defined in `Academic-Engine/agents/`:
 
 ### BRIDS Founder & YC Sub-Agent Squad (6 agents)
 | Agent Identifier | Role | Core Mission |
@@ -127,6 +128,14 @@ The workspace includes 13 specialized sub-agents defined in `Academic-Engine/age
 | `methodology-consultant` | Research Methodology & Statistical Consultant | Survey design, statistical analysis, methodological frameworks |
 | `academic-reviewer` | Scientific & Editorial Reviewer (Auditor) | Audit specs and drafts for rigor, coherence, citations, requirements pertinence (>= 8.5/9.0) |
 | `task-editor` | Technical Editor & Continuous Quality Optimizer | Reviewer counterpart: non-destructive remediation of specs and drafts until reaching >= 8.5/9.0 |
+
+### Software Engineering & Developer Squad (4 agents)
+| Agent Identifier | Role | Core Mission |
+|---|---|---|
+| `typescript-developer` | TypeScript Application & Type-Safe Architect | Strictly typed TS apps, Zod validation, generics, utility types, ESM builds |
+| `rust-developer` | Rust Systems & High-Performance Engineer | Memory-safe systems, Cargo workspaces, high-perf CLI (`clap`), `tokio`, Tauri v2 cross-platform apps |
+| `python-developer` | Python Backend & Automation Engineer | Python 3.10+ APIs/CLIs, Ruff/mypy, design patterns, executor, Trail of Bits security |
+| `node-developer` | Node.js Runtime & Harness Tooling Engineer | Node.js services, harness CLI automation, process safety, streaming, native tests |
 
 - Definitions: Individual YAML files in `Academic-Engine/agents/*.yaml`
 - Verification: `bash Academic-Engine/scripts/inspect-squad.sh`
