@@ -28,7 +28,7 @@ tags:
 - **Tipo de Documento:** C.C. (Cédula de Ciudadanía)
 - **Número de Documento:** 1014182421
 - **Correo Electrónico Personal:** jeisonjsosar@gmail.com
-- **Correo Institucional MiSENA:** jeisonjsosar@misena.edu.co
+- **Correo Institucional SENA (User ID):** jeison.julian.sosa.rodriguez.8333162@soy.sena.edu.co
 - **Teléfono / Móvil:** +57 3028422233
 - **Ubicación:** Bogotá, Bogotá D.C., Colombia
 

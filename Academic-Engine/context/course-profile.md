@@ -30,7 +30,7 @@ tags:
 - **Nombre del Aprendiz:** Jeison Julián Sosa Rodríguez
 - **Documento:** C.C. 1014182421
 - **Ficha de Caracterización:** 3607701 (LMS: `P_233104_V_3607701_R_17_C_9219`)
-- **Correo Electrónico:** jeisonjsosar@gmail.com / jeisonjsosar@misena.edu.co
+- **Correo Electrónico:** jeisonjsosar@gmail.com / jeison.julian.sosa.rodriguez.8333162@soy.sena.edu.co
 - **GitHub:** [jeisonsosablockdev](https://github.com/jeisonsosablockdev)
 - **Rol:** Aprendiz SENA en Programación de Software
 - **Entorno de Trabajo:** macOS / Unix & Windows PowerShell con Git, VS Code y Obsidian

@@ -12,8 +12,10 @@ regional: "Caldas (R_17)"
 center: "Centro de Automatización Industrial (C_9219)"
 modality: "Virtual 100%"
 city: "Bogotá, Bogotá D.C."
+email_personal: "jeisonjsosar@gmail.com"
+email_sena: "jeison.julian.sosa.rodriguez.8333162@soy.sena.edu.co"
 status: active
-version: "1.1"
+version: "1.2"
 workflow: student-profile
 last_updated: 2026-09-25
 tags:
@@ -40,7 +42,7 @@ tags:
 | **Tipo de Documento** | Cédula de Ciudadanía (C.C.) | ✅ Confirmado |
 | **Número de Documento** | **1014182421** | ✅ Confirmado |
 | **Correo Personal** | `jeisonjsosar@gmail.com` | ✅ Confirmado |
-| **Correo Institucional MiSENA** | `jeisonjsosar@misena.edu.co` | ✅ Asignado |
+| **Correo Institucional SENA (User ID)** | `jeison.julian.sosa.rodriguez.8333162@soy.sena.edu.co` | ✅ Confirmado |
 | **Teléfono / Móvil** | **+57 3028422233** | ✅ Confirmado |
 | **Ciudad de Residencia** | **Bogotá** | ✅ Confirmado |
 | **Departamento / Distrito** | **Bogotá D.C., Colombia** | ✅ Confirmado |
@@ -104,7 +106,7 @@ El siguiente bloque es el formato estándar institucional que el sistema inyecta
 **APRENDIZ:**  
 Jeison Julián Sosa Rodríguez  
 Documento de Identidad: C.C. 1014182421  
-Correo Electrónico: jeisonjsosar@gmail.com  
+Correo Electrónico: jeison.julian.sosa.rodriguez.8333162@soy.sena.edu.co / jeisonjsosar@gmail.com  
 Teléfono de Contacto: +57 3028422233  
 Repositorio GitHub: https://github.com/jeisonsosablockdev  
 
@@ -147,3 +149,4 @@ Esta ficha interactúa automáticamente con los motores del workspace:
 |---|---|---|---|
 | `v1.0` | 2026-09-25 | Robot de Tareas (Academic-Engine) | Creación inicial de la Ficha Maestra con identidad preliminar. |
 | `v1.1` | 2026-09-25 | Jeison Julián Sosa Rodríguez | Registro completo de C.C. 1014182421, celular, correo, GitHub, nivel Técnico y confirmación de la Ficha 3607701 (LMS: `P_233104_V_3607701_R_17_C_9219`). |
+| `v1.2` | 2026-09-25 | Jeison Julián Sosa Rodríguez | Registro y validación del correo institucional oficial SENA (User ID: `jeison.julian.sosa.rodriguez.8333162@soy.sena.edu.co`). |
