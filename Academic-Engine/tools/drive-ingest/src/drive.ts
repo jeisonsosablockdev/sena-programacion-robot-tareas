@@ -124,38 +124,50 @@ export async function listFilesInFolder(
   const data = await res.json() as any;
   const items = data.files || [];
 
+  async function crawlFolder(folderId: string, classFolderName: string): Promise<void> {
+    const subQuery = encodeURIComponent(`'${folderId}' in parents and trashed = false`);
+    const subUrl = `${DRIVE_API_BASE}?q=${subQuery}&fields=${fields}&pageSize=100`;
+
+    const subRes = await fetch(subUrl, {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+
+    if (!subRes.ok) return;
+
+    const subData = await subRes.json() as any;
+    const children = subData.files || [];
+
+    for (const child of children) {
+      if (!child.id || !child.name) continue;
+
+      if (child.mimeType === 'application/vnd.google-apps.folder') {
+        // Recurse into nested folders (e.g. Materiales, Anexos) keeping the parent class name
+        await crawlFolder(child.id, classFolderName);
+      } else {
+        const kind = classifyDriveItem(child);
+        if (kind !== 'other') {
+          itemsDiscovered.push({
+            id: child.id,
+            name: child.name,
+            mimeType: child.mimeType || '',
+            sizeBytes: parseInt(child.size || '0', 10),
+            classFolderName,
+            webViewLink: child.webViewLink || undefined,
+            md5Checksum: child.md5Checksum || undefined,
+            modifiedTime: child.modifiedTime || undefined,
+            kind
+          });
+        }
+      }
+    }
+  }
+
   for (const item of items) {
     if (!item.id || !item.name) continue;
 
     if (item.mimeType === 'application/vnd.google-apps.folder') {
-      // Subfolder (e.g. "Clase 1 - Introduccion", "Clase 2")
-      const subQuery = encodeURIComponent(`'${item.id}' in parents and trashed = false`);
-      const subUrl = `${DRIVE_API_BASE}?q=${subQuery}&fields=${fields}&pageSize=100`;
-
-      const subRes = await fetch(subUrl, {
-        headers: { Authorization: `Bearer ${accessToken}` }
-      });
-
-      if (subRes.ok) {
-        const subData = await subRes.json() as any;
-        const subFiles = subData.files || [];
-        for (const subFile of subFiles) {
-          const kind = classifyDriveItem(subFile);
-          if (kind !== 'other') {
-            itemsDiscovered.push({
-              id: subFile.id,
-              name: subFile.name,
-              mimeType: subFile.mimeType || '',
-              sizeBytes: parseInt(subFile.size || '0', 10),
-              classFolderName: item.name,
-              webViewLink: subFile.webViewLink || undefined,
-              md5Checksum: subFile.md5Checksum || undefined,
-              modifiedTime: subFile.modifiedTime || undefined,
-              kind
-            });
-          }
-        }
-      }
+      // Subfolder for a class (e.g. "Clase 1")
+      await crawlFolder(item.id, item.name);
     } else {
       const kind = classifyDriveItem(item);
       if (kind !== 'other') {

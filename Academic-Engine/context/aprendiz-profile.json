@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "version": "1.0.0",
+  "last_updated": "2026-09-25",
+  "datos_personales": {
+    "nombre_completo": "Jeison Julián Sosa Rodríguez",
+    "documento_identidad": {
+      "tipo": "C.C.",
+      "numero": "1014182421"
+    },
+    "contacto": {
+      "correo_personal": "jeisonjsosar@gmail.com",
+      "correo_institucional": "jeisonjsosar@misena.edu.co",
+      "telefono": "+57 3028422233",
+      "ciudad": "Bogotá",
+      "departamento": "Bogotá D.C.",
+      "pais": "Colombia"
+    }
+  },
+  "datos_institucionales": {
+    "institucion": "SENA (Servicio Nacional de Aprendizaje) - Colombia",
+    "regional": "Regional Caldas (R_17)",
+    "centro_formacion": "Centro de Automatización Industrial (C_9219)",
+    "programa_formacion": "Técnico en Programación de Software",
+    "codigo_programa": "233104",
+    "nivel_formacion": "Técnico",
+    "numero_ficha": "3607701",
+    "codigo_curso_lms": "P_233104_V_3607701_R_17_C_9219",
+    "modalidad": "Virtual 100%",
+    "plataformas": [
+      "Zajuna (LMS Oficial)",
+      "SENA Sofia Plus"
+    ],
+    "fase_actual": "Fase de Inducción"
+  },
+  "equipo_ejecutor_instructores": [
+    {
+      "nombre": "Paola Andrea Ocampo Ayala",
+      "rol": "Instructora Vocera y Tutora Técnica Líder",
+      "referencia_vault": "Profesores/paola-andrea-ocampo-ayala.md"
+    },
+    {
+      "nombre": "Fernando López Trujillo",
+      "rol": "Instructor Especialista en Desarrollo y Programación de Software",
+      "referencia_vault": "Profesores/fernando-lopez-trujillo.md"
+    }
+  ],
+  "perfil_tecnico": {
+    "rol": "Aprendiz SENA en Programación de Software",
+    "usuario_github": "jeisonsosablockdev",
+    "url_github": "https://github.com/jeisonsosablockdev",
+    "entorno_trabajo": "macOS / Unix & Windows PowerShell",
+    "editores_herramientas": [
+      "Visual Studio Code",
+      "Git / GitHub",
+      "Obsidian",
+      "Terminal Bash / zsh",
+      "Docker"
+    ],
+    "lenguajes_stack": [
+      "Python",
+      "JavaScript / TypeScript",
+      "SQL (MySQL / PostgreSQL)",
+      "HTML5 / CSS3",
+      "Markdown / LaTeX"
+    ]
+  }
+}

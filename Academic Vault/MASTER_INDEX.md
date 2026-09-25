@@ -9,6 +9,8 @@ Use it to keep coherence between `Projects`, `Sources`, `Drafts`, `Reviews`, `Hy
 - [[README|README]]
 - [[Projects/PROJECTS_INDEX|Projects Index]]
 - [[Sources/SOURCES_INDEX|Sources Index]]
+- [[00 System/FICHA_APRENDIZ|Ficha del Aprendiz (Jeyson Julián Sosa Rodríguez)]]
+- [[Profesores/00. PROFESORES_INDEX|Directorio de Profesores e Instructores]]
 - [[00 System/PROJECT_WORKFLOW|Project Workflow]]
 - [[00 System/RESEARCH_WORKFLOW|Research Workflow]]
 - [[00 System/THESIS_WORKFLOW|Thesis Workflow]]

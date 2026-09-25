@@ -31,7 +31,7 @@ Uso:
   bash Academic-Engine/scripts/new-project.sh "<Nombre del Proyecto>" "[pregunta o meta]" "[autor]"
 
 Ejemplo:
-  bash Academic-Engine/scripts/new-project.sh "Sistema Gestion Inventario SENA" "Desarrollo de API REST con Python y MySQL" "Julian David Sosa Rico"
+  bash Academic-Engine/scripts/new-project.sh "Sistema Gestion Inventario SENA" "Desarrollo de API REST con Python y MySQL" "Jeison Julián Sosa Rodríguez"
 `);
     return;
   }
@@ -39,7 +39,20 @@ Ejemplo:
   const rawName = args[0];
   const projectName = sanitizeName(rawName);
   const goal = args[1] || 'Desarrollo de proyecto de software formativo SENA';
-  const author = args[2] || 'Julian David Sosa Rico';
+
+  // Leer autor por defecto desde la ficha central del aprendiz si existe
+  let defaultAuthor = 'Jeison Julián Sosa Rodríguez';
+  try {
+    const profilePath = path.join(ROOT_DIR, 'Academic-Engine', 'context', 'aprendiz-profile.json');
+    if (fs.existsSync(profilePath)) {
+      const profile = JSON.parse(fs.readFileSync(profilePath, 'utf8'));
+      if (profile.datos_personales && profile.datos_personales.nombre_completo) {
+        defaultAuthor = profile.datos_personales.nombre_completo;
+      }
+    }
+  } catch (_) {}
+
+  const author = args[2] || defaultAuthor;
   const currentDate = new Date().toISOString().split('T')[0];
 
   console.log(`\n🚀 Initializing project: "${projectName}"`);

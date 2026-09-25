@@ -46,12 +46,13 @@ tags:
 
 ## 2. Contexto y Equipo Ejecutor de Formación
 
-* **Programa:** Tecnólogo en Análisis y Desarrollo de Software (ADSO) / Sistemas Virtual.
+* **Programa:** Tecnólogo en Análisis y Desarrollo de Software (ADSO) y Técnico en Programación de Software (Ficha 3607701 - Código Zajuna: `P_233104_V_3607701_R_17_C_9219`).
 * **Fecha de Sesión Sincrónica:** 10 de abril de 2026.
 * **Duración Grabación:** 2 horas, 1 minuto, 50 segundos.
 * **Instructores Líderes de la Sesión:**
   * **Instructora Paola Andrea Ocampo Ayala:** Tutora líder y vocera de las fichas de formación ([[Profesores/paola-andrea-ocampo-ayala|Ver Ficha de Instructora]]).
-  * **Instructor Fernando López Trujillo:** Instructor técnico especialista en algoritmos y proyectos ([[Profesores/fernando-lopez-trujillo|Ver Ficha de Instructor]]).
+  * **Instructor Fernando López Trujillo:** Instructor técnico especialista a cargo de Programación de Software ([[Profesores/fernando-lopez-trujillo|Ver Ficha de Instructor]]).
+* **Ficha Maestra del Aprendiz:** [[00 System/FICHA_APRENDIZ|Jeison Julián Sosa Rodríguez (Ficha 3607701)]].
 * **Dinámica Interdisciplinaria:**
   * A lo largo del trimestre lectivo, los aprendices interactúan de forma paralela con un equipo de aproximadamente **cinco (5) instructores simultáneos**, encargados de competencias técnicas y competencias transversales (comunicación, ética, matemáticas, física, inglés y derechos fundamentales del trabajo).
 
@@ -133,6 +134,14 @@ El SENA opera bajo un sistema de evaluación por competencias de escala binaria:
 ---
 
 ## 8. Recursos y Transcripción Completa
+* 📄 **Material de Apoyo (PDF):** [[Materiales/cf02-cfa|PDF: CF02 CFA]]
+* 📄 **Material de Apoyo (PDF):** [[Materiales/cf1|PDF: CF1]]
+* 📄 **Material de Apoyo (PDF):** [[Materiales/cf3|PDF: CF3]]
+* 📄 **Material de Apoyo (PDF):** [[Materiales/acuerdo-007-de-2012-servicio-nacional-de-aprendizaje-sena|PDF: Acuerdo 007 de 2012 [Servicio Nacional de Aprendizaje SENA]]]
+* 📄 **Material de Apoyo (PDF):** [[Materiales/sena-2013-proyecto-educativo-institucional|PDF: SENA, (2013). Proyecto Educativo Institucional]]
+* 📄 **Material de Apoyo (PDF):** [[Materiales/amor-s-a-2011-desarrollo-e-implementaci-n-de-la-formaci-n-por-proyectos-en-el-sena|PDF: Amorﺂs, A. (2011). Desarrollo e implementaciﺂn de la formaciﺂn por proyectos en el SENA]]
+* 📄 **Material de Apoyo (PDF):** [[Materiales/zapata-l-2018-el-instructor-y-la-formaci-n-por-proyectos-en-el-sena|PDF: Zapata, L. (2018). El instructor y la formaciﺂn por proyectos en el SENA]]
+* 📄 **Material de Apoyo (PDF):** [[Materiales/sena-2014-gesti-n-de-proyectos-de-formaci-n-desde-la-ingenier-a-pedag-gica|PDF: SENA, (2014). Gestiﺂn de proyectos de formaciﺂn desde la ingenier­a pedagﺂgica.]]
 
 * 📄 **Guía de Aprendizaje (PDF):** [[Materiales/copy-of-guia-aprendizaje-ind1|Ver Digest de la Guía de Aprendizaje]]
 * 📊 **Diapositivas de la Sesión (PPTX):** [[Materiales/copy-of-induccion|Ver Digest de la Presentación]]

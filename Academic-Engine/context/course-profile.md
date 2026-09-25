@@ -20,16 +20,21 @@ tags:
 ## Institución y Programa
 
 - **Institución:** SENA (Servicio Nacional de Aprendizaje) - Colombia
-- **Programa:** Programación de Software (Técnico / Tecnólogo)
-- **Modalidad:** 100% Virtual (Plataforma LMS ZAJUNA / SOFIA Plus / Territorium)
-- **Centro de Formación:** Centro de Servicios y Gestión Empresarial / Teleinformática
-- **Regional:** Colombia
+- **Programa:** Técnico en Programación de Software (Código: 233104)
+- **Modalidad:** 100% Virtual (Plataforma LMS ZAJUNA / SOFIA Plus)
+- **Centro de Formación:** Centro de Automatización Industrial (C_9219)
+- **Regional:** Regional Caldas (R_17)
 
 ## Estudiante / Aprendiz
 
-- **Nombre del Aprendiz:** Julian David Sosa Rico
-- **Rol:** Aprendiz SENA en Desarrollo de Software
+- **Nombre del Aprendiz:** Jeison Julián Sosa Rodríguez
+- **Documento:** C.C. 1014182421
+- **Ficha de Caracterización:** 3607701 (LMS: `P_233104_V_3607701_R_17_C_9219`)
+- **Correo Electrónico:** jeisonjsosar@gmail.com / jeisonjsosar@misena.edu.co
+- **GitHub:** [jeisonsosablockdev](https://github.com/jeisonsosablockdev)
+- **Rol:** Aprendiz SENA en Programación de Software
 - **Entorno de Trabajo:** macOS / Unix & Windows PowerShell con Git, VS Code y Obsidian
+- **Ficha Maestra de Datos:** [[00 System/FICHA_APRENDIZ|Ficha Maestra del Aprendiz]] / `Academic-Engine/context/aprendiz-profile.json`
 
 ## Objetivos de Aprendizaje del Programa
 
