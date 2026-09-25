@@ -54,9 +54,26 @@ Cualquier digest generado automáticamente o redactado manualmente para una clas
 
 ---
 
-## 3. Comandos de Ejecución
+## 3. Subcarpeta de Materiales y Anexos (`Materiales/`)
 
-Para sincronizar e ingerir videos pendientes desde Google Drive:
+Para guías de aprendizaje en PDF o diapositivas en PPTX agregadas a la carpeta de la clase:
+* Los archivos se analizan y se genera un digest independiente en `Materiales/<slug-material>.md`.
+* Los binarios descargados se respaldan en `Materiales/raw/`.
+* El digest maestro `<slug-clase>.md` vincula automáticamente los materiales bajo `## 8. Recursos y Transcripción Completa`.
+
+---
+
+## 4. Deduplicación Cero-Redundancia mediante Hashing (MD5 + SHA-256)
+
+El motor implementa una doble barrera criptográfica de deduplicación:
+1. **Filtro Pre-Descarga (Drive MD5 Checksum):** Compara el checksum nativo de Google Drive contra el registro inmutable en `.ingested_videos.json`. Si el hash ya existe, se cancela la descarga inmediatamente.
+2. **Filtro Post-Descarga (SHA-256):** Para archivos exportados o sin checksum remoto, calcula el hash SHA-256 local y valida contra todos los archivos del repositorio para evitar duplicados aunque tengan nombres diferentes.
+
+---
+
+## 5. Comandos de Ejecución
+
+Para sincronizar e ingerir materiales y videos pendientes desde Google Drive:
 
 ```bash
 # Ingesta completa con detección de GPU Metal y transcripción

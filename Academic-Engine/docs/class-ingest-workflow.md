@@ -25,4 +25,15 @@ Per user requirement and system governance, all class digest notes MUST adhere t
 9. **`## 8. Recursos y Transcripción Completa`**: Links to full transcript, text backup, and instructor dossiers.
 10. **`## 9. Historial de Revisiones`**: Audit changelog.
 
-> **CRITICAL RULE:** Never place the Action Plan at the bottom of the digest. The learner must see pending actions and homework upfront upon opening the note.
+## Multi-Asset Ingestion & Subfolder Taxonomy
+
+When learning guides (PDFs) or slide decks (PPTX) are added to a class folder:
+1. They are ingested into `Academic Vault/Clases/<slug>/Materiales/<material-slug>.md`.
+2. Raw binary files are preserved under `Materiales/raw/`.
+3. The Master Class Digest `<slug>.md` automatically links to them under `## 8. Recursos y Transcripción Completa`.
+
+## Cryptographic Deduplication (Double Hashing)
+
+To guarantee zero duplicate work and prevent re-ingesting identical files:
+1. **Pre-Download Filter:** Checks Google Drive's native `md5Checksum` against `.ingested_videos.json`. If matched, download is cancelled immediately.
+2. **Post-Download Filter:** Computes local `SHA-256` hash and verifies against all existing assets in the vault, detecting duplicate content even if uploaded with a different file name.

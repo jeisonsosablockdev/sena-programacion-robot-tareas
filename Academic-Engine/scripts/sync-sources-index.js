@@ -39,46 +39,35 @@ function parseFrontmatter(content) {
 function scanConvertedFolder(baseDir, defaultKind) {
   if (!fs.existsSync(baseDir)) return [];
   const entries = [];
-  const items = fs.readdirSync(baseDir);
 
-  for (const item of items) {
-    if (item.startsWith('.')) continue;
-    const fullPath = path.join(baseDir, item);
-    const stat = fs.statSync(fullPath);
+  function walk(currentDir) {
+    const items = fs.readdirSync(currentDir);
+    for (const item of items) {
+      if (item.startsWith('.') || item === 'raw') continue;
+      const fullPath = path.join(currentDir, item);
+      const stat = fs.statSync(fullPath);
 
-    if (stat.isDirectory()) {
-      const files = fs.readdirSync(fullPath).filter(f => f.endsWith('.md') && !f.startsWith('.'));
-      for (const file of files) {
-        const filePath = path.join(fullPath, file);
-        const content = fs.readFileSync(filePath, 'utf8');
+      if (stat.isDirectory()) {
+        walk(fullPath);
+      } else if (item.endsWith('.md')) {
+        const content = fs.readFileSync(fullPath, 'utf8');
         const meta = parseFrontmatter(content);
+        const slug = path.basename(item, '.md');
         entries.push({
-          slug: item,
-          title: meta.title || item,
+          slug,
+          title: meta.title || slug,
           kind: meta.kind || defaultKind,
           year: meta.year || (meta.date_ingested ? (meta.date_ingested || '').slice(0, 4) : '2026'),
           authors: meta.authors || meta.author || '—',
           url: meta.source_url || (defaultKind === 'pdf' ? '[PDF](original.pdf)' : 'web'),
           status: meta.status || 'converted',
-          relVaultPath: path.relative(VAULT_DIR, filePath)
+          relVaultPath: path.relative(VAULT_DIR, fullPath)
         });
       }
-    } else if (item.endsWith('.md')) {
-      const content = fs.readFileSync(fullPath, 'utf8');
-      const meta = parseFrontmatter(content);
-      const slug = path.basename(item, '.md');
-      entries.push({
-        slug,
-        title: meta.title || slug,
-        kind: meta.kind || defaultKind,
-        year: meta.year || (meta.date_ingested ? (meta.date_ingested || '').slice(0, 4) : '2026'),
-        authors: meta.authors || meta.author || '—',
-        url: meta.source_url || (defaultKind === 'pdf' ? '[PDF](original.pdf)' : 'web'),
-        status: meta.status || 'converted',
-        relVaultPath: path.relative(VAULT_DIR, fullPath)
-      });
     }
   }
+
+  walk(baseDir);
   return entries;
 }
 

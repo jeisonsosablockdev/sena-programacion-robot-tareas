@@ -4,13 +4,18 @@ import readline from 'readline';
 import { Readable } from 'stream';
 import { updateEnvVariables } from './config';
 
-export interface DiscoveredVideo {
+export type DriveItemKind = 'video' | 'pdf' | 'presentation' | 'document' | 'other';
+
+export interface DiscoveredDriveItem {
   id: string;
   name: string;
   mimeType: string;
   sizeBytes: number;
   classFolderName: string;
   webViewLink?: string;
+  md5Checksum?: string;
+  modifiedTime?: string;
+  kind: DriveItemKind;
 }
 
 export interface DriveFolderItem {
@@ -19,6 +24,39 @@ export interface DriveFolderItem {
 }
 
 const DRIVE_API_BASE = 'https://www.googleapis.com/drive/v3/files';
+
+export function classifyDriveItem(file: { name?: string; mimeType?: string }): DriveItemKind {
+  const mime = (file.mimeType || '').toLowerCase();
+  const name = (file.name || '').toLowerCase();
+
+  if (
+    mime.startsWith('video/') ||
+    mime.startsWith('audio/') ||
+    /\.(mp4|mkv|mov|webm|avi|mp3|m4a|wav|aac)$/i.test(name)
+  ) {
+    return 'video';
+  }
+  if (mime === 'application/pdf' || name.endsWith('.pdf')) {
+    return 'pdf';
+  }
+  if (
+    mime === 'application/vnd.openxmlformats-officedocument.presentationml.presentation' ||
+    mime === 'application/vnd.ms-powerpoint' ||
+    mime === 'application/vnd.google-apps.presentation' ||
+    /\.(pptx|ppt)$/i.test(name)
+  ) {
+    return 'presentation';
+  }
+  if (
+    mime === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
+    mime === 'application/vnd.google-apps.document' ||
+    /\.(docx|doc)$/i.test(name)
+  ) {
+    return 'document';
+  }
+
+  return 'other';
+}
 
 /**
  * Searches for folders containing a specific name string.
@@ -61,17 +99,17 @@ export async function getFolderDetails(accessToken: string, folderId: string): P
 }
 
 /**
- * Recursively discovers video/audio files organized under class folders.
+ * Recursively discovers all learning materials (videos, PDFs, PPTX, Docs) organized under class folders.
  */
-export async function listVideosInFolder(
+export async function listFilesInFolder(
   accessToken: string,
   rootFolderId: string
-): Promise<DiscoveredVideo[]> {
-  const videos: DiscoveredVideo[] = [];
+): Promise<DiscoveredDriveItem[]> {
+  const itemsDiscovered: DiscoveredDriveItem[] = [];
 
   // 1. Get immediate children of root folder
   const queryChildren = encodeURIComponent(`'${rootFolderId}' in parents and trashed = false`);
-  const fields = encodeURIComponent('files(id, name, mimeType, size, webViewLink)');
+  const fields = encodeURIComponent('files(id, name, mimeType, size, webViewLink, md5Checksum, modifiedTime)');
   const url = `${DRIVE_API_BASE}?q=${queryChildren}&fields=${fields}&pageSize=100`;
 
   const res = await fetch(url, {
@@ -92,7 +130,7 @@ export async function listVideosInFolder(
     if (item.mimeType === 'application/vnd.google-apps.folder') {
       // Subfolder (e.g. "Clase 1 - Introduccion", "Clase 2")
       const subQuery = encodeURIComponent(`'${item.id}' in parents and trashed = false`);
-      const subUrl = `${DRIVE_API_BASE}?q=${subQuery}&fields=${fields}&pageSize=50`;
+      const subUrl = `${DRIVE_API_BASE}?q=${subQuery}&fields=${fields}&pageSize=100`;
 
       const subRes = await fetch(subUrl, {
         headers: { Authorization: `Bearer ${accessToken}` }
@@ -102,56 +140,64 @@ export async function listVideosInFolder(
         const subData = await subRes.json() as any;
         const subFiles = subData.files || [];
         for (const subFile of subFiles) {
-          if (isVideoOrAudio(subFile)) {
-            videos.push({
+          const kind = classifyDriveItem(subFile);
+          if (kind !== 'other') {
+            itemsDiscovered.push({
               id: subFile.id,
               name: subFile.name,
-              mimeType: subFile.mimeType || 'video/mp4',
+              mimeType: subFile.mimeType || '',
               sizeBytes: parseInt(subFile.size || '0', 10),
               classFolderName: item.name,
-              webViewLink: subFile.webViewLink || undefined
+              webViewLink: subFile.webViewLink || undefined,
+              md5Checksum: subFile.md5Checksum || undefined,
+              modifiedTime: subFile.modifiedTime || undefined,
+              kind
             });
           }
         }
       }
-    } else if (isVideoOrAudio(item)) {
-      // Video located directly in the root folder
-      videos.push({
-        id: item.id,
-        name: item.name,
-        mimeType: item.mimeType || 'video/mp4',
-        sizeBytes: parseInt(item.size || '0', 10),
-        classFolderName: 'Raíz SENA',
-        webViewLink: item.webViewLink || undefined
-      });
+    } else {
+      const kind = classifyDriveItem(item);
+      if (kind !== 'other') {
+        itemsDiscovered.push({
+          id: item.id,
+          name: item.name,
+          mimeType: item.mimeType || '',
+          sizeBytes: parseInt(item.size || '0', 10),
+          classFolderName: 'Raíz SENA',
+          webViewLink: item.webViewLink || undefined,
+          md5Checksum: item.md5Checksum || undefined,
+          modifiedTime: item.modifiedTime || undefined,
+          kind
+        });
+      }
     }
   }
 
-  return videos;
-}
-
-function isVideoOrAudio(file: { name?: string; mimeType?: string }): boolean {
-  const mime = file.mimeType || '';
-  const name = (file.name || '').toLowerCase();
-  const isVideoMime = mime.startsWith('video/') || mime.startsWith('audio/');
-  const hasExt = /\.(mp4|mkv|mov|webm|avi|mp3|m4a|wav|aac)$/i.test(name);
-  return isVideoMime || hasExt;
+  return itemsDiscovered;
 }
 
 /**
- * Downloads a file from Google Drive to a local path using native fetch stream.
+ * Downloads a file or exports a Google Doc/Slide from Google Drive to a local path using native fetch stream.
  */
 export async function downloadDriveFile(
   accessToken: string,
   fileId: string,
-  destinationPath: string
+  destinationPath: string,
+  isGoogleNative: boolean = false
 ): Promise<string> {
   const dir = path.dirname(destinationPath);
   fs.mkdirSync(dir, { recursive: true });
 
   console.log(`[Drive] Iniciando descarga de archivo ID: ${fileId}...`);
 
-  const url = `${DRIVE_API_BASE}/${fileId}?alt=media`;
+  let url: string;
+  if (isGoogleNative) {
+    url = `${DRIVE_API_BASE}/${fileId}/export?mimeType=application/pdf`;
+  } else {
+    url = `${DRIVE_API_BASE}/${fileId}?alt=media`;
+  }
+
   const res = await fetch(url, {
     headers: { Authorization: `Bearer ${accessToken}` }
   });
@@ -188,7 +234,7 @@ export async function downloadDriveFile(
 }
 
 /**
- * Interactive folder setup assistant:
+ * Interactive CLI assistant to search and select Google Drive folder.
  */
 export async function interactiveSetupFolder(accessToken: string): Promise<string> {
   const rl = readline.createInterface({
@@ -196,67 +242,62 @@ export async function interactiveSetupFolder(accessToken: string): Promise<strin
     output: process.stdout
   });
 
-  const question = (prompt: string): Promise<string> => {
-    return new Promise((resolve) => rl.question(prompt, (ans) => resolve(ans.trim())));
-  };
+  const question = (q: string) => new Promise<string>(resolve => rl.question(q, resolve));
 
-  try {
-    console.log('\n======================================================');
-    console.log('   ASISTENTE DE CONFIGURACIÓN DE CARPETA GOOGLE DRIVE');
-    console.log('======================================================\n');
-    console.log('[Setup] Buscando carpetas relacionadas con "SENA" en tu Google Drive...');
+  console.log('\n--- ASISTENTE DE CONFIGURACIÓN DE CARPETA SENA EN GOOGLE DRIVE ---');
+  console.log('1. Buscar carpeta por nombre (ej: "ADSO", "SENA", "Clases")');
+  console.log('2. Ingresar ID de carpeta directamente (si ya lo tienes)');
 
-    const foundFolders = await searchFolders(accessToken, 'SENA');
+  const choice = (await question('Selecciona una opción (1/2): ')).trim();
 
-    let selectedFolderId = '';
+  let selectedFolderId = '';
+  let selectedFolderName = '';
 
-    if (foundFolders.length > 0) {
-      console.log('\nSe encontraron las siguientes carpetas:');
-      foundFolders.forEach((f, idx) => {
-        console.log(`  [${idx + 1}] 📁 ${f.name} (ID: ${f.id})`);
-      });
-      console.log(`  [${foundFolders.length + 1}] Pegar otra URL o ID manualmente`);
+  if (choice === '1') {
+    const term = (await question('Ingresa término de búsqueda: ')).trim();
+    console.log(`Buscando carpetas que coincidan con "${term}"...`);
+    const folders = await searchFolders(accessToken, term);
 
-      const choice = await question(`\nSelecciona una opción [1-${foundFolders.length + 1}] (default: 1): `);
-      const choiceNum = parseInt(choice || '1', 10);
-
-      if (choiceNum >= 1 && choiceNum <= foundFolders.length) {
-        selectedFolderId = foundFolders[choiceNum - 1].id;
-      }
+    if (folders.length === 0) {
+      console.log('No se encontraron carpetas con ese nombre. Intenta de nuevo.');
+      rl.close();
+      return '';
     }
 
-    if (!selectedFolderId) {
-      const input = await question('\nPega el enlace completo de la carpeta de Drive o su ID: ');
-      const match = input.match(/folders\/([a-zA-Z0-9_-]+)/);
-      selectedFolderId = match ? match[1] : input;
+    console.log('\nCarpetas encontradas:');
+    folders.forEach((f, idx) => {
+      console.log(`  [${idx + 1}] ${f.name} (ID: ${f.id})`);
+    });
+
+    const selIdxStr = (await question(`Selecciona el número de carpeta (1-${folders.length}): `)).trim();
+    const selIdx = parseInt(selIdxStr, 10) - 1;
+
+    if (selIdx >= 0 && selIdx < folders.length) {
+      selectedFolderId = folders[selIdx].id;
+      selectedFolderName = folders[selIdx].name;
+    } else {
+      console.log('Opción inválida.');
+      rl.close();
+      return '';
     }
-
-    if (!selectedFolderId) {
-      throw new Error('No se proporcionó un ID de carpeta válido.');
+  } else {
+    selectedFolderId = (await question('Pega el ID de la carpeta de Google Drive: ')).trim();
+    try {
+      const details = await getFolderDetails(accessToken, selectedFolderId);
+      selectedFolderName = details.name;
+    } catch {
+      selectedFolderName = 'Carpeta SENA';
     }
-
-    console.log(`\n[Setup] Verificando acceso a la carpeta: ${selectedFolderId}...`);
-    const details = await getFolderDetails(accessToken, selectedFolderId);
-    console.log(`[Setup] ✓ Carpeta confirmada: "${details.name}"`);
-
-    const videos = await listVideosInFolder(accessToken, selectedFolderId);
-    console.log(`[Setup] Contenido inicial detectado: ${videos.length} archivo(s) de video/audio.`);
-
-    if (videos.length > 0) {
-      const folders = Array.from(new Set(videos.map(v => v.classFolderName)));
-      folders.forEach(folder => {
-        const count = videos.filter(v => v.classFolderName === folder).length;
-        console.log(`  ├── 📁 ${folder} (${count} video(s))`);
-      });
-    }
-
-    updateEnvVariables({ GOOGLE_DRIVE_FOLDER_ID: selectedFolderId });
-    console.log(`\n[Setup] ✓ GOOGLE_DRIVE_FOLDER_ID="${selectedFolderId}" guardado con éxito en tu archivo .env.local!\n`);
-
-    rl.close();
-    return selectedFolderId;
-  } catch (err) {
-    rl.close();
-    throw err;
   }
+
+  rl.close();
+
+  if (selectedFolderId) {
+    console.log(`\n✓ Carpeta seleccionada: "${selectedFolderName}" (ID: ${selectedFolderId})`);
+    updateEnvVariables({ GOOGLE_DRIVE_FOLDER_ID: selectedFolderId });
+    console.log(`✓ GOOGLE_DRIVE_FOLDER_ID guardado en archivo de entorno.`);
+    return selectedFolderId;
+  }
+
+  return '';
 }

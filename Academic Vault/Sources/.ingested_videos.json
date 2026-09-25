@@ -2,10 +2,40 @@
   {
     "fileId": "1S5NrD25vpybO861lU6gi8kWMysNlikJa",
     "fileName": "Copy of Inducción Aprendices Inicio de Formación Virtual 10_04_26.mp4",
+    "fileHash": "07dcf39deb5874ccddd01258090ca4c4",
+    "md5Checksum": "07dcf39deb5874ccddd01258090ca4c4",
+    "sizeBytes": 320000000,
     "classFolderName": "Clase 1",
     "mimeType": "video/mp4",
+    "kind": "video",
     "processedAt": "2026-09-25T14:14:10.453Z",
     "rawJsonPath": "/Users/jaymusicmachine/Documents/SENA/SENA - ROBOT TAREAS/Academic Vault/Sources/Video Raw/Clase 1/Copy_of_Inducci_n_Aprendices_Inicio_de_Formaci_n_Virtual_10_04_26_transcript.json",
     "markdownPath": "Academic Vault/Clases/clase-1-induccion-aprendices-inicio-de-formacion-virtual-10-04-26/clase-1-induccion-aprendices-inicio-de-formacion-virtual-10-04-26.md"
+  },
+  {
+    "fileId": "18s9XX1EMFDnvuzZhbQXfQnfs-eBOn-dm",
+    "fileName": "Copy of Guia_aprendizaje_IND1.pdf",
+    "fileHash": "bcdd8424ecdea17eed00175b64b85e064f8d94092e32549cf485272248778779",
+    "md5Checksum": "ccbad2c50bd645bf908b017f85f5a039",
+    "sizeBytes": 280976,
+    "classFolderName": "Clase 1",
+    "mimeType": "application/pdf",
+    "kind": "pdf",
+    "processedAt": "2026-09-25T15:52:00.928Z",
+    "markdownPath": "/Users/jaymusicmachine/Documents/SENA/SENA - ROBOT TAREAS/Academic Vault/Clases/clase-1-induccion-aprendices-inicio-de-formacion-virtual-10-04-26/Materiales/copy-of-guia-aprendizaje-ind1.md",
+    "rawArtifactPath": "/Users/jaymusicmachine/Documents/SENA/SENA - ROBOT TAREAS/Academic Vault/Clases/clase-1-induccion-aprendices-inicio-de-formacion-virtual-10-04-26/Materiales/raw/Copy of Guia_aprendizaje_IND1.pdf"
+  },
+  {
+    "fileId": "1O1pipuLSwbKB97QIPF3sTqVZjRKuVql6",
+    "fileName": "Copy of induccion.pptx",
+    "fileHash": "d60fefeacc9e31329e3d083b482ce66140409eecad9b7e90febbbe5b6ceffee8",
+    "md5Checksum": "31af14929489f61f5078c1b57e18f1ac",
+    "sizeBytes": 2215075,
+    "classFolderName": "Clase 1",
+    "mimeType": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+    "kind": "presentation",
+    "processedAt": "2026-09-25T15:52:02.719Z",
+    "markdownPath": "/Users/jaymusicmachine/Documents/SENA/SENA - ROBOT TAREAS/Academic Vault/Clases/clase-1-induccion-aprendices-inicio-de-formacion-virtual-10-04-26/Materiales/copy-of-induccion.md",
+    "rawArtifactPath": "/Users/jaymusicmachine/Documents/SENA/SENA - ROBOT TAREAS/Academic Vault/Clases/clase-1-induccion-aprendices-inicio-de-formacion-virtual-10-04-26/Materiales/raw/Copy of induccion.pptx"
   }
 ]

@@ -134,9 +134,11 @@ El SENA opera bajo un sistema de evaluación por competencias de escala binaria:
 
 ## 8. Recursos y Transcripción Completa
 
+* 📄 **Guía de Aprendizaje (PDF):** [[Materiales/copy-of-guia-aprendizaje-ind1|Ver Digest de la Guía de Aprendizaje]]
+* 📊 **Diapositivas de la Sesión (PPTX):** [[Materiales/copy-of-induccion|Ver Digest de la Presentación]]
 * 📄 **Transcripción Íntegra:** [[clase-1-induccion-aprendices-inicio-de-formacion-virtual-10-04-26-transcripcion|Ver Transcripción Completa con 177 marcas de tiempo]]
 * 📄 **Texto Plano:** `clase-1-induccion-aprendices-inicio-de-formacion-virtual-10-04-26_transcripcion_raw.txt`
-* 👥 **Equipo Docente:** [[Profesores/PROFESORES_INDEX|Directorio de Profesores SENA ADSO]]
+* 👥 **Equipo Docente:** [[Profesores/00. PROFESORES_INDEX|Directorio de Profesores SENA ADSO]]
 
 ---
 
