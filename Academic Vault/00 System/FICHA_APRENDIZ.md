@@ -14,8 +14,10 @@ modality: "Virtual 100%"
 city: "Bogotá, Bogotá D.C."
 email_personal: "jeisonjsosar@gmail.com"
 email_sena: "jeison.julian.sosa.rodriguez.8333162@soy.sena.edu.co"
+productive_stage: "Proyecto Productivo (Fondo Emprender)"
+project_name: "Plataforma de Software B2B de Inteligencia Comercial & Célula de Prospección con IA"
 status: active
-version: "1.2"
+version: "1.3"
 workflow: student-profile
 last_updated: 2026-09-25
 tags:
@@ -24,13 +26,15 @@ tags:
   - ficha-aprendiz
   - programacion-software
   - ficha-3607701
-  - caldas
+  - fondo-emprender
+  - b2b-sales-ai
+  - startup
 ---
 
 # Ficha Maestra del Aprendiz: Jeison Julián Sosa Rodríguez
 
 > [!NOTE] Resumen Ejecutivo
-> Registro canónico de identidad y datos formativos del aprendiz **Jeison Julián Sosa Rodríguez**. Este documento centraliza la información personal, institucional y técnica verificada para autocompletar portadas, encabezados, metadatos YAML y secciones de autoría en todas las evidencias de aprendizaje (conocimiento, desempeño y producto), informes de laboratorio, proyectos de software y guías del **SENA (Ficha 3607701)**.
+> Registro canónico de identidad, parámetros formativos y horizonte estratégico del aprendiz **Jeison Julián Sosa Rodríguez** en el programa **Técnico en Programación de Software (Ficha 3607701)**. Centraliza los datos verificados del autor para autocompletar portadas, metadatos y documentos técnicos del **SENA**, orientando el desarrollo formativo y la etapa productiva hacia el acceso a capital semilla de **Fondo Emprender** para la creación de una startup de software B2B impulsada por IA.
 
 ---
 
@@ -87,7 +91,28 @@ tags:
 
 ---
 
-## 5. Plantilla Maestra: Portada Institucional SENA (Para Evidencias e Informes)
+## 5. Proyecto Productivo & Meta Estratégica: Fondo Emprender
+
+> [!IMPORTANT] Propósito y Modalidad de Etapa Productiva
+> La meta principal dentro del proceso formativo en el SENA es postularse y acceder al capital semilla de **Fondo Emprender** bajo la modalidad de **Proyecto Productivo / Creación de Empresa**, para consolidar y lanzar al mercado una plataforma de software de base tecnológica de alto impacto.
+
+### 5.1. Concepto y Tecnología del Producto
+Desarrollo de una **plataforma de software propietaria impulsada por Inteligencia Artificial** diseñada para identificar, rastrear y calificar prospectos calificados mediante el análisis sistemático de **señales de compra en tiempo real** (*real-time buying signals*, intención de búsqueda, cambios corporativos, actividad en redes profesionales y eventos de mercado).
+
+### 5.2. Modelo Operativo y Célula de Ventas B2B
+Sobre la infraestructura tecnológica de la plataforma, se despliega una **célula especializada de ventas B2B**:
+* **Capa Tecnológica (IA + Software):** Automatiza de extremo a extremo la recolección de datos, enriquecimiento, filtrado, scoring de afinidad y nutrición inicial de prospectos con alta probabilidad de conversión.
+* **Capa Humana Especializada:** Los agentes comerciales humanos se liberan de la prospección manual y se concentran **exclusivamente en la negociación estratégica de alto valor y el cierre directo de cuentas corporativas**.
+
+### 5.3. Propuesta de Valor Diferencial
+Transformar la prospección comercial tradicional (lenta, manual, reactiva y desgastante) en un **servicio de adquisición comercial B2B predecible, escalable y de alto rendimiento**, respaldado por datos en tiempo real y rigor algorítmico.
+
+### 5.4. Sinergia Curricular con la Formación SENA
+Cada competencia técnica del programa formativo (especificación de requisitos IEEE 830, modelos entidad-relación, bases de datos SQL relacionales y NoSQL, APIs REST en backend, microservicios, seguridad y pruebas unitarias/integración) se desarrollará directamente como módulos funcionales y documentación del MVP para la convocatoria de **Fondo Emprender**.
+
+---
+
+## 6. Plantilla Maestra: Portada Institucional SENA (Para Evidencias e Informes)
 
 El siguiente bloque es el formato estándar institucional que el sistema inyecta en los entregables finales:
 
@@ -97,6 +122,7 @@ El siguiente bloque es el formato estándar institucional que el sistema inyecta
 ### REGIONAL CALDAS — CENTRO DE AUTOMATIZACIÓN INDUSTRIAL
 **PROGRAMA:** Técnico en Programación de Software (Código: 233104)  
 **FICHA DE CARACTERIZACIÓN:** 3607701  
+**PROYECTO FORMATIVO:** Plataforma de Software B2B de Inteligencia Comercial con IA (Fondo Emprender)  
 
 ---
 
@@ -121,7 +147,7 @@ Bogotá D.C., Colombia — 2026
 
 ---
 
-## 6. Plantilla Maestra: Encabezado Compacto (Para Guías, Talleres y Foros)
+## 7. Plantilla Maestra: Encabezado Compacto (Para Guías, Talleres y Foros)
 
 Para respuestas cortas, foros y wikis técnicas:
 
@@ -129,17 +155,17 @@ Para respuestas cortas, foros y wikis técnicas:
 > [!NOTE] Metadatos del Aprendiz
 > **Aprendiz:** Jeison Julián Sosa Rodríguez | **Documento:** C.C. 1014182421  
 > **Programa:** Técnico en Programación de Software | **Ficha:** 3607701  
-> **Regional:** Regional Caldas — Centro de Automatización Industrial | **Fecha:** 2026-09-25  
+> **Proyecto:** Adquisición B2B con IA (Fondo Emprender) | **Fecha:** 2026-09-25  
 ```
 
 ---
 
-## 7. Automatización del Robot de Tareas
+## 8. Automatización del Robot de Tareas
 
 Esta ficha interactúa automáticamente con los motores del workspace:
-1. **Scaffolding de Proyectos:** `bash Academic-Engine/scripts/new-project.sh "<Nombre>"` toma a **Jeison Julián Sosa Rodríguez** como autor inmutable en el `PROJECT_INDEX.md` y `EXPORT_MANIFEST.md`.
-2. **Motor SDD (Spec-Driven Development):** Los agentes `task-editor`, `thesis-writer` y `cs-tutor` consultan `Academic-Engine/context/aprendiz-profile.json` para precargar los datos del aprendiz en cualquier spec o entregable generado.
-3. **Exportación a PDF / LaTeX:** Al compilar mediante `bash Academic-Engine/scripts/export-pdf.sh`, los metadatos de autoría y créditos reflejan la identidad oficial de Jeison Julián Sosa Rodríguez.
+1. **Scaffolding de Proyectos:** `bash Academic-Engine/scripts/new-project.sh "<Nombre>"` toma a **Jeison Julián Sosa Rodríguez** como autor inmutable en el `PROJECT_INDEX.md` y `EXPORT_MANIFEST.md`, alineando el alcance técnico al proyecto de Fondo Emprender.
+2. **Motor SDD (Spec-Driven Development):** Los agentes creadores (`task-editor`, `thesis-writer`, `cs-tutor`, `business-consultant`, `market-research-analyst`) consultan `Academic-Engine/context/aprendiz-profile.json` para contextualizar los casos de estudio de software y modelos de negocio en la plataforma B2B de adquisición con IA.
+3. **Exportación a PDF / LaTeX:** Al compilar mediante `bash Academic-Engine/scripts/export-pdf.sh`, los metadatos de autoría y créditos reflejan la identidad oficial de Jeison Julián Sosa Rodríguez y el título del proyecto formativo.
 
 ---
 
@@ -150,3 +176,4 @@ Esta ficha interactúa automáticamente con los motores del workspace:
 | `v1.0` | 2026-09-25 | Robot de Tareas (Academic-Engine) | Creación inicial de la Ficha Maestra con identidad preliminar. |
 | `v1.1` | 2026-09-25 | Jeison Julián Sosa Rodríguez | Registro completo de C.C. 1014182421, celular, correo, GitHub, nivel Técnico y confirmación de la Ficha 3607701 (LMS: `P_233104_V_3607701_R_17_C_9219`). |
 | `v1.2` | 2026-09-25 | Jeison Julián Sosa Rodríguez | Registro y validación del correo institucional oficial SENA (User ID: `jeison.julian.sosa.rodriguez.8333162@soy.sena.edu.co`). |
+| `v1.3` | 2026-09-25 | Jeison Julián Sosa Rodríguez | Incorporación del objetivo estratégico de Fondo Emprender: plataforma propia de software B2B con IA para señales de compra y célula comercial de alto rendimiento. |

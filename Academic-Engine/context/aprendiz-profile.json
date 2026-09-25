@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "version": "1.0.0",
+  "version": "1.3.0",
   "last_updated": "2026-09-25",
   "datos_personales": {
     "nombre_completo": "Jeison Julián Sosa Rodríguez",
@@ -64,5 +64,14 @@
       "HTML5 / CSS3",
       "Markdown / LaTeX"
     ]
+  },
+  "proyecto_productivo_fondo_emprender": {
+    "meta_institucional": "Acceder al Fondo Emprender (SENA) para financiar y constituir una empresa de software de base tecnológica.",
+    "modalidad_etapa_productiva": "Proyecto Productivo / Creación de Empresa (Fondo Emprender)",
+    "nombre_proyecto": "Plataforma de Software B2B de Inteligencia Comercial & Célula de Ventas con IA",
+    "definicion_tecnologica": "Plataforma de software propietaria impulsada por Inteligencia Artificial que identifica y califica prospectos analizando señales de compra en tiempo real (buying intent signals).",
+    "modelo_operativo": "Célula de ventas B2B especializada donde la capa de software e IA automatiza la detección, calificación y enriquecimiento de prospectos, mientras agentes humanos se encargan exclusivamente de la negociación y el cierre directo.",
+    "propuesta_de_valor": "Transformar la prospección tradicional en un servicio de adquisición comercial predecible, escalable y de alto rendimiento.",
+    "directriz_formativa": "Alinear las evidencias técnicas (análisis de requisitos, diseño de base de datos, APIs backend, frontend, pruebas y despliegue) como módulos del MVP y plan de negocio para la postulación a Fondo Emprender."
   }
 }

@@ -66,9 +66,21 @@ tags:
 
 ---
 
-## 5. Directrices de Inyección Automática
+## 5. Proyecto Productivo & Meta Estratégica: Fondo Emprender
+
+- **Objetivo Central en el SENA:** Acceder al capital semilla de **Fondo Emprender** para financiar, constituir y poner en marcha una empresa de base tecnológica (software B2B).
+- **Modalidad de Etapa Productiva:** Proyecto Productivo / Creación de Empresa (Fondo Emprender SENA).
+- **Concepto del Producto Tecnológico:** Plataforma de software propietaria impulsada por **Inteligencia Artificial** que identifica y califica prospectos analizando **señales de compra en tiempo real** (*real-time buying signals*).
+- **Modelo Operativo de la Solución:** Célula de ventas B2B de alto rendimiento donde la tecnología de IA se encarga de la prospección, análisis predictivo, scoring y nutrición automática, permitiendo que agentes comerciales humanos se dediquen exclusivamente a la **negociación y el cierre directo**.
+- **Propuesta de Valor:** Transformar la prospección tradicional en un **servicio de adquisición comercial predecible, escalable y de alto rendimiento**.
+- **Alineación con el Plan de Estudios:** Cada entrega académica (análisis de requisitos, diseño arquitectónico, bases de datos relacionales, backend en Python/Node, microservicios, frontend y aseguramiento de calidad QA) servirá como componente funcional del MVP para la postulación ante el Fondo Emprender.
+
+---
+
+## 6. Directrices de Inyección Automática
 
 Al generar cualquier evidencia de aprendizaje, documento de requisitos, entrega o informe técnico:
 1. **Autor Principal:** Inyectar siempre `Jeison Julián Sosa Rodríguez`.
 2. **Encabezados Institucionales:** Usar `Ficha: 3607701`, `Programa: Técnico en Programación de Software`, `Regional Caldas — Centro de Automatización Industrial`.
 3. **Repositorios Git:** Vincular el perfil y repositorios bajo `https://github.com/jeisonsosablockdev`.
+4. **Contexto de Proyecto Formativo:** Vincular los casos de estudio y ejemplos prácticos a la *Plataforma de Adquisición B2B e IA (Proyecto Fondo Emprender)*.

@@ -34,6 +34,8 @@ tags:
 - **GitHub:** [jeisonsosablockdev](https://github.com/jeisonsosablockdev)
 - **Rol:** Aprendiz SENA en Programación de Software
 - **Entorno de Trabajo:** macOS / Unix & Windows PowerShell con Git, VS Code y Obsidian
+- **Objetivo en el SENA:** Acceso a capital semilla de **Fondo Emprender** para constituir una empresa de software de base tecnológica.
+- **Proyecto Productivo:** Plataforma de software con IA para detección de señales de compra en tiempo real y operación de célula comercial de ventas B2B.
 - **Ficha Maestra de Datos:** [[00 System/FICHA_APRENDIZ|Ficha Maestra del Aprendiz]] / `Academic-Engine/context/aprendiz-profile.json`
 
 ## Objetivos de Aprendizaje del Programa
