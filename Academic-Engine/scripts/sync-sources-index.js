@@ -16,6 +16,8 @@ const VAULT_DIR = path.join(ROOT_DIR, 'Academic Vault');
 const SOURCES_DIR = path.join(VAULT_DIR, 'Sources');
 const PDF_CONVERTED = path.join(SOURCES_DIR, 'PDF Converted');
 const WEB_CONVERTED = path.join(SOURCES_DIR, 'Web Converted');
+const VIDEO_CONVERTED = path.join(SOURCES_DIR, 'Video Converted');
+const CLASES_DIR = path.join(VAULT_DIR, 'Clases');
 const INDEX_FILE = path.join(SOURCES_DIR, 'SOURCES_INDEX.md');
 
 function parseFrontmatter(content) {
@@ -37,27 +39,43 @@ function parseFrontmatter(content) {
 function scanConvertedFolder(baseDir, defaultKind) {
   if (!fs.existsSync(baseDir)) return [];
   const entries = [];
-  const dirs = fs.readdirSync(baseDir);
+  const items = fs.readdirSync(baseDir);
 
-  for (const slug of dirs) {
-    const fullDir = path.join(baseDir, slug);
-    if (!fs.statSync(fullDir).isDirectory()) continue;
+  for (const item of items) {
+    if (item.startsWith('.')) continue;
+    const fullPath = path.join(baseDir, item);
+    const stat = fs.statSync(fullPath);
 
-    const files = fs.readdirSync(fullDir).filter(f => f.endsWith('.md'));
-    for (const file of files) {
-      const filePath = path.join(fullDir, file);
-      const content = fs.readFileSync(filePath, 'utf8');
+    if (stat.isDirectory()) {
+      const files = fs.readdirSync(fullPath).filter(f => f.endsWith('.md') && !f.startsWith('.'));
+      for (const file of files) {
+        const filePath = path.join(fullPath, file);
+        const content = fs.readFileSync(filePath, 'utf8');
+        const meta = parseFrontmatter(content);
+        entries.push({
+          slug: item,
+          title: meta.title || item,
+          kind: meta.kind || defaultKind,
+          year: meta.year || (meta.date_ingested ? (meta.date_ingested || '').slice(0, 4) : '2026'),
+          authors: meta.authors || meta.author || '—',
+          url: meta.source_url || (defaultKind === 'pdf' ? '[PDF](original.pdf)' : 'web'),
+          status: meta.status || 'converted',
+          relVaultPath: path.relative(VAULT_DIR, filePath)
+        });
+      }
+    } else if (item.endsWith('.md')) {
+      const content = fs.readFileSync(fullPath, 'utf8');
       const meta = parseFrontmatter(content);
-
+      const slug = path.basename(item, '.md');
       entries.push({
         slug,
         title: meta.title || slug,
         kind: meta.kind || defaultKind,
-        year: meta.year || meta.date_ingested ? (meta.date_ingested || '').slice(0, 4) : '2026',
+        year: meta.year || (meta.date_ingested ? (meta.date_ingested || '').slice(0, 4) : '2026'),
         authors: meta.authors || meta.author || '—',
         url: meta.source_url || (defaultKind === 'pdf' ? '[PDF](original.pdf)' : 'web'),
         status: meta.status || 'converted',
-        relPath: path.relative(SOURCES_DIR, filePath)
+        relVaultPath: path.relative(VAULT_DIR, fullPath)
       });
     }
   }
@@ -69,10 +87,14 @@ function main() {
 
   const pdfSources = scanConvertedFolder(PDF_CONVERTED, 'pdf');
   const webSources = scanConvertedFolder(WEB_CONVERTED, 'web');
-  const allSources = [...pdfSources, ...webSources];
+  const videoSources = scanConvertedFolder(VIDEO_CONVERTED, 'video');
+  const clasesSources = scanConvertedFolder(CLASES_DIR, 'video');
+  const allSources = [...pdfSources, ...webSources, ...videoSources, ...clasesSources];
 
   console.log(`Found ${pdfSources.length} converted PDF source(s).`);
   console.log(`Found ${webSources.length} converted Web source(s).`);
+  console.log(`Found ${videoSources.length} converted Video source(s).`);
+  console.log(`Found ${clasesSources.length} converted Clases source(s).`);
 
   // Parse existing index to preserve project approvals
   const approvedProjectsMap = new Map();
@@ -99,7 +121,7 @@ function main() {
 
   let rows = '';
   for (const src of allSources) {
-    const sourceLink = `[[Sources/${src.relPath}|${src.title}]]`;
+    const sourceLink = `[[${src.relVaultPath}|${src.title}]]`;
     const refMarkdown = src.url.startsWith('http') ? `[Link](${src.url})` : src.url;
     const projectApproval = approvedProjectsMap.get(src.slug) || '—';
 

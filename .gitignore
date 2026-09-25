@@ -9,3 +9,11 @@ __pycache__/
 BRIDS-Engine/context/technical-okf/
 *.bak.md
 BRIDS-Brain/00 Inbox/Archive/
+.env
+.env.local
+Academic-Engine/scratch/temp_audio/
+*.bin
+Academic-Engine/tools/drive-ingest/models/
+Academic-Engine/tools/drive-ingest/dist/
+dist/
+

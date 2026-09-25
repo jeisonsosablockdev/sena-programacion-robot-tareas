@@ -1,0 +1,147 @@
+{
+  "spec_id": "SPEC-FICHAS-PROFESORES-SENA",
+  "slug": "fichas-profesores-sena",
+  "title": "Fichas Profesores Sena",
+  "target_vault_folder": "Profesores",
+  "target_file": "Profesores/fichas-profesores-sena.md",
+  "subagents_involved": [
+    "cs-tutor",
+    "academic-reviewer"
+  ],
+  "context_retrieval": [
+    {
+      "filePath": "/Users/jaymusicmachine/Documents/SENA/SENA - ROBOT TAREAS/Academic Vault/Clases/clase-1-induccion-aprendices-inicio-de-formacion-virtual-10-04-26/clase-1-induccion-aprendices-inicio-de-formacion-virtual-10-04-26.md",
+      "relativePath": "Clases/clase-1-induccion-aprendices-inicio-de-formacion-virtual-10-04-26/clase-1-induccion-aprendices-inicio-de-formacion-virtual-10-04-26.md",
+      "heading": "4. Transcripción Completa de la Sesión",
+      "score": 61.8,
+      "snippet": "> [!TIP] Registro Literal e Íntegro > Transcripción completa de la sesión generada localmente con Whisper (GPU Metal Apple Silicon). Los diálogos se encuentran estructurados cronol..."
+    },
+    {
+      "filePath": "/Users/jaymusicmachine/Documents/SENA/SENA - ROBOT TAREAS/Academic Vault/Clases/clase-1-induccion-aprendices-inicio-de-formacion-virtual-10-04-26/clase-1-induccion-aprendices-inicio-de-formacion-virtual-10-04-26.md",
+      "relativePath": "Clases/clase-1-induccion-aprendices-inicio-de-formacion-virtual-10-04-26/clase-1-induccion-aprendices-inicio-de-formacion-virtual-10-04-26.md",
+      "heading": "2. Cronograma de Sesión y Marcas de Tiempo",
+      "score": 38.3,
+      "snippet": "| Marca de Tiempo | Bloque Temático / Discusión en Clase | |---|---| | `00:00:00,000` | Muy buenos días. Fíjense y escucha. Fíjense y escucha. Fíjense Fernando, buenas tardes, José..."
+    },
+    {
+      "filePath": "/Users/jaymusicmachine/Documents/SENA/SENA - ROBOT TAREAS/Academic-Engine/context/course-profile.md",
+      "relativePath": "course-profile.md",
+      "heading": "Tipología de Evidencias de Aprendizaje SENA",
+      "score": 37.5,
+      "snippet": "En el marco de formación por proyectos del SENA, los entregables se clasifican habitualmente en: 1. **Evidencias de Conocimiento (EC):** - Cuestionarios, mapas conceptuales, cuadro..."
+    }
+  ],
+  "status": "completed",
+  "created_at": "2026-09-25T15:06:35.989Z",
+  "updated_at": "2026-09-25T15:09:18.880Z",
+  "hitl_checkpoints": {
+    "hitl_1_spec_approval": {
+      "status": "approved",
+      "approved_at": "2026-09-25T15:08:27.012Z",
+      "user_feedback": []
+    },
+    "hitl_2_deliverable_approval": {
+      "status": "approved",
+      "approved_at": "2026-09-25T15:09:18.877Z",
+      "user_feedback": []
+    }
+  },
+  "intent": {
+    "business_goal": "Fichas Academicas de Instructores SENA ADSO",
+    "target_icp": "Profesores",
+    "constraints": [
+      "Cero clichés de IA",
+      "Fidelidad a las transcripciones",
+      "Formato modular por profesor"
+    ]
+  },
+  "spec_evaluation": {
+    "target_score": 8.5,
+    "scale_max": 9,
+    "max_cycles": 5,
+    "current_cycle": 2,
+    "final_score": 9,
+    "passed": true,
+    "criticism_history": [
+      {
+        "cycle": 1,
+        "total_score": 7,
+        "passed": false,
+        "timestamp": "2026-09-25T15:07:09.700Z",
+        "report_file": "Academic Vault/Inbox/Specs/fichas-profesores-sena-work/spec_criticism_cycle_1.json"
+      },
+      {
+        "cycle": 2,
+        "total_score": 9,
+        "passed": true,
+        "timestamp": "2026-09-25T15:07:09.703Z",
+        "report_file": "Academic Vault/Inbox/Specs/fichas-profesores-sena-work/spec_criticism_cycle_2.json"
+      }
+    ]
+  },
+  "evaluation": {
+    "target_score": 8.5,
+    "scale_max": 9,
+    "max_cycles": 5,
+    "current_cycle": 2,
+    "final_score": 9,
+    "criticism_history": [
+      {
+        "cycle": 1,
+        "total_score": 8,
+        "passed": false,
+        "timestamp": "2026-09-25T15:09:14.888Z",
+        "banned_phrases_count": 0,
+        "report_file": "Academic Vault/Inbox/Specs/fichas-profesores-sena-work/criticism_cycle_1.json"
+      },
+      {
+        "cycle": 2,
+        "total_score": 9,
+        "passed": true,
+        "timestamp": "2026-09-25T15:09:14.892Z",
+        "banned_phrases_count": 0,
+        "report_file": "Academic Vault/Inbox/Specs/fichas-profesores-sena-work/criticism_cycle_2.json"
+      }
+    ]
+  },
+  "execution_steps": [
+    {
+      "id": "STEP-01",
+      "name": "Spec-Loop: Evaluador vs Editor (>= 8.5)",
+      "status": "completed",
+      "depends_on": []
+    },
+    {
+      "id": "STEP-02",
+      "name": "HITL-1: Spec Review & Human Approval",
+      "status": "completed",
+      "depends_on": [
+        "STEP-01"
+      ]
+    },
+    {
+      "id": "STEP-03",
+      "name": "Task-Loop: Evaluador vs Editor (>= 8.5)",
+      "status": "completed",
+      "depends_on": [
+        "STEP-02"
+      ]
+    },
+    {
+      "id": "STEP-04",
+      "name": "HITL-2: Deliverable Review & Human Approval",
+      "status": "completed",
+      "depends_on": [
+        "STEP-03"
+      ]
+    },
+    {
+      "id": "STEP-05",
+      "name": "Canonical Vault Integration",
+      "status": "completed",
+      "depends_on": [
+        "STEP-04"
+      ]
+    }
+  ]
+}

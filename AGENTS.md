@@ -12,6 +12,7 @@
 | Spec-Driven Development (SDD) | `bash Academic-Engine/scripts/sdd-manager.sh <init|loop-spec|preview|approve|loop-task|evaluate|review-deliverable|approve-deliverable|status|list>` |
 | Ingest Pending PDFs | `bash Academic-Engine/scripts/ingest-pdf.sh [file.pdf]` |
 | Ingest Web URL to Markdown | `bash Academic-Engine/scripts/ingest-web.sh <url> [titulo]` |
+| Ingest Drive Class Videos (Whisper GPU) | `bash Academic-Engine/scripts/ingest-drive-video.sh [--setup|--set-folder|--dry-run]` |
 | Reconcile Sources Index | `bash Academic-Engine/scripts/sync-sources-index.sh` |
 | Scaffold New Project | `bash Academic-Engine/scripts/new-project.sh "<nombre>" "[meta]" "[autor]"` |
 | Repair Vault Drift & Symlinks | `bash Academic-Engine/scripts/fix-vault.sh` |
@@ -56,6 +57,7 @@ Co-Authored-By: Google Gemini <gemini@google.com>
 - Save final content as Markdown inside the matching folder in `Academic Vault/`
 - Keep logic, experiments, and skill adaptation work in `Academic-Engine/`
 - Follow `Academic-Engine/docs/document-organization.md` before creating folders or moving files
+- Class lecture notes in `Academic Vault/Clases/` MUST prioritize learner actionable outcomes: Section 1 is ALWAYS the Action Plan and Pending Tasks (`## 1. Plan de Acción y Tareas Pendientes para los Aprendices`), placed immediately after the executive summary and BEFORE context/theory, strictly following `Academic-Engine/templates/class-lecture-template.md`.
 
 ## Skills
 - Local adaptations live in `Academic-Engine/skills/`
@@ -87,6 +89,8 @@ Para prevenir el drifting contextual y garantizar pertinencia y rigor técnico a
 ## Vault Conventions
 - The vault is structured with these core areas under `Academic Vault/`:
   - `Sources/`: PDF Unconverted, PDF Converted, Web Converted, SOURCES_INDEX.md
+  - `Clases/`: Converted class lecture notes (from Google Drive / Whisper ingestion)
+  - `Profesores/`: Dossiers and academic profiles of instructors (background, modules, roles)
   - `Reviews/<Project>/`: Thematic syntheses and literature comparisons
   - `Hypotheses/<Project>/`: Testable mechanistic claims
   - `Drafts/<Project>/`: Manuscript sections and thesis chapters

@@ -20,7 +20,9 @@ const ALLOWED_TOP_FOLDERS = [
   'Projects',
   'Inbox',
   'Exports',
-  '00 System'
+  '00 System',
+  'Clases',
+  'Profesores'
 ];
 
 function getAllMarkdownFiles(dir, fileList = []) {
