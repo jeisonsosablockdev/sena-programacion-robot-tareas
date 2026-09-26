@@ -1,0 +1,189 @@
+\documentclass[12pt,letterpaper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage[margin=1.65cm,top=1.9cm,bottom=1.9cm,headheight=16pt]{geometry}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+
+% Definición de colores sobrios y profesionales
+\definecolor{senagreen}{RGB}{0, 110, 46}
+\definecolor{titlecolor}{RGB}{15, 23, 42}
+\definecolor{subtitlecolor}{RGB}{71, 85, 105}
+\definecolor{accentline}{RGB}{203, 213, 225}
+\definecolor{quoteborder}{RGB}{16, 185, 129}
+\definecolor{quotebg}{RGB}{248, 250, 252}
+
+% Configuración tipográfica de secciones (+2pt)
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{senagreen}}
+  {\thesection.}{0.5em}{}[\titlerule]
+\titlespacing*{\section}{0pt}{10pt}{4pt}
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\color{titlecolor}}
+  {\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{8pt}{3pt}
+
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries\color{subtitlecolor}}
+  {\thesubsubsection}{0.5em}{}
+\titlespacing*{\subsubsection}{0pt}{6pt}{2pt}
+
+% Configuración de listas para texto corrido sin espacios exagerados
+\setlist[itemize]{leftmargin=1.3em, topsep=2pt, itemsep=1.5pt, parsep=0pt}
+\setlist[enumerate]{leftmargin=1.3em, topsep=2pt, itemsep=1.5pt, parsep=0pt}
+
+% Encabezados y pie de página (+2pt)
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[L]{\normalsize\color{subtitlecolor}SENA • FPI • Evidencia AA4-EV02}
+\fancyhead[R]{\normalsize\color{subtitlecolor}Jeison Julián Sosa Rodríguez (Ficha 3607701)}
+\fancyfoot[L]{\small\color{subtitlecolor}Técnico en Programación de Software • Regional Antioquia}
+\fancyfoot[R]{\small\color{subtitlecolor}Página \thepage}
+
+\begin{document}
+
+% Encabezado institucional (+2pt)
+\begin{minipage}[c]{0.16\textwidth}
+    \includegraphics[width=2.3cm]{sena_logo.pdf}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.82\textwidth}
+    {\LARGE\bfseries\color{titlecolor} Taller: Mi Programa de Formación}\\[3pt]
+    {\large\bfseries\color{senagreen} Proyecto Productivo (SENA Empresa / Fondo Emprender)}\\[4pt]
+    {\small\color{subtitlecolor} Servicio Nacional de Aprendizaje (SENA) • Regional Antioquia}\\
+    {\small\color{subtitlecolor} Centro de Servicios y Gestión Empresarial • Ficha: 3607701}
+\end{minipage}
+
+\vspace{0.2cm}
+\hrule height 0.8pt
+\vspace{0.15cm}
+
+\textbf{Aprendiz:} Jeison Julián Sosa Rodríguez \quad\textbar\quad
+\textbf{Documento:} C.C. 1014182421 \quad\textbar\quad
+\textbf{Programa:} Técnico en Programación de Software
+
+\vspace{0.15cm}
+\hrule height 0.4pt
+\vspace{0.25cm}
+
+\section{Apropiación de Conceptos Institucionales}
+
+La etapa de inducción define las reglas del juego técnicas, normativas y éticas para formarse en el SENA. Este análisis sintetiza los cinco pilares institucionales que sostienen mi proceso de aprendizaje y mi proyección como desarrollador de software:
+
+\subsection*{Senalogía e Identidad Institucional}
+La Senalogía no es memorizar pasivamente un himno o una bandera; consiste en internalizar el sentido social de la Formación Profesional Integral (FPI). El SENA existe para conectar la capacitación técnica con la productividad real de Colombia. Para mí, programar software no es un ejercicio abstracto frente a una pantalla: es una herramienta directa para modernizar sectores productivos, automatizar procesos manuales y generar valor medible en la economía nacional.
+
+\subsection*{Reglamento del Aprendiz SENA}
+Es el marco operativo de convivencia y disciplina profesional. Regula derechos, deberes, criterios de evaluación formativa, faltas y debido proceso. Su verdadero valor no reside en la sanción, sino en entrenar la autorregulación y la ética de entrega. En la industria del software, donde la confianza y el cumplimiento de estándares son indispensables, el reglamento anticipa el rigor y la responsabilidad que exige cualquier equipo de ingeniería serio.
+
+\subsection*{Bienestar al Aprendiz}
+Protege al ser humano detrás del código. En programas virtuales de alta exigencia lógica, el aislamiento, la sobrecarga mental y el estrés son causas reales de deserción. Los programas de bienestar (apoyo psicológico, salud, deporte, arte y liderazgo) garantizan un soporte integral para mantener el equilibrio personal y rendir al máximo nivel cognitivo durante toda la formación.
+
+\subsection*{Programa de Formación: Técnico en Programación de Software}
+Es la columna vertebral técnica de mi proyecto de vida. El currículo está estructurado para resolver problemas concretos de la industria tecnológica: lógica de programación, bases de datos relacionales y no relacionales, desarrollo web, pruebas de calidad y metodologías ágiles (Scrum). No se trata únicamente de aprender la sintaxis de un lenguaje, sino de dominar el pensamiento sistémico, la arquitectura limpia y la construcción de software escalable.
+
+\subsection*{Emprendimiento e Investigación (SENNOVA y Fondo Emprender)}
+Es el puente directo entre estudiar y fundar empresa. A través de SENNOVA (investigación aplicada e innovación) y el Fondo Emprender, el SENA financia y asesora proyectos de base tecnológica con capital semilla no reembolsable. Esta ruta transforma al aprendiz: deja de prepararse únicamente para ser empleado y adquiere las herramientas para liderar empresas viables que generen empleo calificado.
+
+\section{Fundamentos de la Formación por Proyectos}
+
+La formación por proyectos del SENA sustituye la memorización pasiva por el aprendizaje activo y constructivista. Aprender haciendo frente a problemas reales del sector productivo es la única metodología que refleja con fidelidad la industria del desarrollo de software:
+
+\begin{itemize}
+    \item \textbf{Teoría con propósito inmediato:} Conceptos como patrones de arquitectura, normalización de datos o seguridad en APIs dejan de ser teoría abstracta y se convierten en herramientas indispensables para que una aplicación funcione sin fallos en producción.
+    \item \textbf{Autonomía y resolución crítica de problemas:} Obliga a consultar documentación técnica oficial, depurar errores de forma metódica (\textit{debugging}) y autogestionar tiempos de entrega sin depender de respuestas prefabricadas.
+    \item \textbf{Enfoque multidisciplinar:} Enseña a conectar la lógica del backend con la experiencia de usuario (UI/UX) y las métricas de negocio, entendiendo que el código solo es valioso si resuelve una necesidad real del usuario final.
+\end{itemize}
+
+\section{Proyecto Productivo Aplicado: SalesCore AI}
+
+Como aplicación directa de la formación por proyectos y alternativa elegida para mi etapa productiva (\textbf{Proyecto Productivo articulado con Fondo Emprender}), desarrollo la siguiente iniciativa de base tecnológica:
+
+\subsection*{Identificación y Estrategia de Validación}
+\begin{itemize}
+    \item \textbf{Nombre del Proyecto:} SalesCore AI
+    \item \textbf{Eslogan:} \textit{El contact center B2B de nueva generación: software centrado en el vendedor que automatiza la prospección, ejecutivos de élite que cierran al 110\%.}
+    \item \textbf{Modelo Operativo:} Ecosistema híbrido compuesto por una plataforma SaaS propietaria y una célula comercial BPO especializada en cierre de ventas complejas B2B.
+    \item \textbf{Estrategia de co-creación y dogfooding continuo:} Contratar Account Executives (AEs) que cierren tratos comerciales ofreciendo este software y, al mismo tiempo, co-diseñen la herramienta con el equipo de desarrollo. Usamos nuestro propio producto para conseguir clientes: cada fricción, duda o segundo perdido que experimente el vendedor en llamada se corrige en el código de inmediato.
+\end{itemize}
+
+\subsection*{1. El Problema en los Contact Centers B2B}
+Los contact centers comerciales y los equipos de ventas B2B operan hoy bajo un esquema roto y agotador:
+\begin{itemize}
+    \item \textbf{Fricción cognitiva y burnout:} Un vendedor promedio salta entre 5 y 8 pestañas abiertas (CRM, hojas de cálculo, correo, LinkedIn, telefonía VoIP). Gasta el 65\% de su jornada en tareas manuales y copiar datos en vez de hablar y negociar con clientes.
+    \item \textbf{Rotación masiva del talento:} Herramientas rígidas, interfaces lentas y bases de prospectos fríos queman al comercial en pocos meses, disparando los costos de contratación y la curva de aprendizaje en las empresas.
+    \item \textbf{Desconexión entre marketing y ventas:} Los CRM tradicionales priorizan la fiscalización burocrática sobre la agilidad de cierre, dejando a los directivos a ciegas sobre qué objeciones reales frenan la compra durante la llamada.
+\end{itemize}
+
+\subsection*{2. Nuestra Solución: Ecosistema Híbrido de Alto Rendimiento}
+Un entorno donde la automatización resuelve el trabajo repetitivo previo para que el Account Executive opere en estado de flujo (\textit{flow state}) y rinda al 110\%:
+
+\subsubsection*{A. Capa de Prospección Autónoma (IA / SDR)}
+\begin{itemize}
+    \item \textbf{Detección de Señales Reales de Compra:} Motores de rastreo web que identifican empresas con necesidades urgentes según rondas de capital, contrataciones clave o cambios en su stack tecnológico.
+    \item \textbf{Contenido e Identidad Adaptativa:} Generación de secuencias de prospección personalizadas que absorben la voz, el tono y el material comercial de la marca cliente.
+    \item \textbf{Secuencias Omnicanal Coordinadas:} Contacto automatizado y medido por correo y mensajería profesional para entregarle al vendedor reuniones con cuentas listas para comprar.
+\end{itemize}
+
+\subsubsection*{B. Software Diseñado para la Experiencia del Vendedor (Seller-First UX / SX)}
+\begin{itemize}
+    \item \textbf{Consola Comercial Unificada:} Cero clics innecesarios. Toda la información histórica, técnica y de contacto del prospecto se resume en una única pantalla antes de timbrar.
+    \item \textbf{Copiloto en Vivo para Manejo de Objeciones (\textit{Rebuttals}):} Asistente en tiempo real que procesa la llamada y proyecta respuestas exactas, datos técnicos y casos de éxito en la milésima de segundo en que el cliente expresa una duda o resistencia.
+    \item \textbf{Ergonomía de Software Adaptativa:} El equipo de desarrollo trabaja hombro a hombro con los AEs para eliminar pasos superfluos y adaptar los atajos de teclado al estilo natural de negociación de cada cerrador.
+\end{itemize}
+
+\subsubsection*{C. Célula BPO de Account Executives de Alto Rendimiento}
+\begin{itemize}
+    \item \textbf{Enfoque Exclusivo en Negociación:} El ejecutivo recibe la reunión calificada y la estrategia armada, dedicándose únicamente a negociar tratos de alto valor.
+    \item \textbf{Retención por Resultados:} Mayores conversiones se traducen en mejores comisiones y estabilidad laboral duradera.
+    \item \textbf{Analítica Real para Marketing:} El sistema entrega métricas cuantitativas sobre objeciones recurrentes y argumentos que convirtieron, guiando la toma de decisiones comerciales con datos directos de campo.
+\end{itemize}
+
+\subsection*{3. Factores Diferenciadores}
+\begin{itemize}
+    \item \textbf{Diseñado para Vender, no para Vigilar:} Los CRM tradicionales son bases de datos lentas pensadas para fiscalizar. SalesCore AI es una cabina de combate creada para destrabar la venta y motivar al comercial.
+    \item \textbf{Calidad y Retención sobre Volumen Desechable:} Cambiamos el modelo de cientos de operadores quemados por una célula reducida de ejecutivos de élite apoyados en software que rinden el triple.
+    \item \textbf{Respeto a la Identidad de Marca:} La IA absorbe la cultura y lineamientos del cliente antes del primer contacto, protegiendo su reputación corporativa en todos los canales.
+    \item \textbf{Doble Vía de Monetización:} Facturación por resultados bajo modalidad \textit{Sales-as-a-Service} y comercialización de la plataforma como software bajo suscripción recurrente (SaaS).
+\end{itemize}
+
+\subsection*{4. Destino de los Recursos de Financiación (Fondo Emprender)}
+El capital semilla no reembolsable se concentrará prioritariamente en remunerar el talento clave y sostener la infraestructura técnica:
+
+\begin{itemize}
+    \item \textbf{Sueldos para Account Executive Testers:} Contratación de ejecutivos comerciales dedicados a cerrar cuentas y, al mismo tiempo, evaluar el software en llamadas reales en frío. Su retroalimentación en caliente permite al equipo técnico perfeccionar la ergonomía, la velocidad de respuesta y la precisión del copiloto.
+    \item \textbf{Sueldos para Desarrollo de Software e Ingeniería:} Remuneración del equipo técnico a cargo de la arquitectura backend, la interfaz ultrarrápida (Seller-First UX), la integración de modelos de lenguaje para detección de señales de compra y la programación del motor de asistencia en vivo.
+    \item \textbf{Infraestructura Operativa y Telefonía Especializada:} Despliegue de servidores en la nube de alta disponibilidad y protocolos VoIP de ultra baja latencia, indispensables para comunicaciones comerciales fluidas y sin interferencias.
+\end{itemize}
+
+\section{Conclusión}
+
+\vspace{0.2cm}
+\begin{center}
+\parbox{0.92\textwidth}{
+    \centering\itshape\color{titlecolor}
+    ``El éxito comercial no depende únicamente de la automatización, sino de cómo la tecnología empodera al talento. No creamos software para fiscalizar vendedores; construimos la herramienta definitiva para que el cerrador opere al 110\% de su capacidad, combinando inteligencia de datos con persuasión humana.''
+}
+\end{center}
+\vspace{0.2cm}
+
+La metodología de formación por proyectos del SENA convierte la etapa lectiva en la incubadora oficial de este proyecto. Al conectar las competencias en bases de datos, algoritmos, arquitectura web y metodologías ágiles de la ficha 3607701 con la ejecución de \textbf{SalesCore AI}, la formación trasciende el aula y se convierte en el desarrollo de una empresa real con potencial de mercado, cumpliendo con la misión del SENA de formar talento que transforme la productividad del país.
+
+\vspace{0.6cm}
+\begin{flushright}
+    \textbf{Jeison Julián Sosa Rodríguez}\\
+    Aprendiz Técnico en Programación de Software • Ficha: 3607701\\
+    Centro de Servicios y Gestión Empresarial • SENA Regional Antioquia
+\end{flushright}
+
+\end{document}

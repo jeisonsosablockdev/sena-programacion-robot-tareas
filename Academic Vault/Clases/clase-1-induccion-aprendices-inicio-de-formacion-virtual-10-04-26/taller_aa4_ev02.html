@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller: Mi Programa de Formación - Proyecto Productivo (SENA Empresa / Fondo Emprender)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: letter;
+            margin: 1.1cm 1.4cm 1.1cm 1.4cm;
+        }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #ffffff;
+            color: #1e293b;
+            font-size: 11px;
+            line-height: 1.45;
+        }
+        .page {
+            width: 100%;
+            height: 25.1cm;
+            max-height: 25.1cm;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            page-break-after: always;
+            break-after: page;
+        }
+        .page:last-child {
+            page-break-after: avoid;
+            break-after: avoid;
+        }
+        h1, h2, h3 {
+            color: #0f172a;
+            letter-spacing: -0.01em;
+        }
+    </style>
+</head>
+<body class="max-w-4xl mx-auto">
+
+    <!-- ==================== PÁGINA 1 ==================== -->
+    <div class="page">
+        <div>
+            <!-- Header Institucional -->
+            <header class="border-b border-slate-300 pb-3 mb-3 flex items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIgogICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIgogICB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiCiAgIHhtbG5zOnN2Zz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6c29kaXBvZGk9Imh0dHA6Ly9zb2RpcG9kaS5zb3VyY2Vmb3JnZS5uZXQvRFREL3NvZGlwb2RpLTAuZHRkIgogICB4bWxuczppbmtzY2FwZT0iaHR0cDovL3d3dy5pbmtzY2FwZS5vcmcvbmFtZXNwYWNlcy9pbmtzY2FwZSIKICAgd2lkdGg9IjEwMCIKICAgaGVpZ2h0PSI5OCIKICAgdmlld0JveD0iMCAwIDc0Ljk5OTk5NyA3My41IgogICB2ZXJzaW9uPSIxLjEiCiAgIGlkPSJzdmcxMiIKICAgc29kaXBvZGk6ZG9jbmFtZT0iU0VOQSBsb2dvLnN2ZyIKICAgaW5rc2NhcGU6dmVyc2lvbj0iMC45Mi40ICg1ZGE2ODljMzEzLCAyMDE5LTAxLTE0KSI+CiAgPHRpdGxlCiAgICAgaWQ9InRpdGxlMjIyIj5TRU5BIENvbG9tYmlhIGxvZ288L3RpdGxlPgogIDxtZXRhZGF0YQogICAgIGlkPSJtZXRhZGF0YTE4Ij4KICAgIDxyZGY6UkRGPgogICAgICA8Y2M6V29yawogICAgICAgICByZGY6YWJvdXQ9IiI+CiAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9zdmcreG1sPC9kYzpmb3JtYXQ+CiAgICAgICAgPGRjOnR5cGUKICAgICAgICAgICByZGY6cmVzb3VyY2U9Imh0dHA6Ly9wdXJsLm9yZy9kYy9kY21pdHlwZS9TdGlsbEltYWdlIiAvPgogICAgICAgIDxkYzp0aXRsZT5TRU5BIENvbG9tYmlhIGxvZ288L2RjOnRpdGxlPgogICAgICA8L2NjOldvcms+CiAgICA8L3JkZjpSREY+CiAgPC9tZXRhZGF0YT4KICA8ZGVmcwogICAgIGlkPSJkZWZzMTYiPgogICAgPHBhdHRlcm4KICAgICAgIHk9IjAiCiAgICAgICB4PSIwIgogICAgICAgaGVpZ2h0PSI2IgogICAgICAgd2lkdGg9IjYiCiAgICAgICBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIgogICAgICAgaWQ9IkVNRmhiYXNlcGF0dGVybiIgLz4KICAgIDxwYXR0ZXJuCiAgICAgICB5PSIwIgogICAgICAgeD0iMCIKICAgICAgIGhlaWdodD0iNiIKICAgICAgIHdpZHRoPSI2IgogICAgICAgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIKICAgICAgIGlkPSJFTUZoYmFzZXBhdHRlcm4tMCIgLz4KICA8L2RlZnM+CiAgPHNvZGlwb2RpOm5hbWVkdmlldwogICAgIHBhZ2Vjb2xvcj0iI2ZmZmZmZiIKICAgICBib3JkZXJjb2xvcj0iIzY2NjY2NiIKICAgICBib3JkZXJvcGFjaXR5PSIxIgogICAgIG9iamVjdHRvbGVyYW5jZT0iMSIKICAgICBncmlkdG9sZXJhbmNlPSIxIgogICAgIGd1aWRldG9sZXJhbmNlPSIxIgogICAgIGlua3NjYXBlOnBhZ2VvcGFjaXR5PSIwIgogICAgIGlua3NjYXBlOnBhZ2VzaGFkb3c9IjIiCiAgICAgaW5rc2NhcGU6d2luZG93LXdpZHRoPSIxMzY2IgogICAgIGlua3NjYXBlOndpbmRvdy1oZWlnaHQ9IjcwNSIKICAgICBpZD0ibmFtZWR2aWV3MTQiCiAgICAgc2hvd2dyaWQ9ImZhbHNlIgogICAgIHVuaXRzPSJweCIKICAgICBpbmtzY2FwZTpzaG93cGFnZXNoYWRvdz0iZmFsc2UiCiAgICAgaW5rc2NhcGU6em9vbT0iMSIKICAgICBpbmtzY2FwZTpjeD0iOTYuMjY1MTA0IgogICAgIGlua3NjYXBlOmN5PSI1Ni43NDcyOTQiCiAgICAgaW5rc2NhcGU6d2luZG93LXg9Ii04IgogICAgIGlua3NjYXBlOndpbmRvdy15PSItOCIKICAgICBpbmtzY2FwZTp3aW5kb3ctbWF4aW1pemVkPSIxIgogICAgIGlua3NjYXBlOmN1cnJlbnQtbGF5ZXI9InN2ZzEyIj4KICAgIDxpbmtzY2FwZTpncmlkCiAgICAgICB0eXBlPSJ4eWdyaWQiCiAgICAgICBpZD0iZ3JpZDU4IiAvPgogIDwvc29kaXBvZGk6bmFtZWR2aWV3PgogIDxnCiAgICAgaWQ9IiNmZmZmZmZmZiIKICAgICB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLC0xMzAuNSkiIC8+Ag==`" class="w-12 h-12 object-contain" alt="Logo SENA" />
+                    <div>
+                        <h1 class="text-base font-extrabold tracking-tight text-slate-900 leading-tight">
+                            Taller: Mi Programa de Formación - Proyecto Productivo
+                            <span class="block text-xs font-semibold text-emerald-800">(SENA Empresa / Fondo Emprender)</span>
+                        </h1>
+                        <p class="text-[9.5px] uppercase tracking-wider font-semibold text-emerald-700 mt-0.5">Evidencia AA4-EV02 • Guía de Inducción • FPI SENA</p>
+                    </div>
+                </div>
+                <div class="text-right text-[10px] text-slate-600 border-l border-slate-200 pl-3 leading-tight">
+                    <p><span class="font-bold text-slate-800">Aprendiz:</span> Jeison Julián Sosa Rodríguez</p>
+                    <p><span class="font-bold text-slate-800">Documento:</span> C.C. 1014182421 • <span class="font-bold text-slate-800">Ficha:</span> 3607701</p>
+                    <p><span class="font-bold text-slate-800">Programa:</span> Técnico en Programación de Software</p>
+                    <p class="text-slate-500">Centro de Servicios y Gestión Empresarial</p>
+                </div>
+            </header>
+
+            <!-- SECCIÓN 1: CONCEPTOS INSTITUCIONALES -->
+            <section class="space-y-2 text-justify">
+                <div class="border-b border-emerald-700 pb-0.5">
+                    <h2 class="text-xs font-bold uppercase tracking-wider text-emerald-900">1. Apropiación de Conceptos Institucionales</h2>
+                </div>
+                <p class="text-slate-600 text-[10.5px]">
+                    La inducción define las reglas del juego técnicas, normativas y éticas para formarse en el SENA. Este análisis sintetiza los cinco pilares institucionales que sostienen mi proceso de aprendizaje y mi proyección como desarrollador de software:
+                </p>
+
+                <div class="space-y-2">
+                    <div class="bg-slate-50 p-2.5 rounded border border-slate-200">
+                        <h3 class="font-bold text-slate-900 text-xs mb-0.5">Senalogía e Identidad Institucional</h3>
+                        <p class="text-slate-700 text-[10.5px]">
+                            La Senalogía no es memorizar un himno o una bandera; es internalizar el sentido social de la Formación Profesional Integral (FPI). El SENA existe para conectar la capacitación técnica con la productividad real del país. Para mí, programar software no es un ejercicio abstracto frente a una pantalla: es una herramienta directa para modernizar sectores productivos, automatizar procesos y generar valor medible en la economía colombiana.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-50 p-2.5 rounded border border-slate-200">
+                        <h3 class="font-bold text-slate-900 text-xs mb-0.5">Reglamento del Aprendiz SENA</h3>
+                        <p class="text-slate-700 text-[10.5px]">
+                            Es el marco operativo de convivencia y disciplina profesional. Regula deberes, derechos, evaluación formativa, faltas y debido proceso. Su verdadero valor no es sancionar, sino entrenar la autorregulación y la ética de entrega. En la industria del software, donde la confianza y el cumplimiento de estándares son indispensables, el reglamento anticipa el rigor y la responsabilidad que exige cualquier equipo de ingeniería serio.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-50 p-2.5 rounded border border-slate-200">
+                        <h3 class="font-bold text-slate-900 text-xs mb-0.5">Bienestar al Aprendiz</h3>
+                        <p class="text-slate-700 text-[10.5px]">
+                            Protege al ser humano detrás del código. En programas virtuales de alta exigencia lógica, el aislamiento, la sobrecarga mental y el estrés son causas reales de deserción. Los programas de bienestar (apoyo psicológico, salud, deporte, arte y liderazgo) garantizan un soporte integral para mantener el equilibrio personal y rendir al máximo nivel cognitivo.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-50 p-2.5 rounded border border-slate-200">
+                        <h3 class="font-bold text-slate-900 text-xs mb-0.5">Programa de Formación: Técnico en Programación de Software</h3>
+                        <p class="text-slate-700 text-[10.5px]">
+                            Es la columna vertebral técnica de mi proyecto de vida. El currículo está estructurado para resolver problemas concretos de la industria tecnológica: lógica de programación, bases de datos relacionales y no relacionales, desarrollo web, pruebas de calidad y metodologías ágiles (Scrum). No se trata solo de aprender la sintaxis de un lenguaje, sino de dominar el pensamiento sistémico, la arquitectura limpia y la construcción de software escalable.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-50 p-2.5 rounded border border-slate-200">
+                        <h3 class="font-bold text-slate-900 text-xs mb-0.5">Emprendimiento e Investigación (SENNOVA y Fondo Emprender)</h3>
+                        <p class="text-slate-700 text-[10.5px]">
+                            Es el puente directo entre estudiar y fundar empresa. A través de SENNOVA (investigación aplicada e innovación) y el Fondo Emprender, el SENA financia y asesora proyectos de base tecnológica con capital semilla no reembolsable. Esta ruta transforma al aprendiz: deja de prepararse únicamente para ser empleado y adquiere las herramientas para liderar empresas viables que generen empleo calificado.
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer class="border-t border-slate-200 pt-1 text-[9px] text-slate-400 flex justify-between">
+            <span>SENA • Técnico en Programación de Software (Ficha 3607701)</span>
+            <span>Página 1 de 3</span>
+        </footer>
+    </div>
+
+    <!-- ==================== PÁGINA 2 ==================== -->
+    <div class="page">
+        <div>
+            <!-- Header secundario -->
+            <div class="border-b border-slate-200 pb-1.5 mb-2.5 flex justify-between items-center text-[10px] text-slate-500">
+                <span class="font-semibold text-slate-700">Evidencia AA4-EV02: Taller "Mi Programa de Formación - Proyecto Productivo (SENA Empresa / Fondo Emprender)"</span>
+                <span>Aprendiz: Jeison Julián Sosa Rodríguez (C.C. 1014182421)</span>
+            </div>
+
+            <!-- SECCIÓN 2: FORMACIÓN POR PROYECTOS -->
+            <section class="space-y-2 text-justify mb-3">
+                <div class="border-b border-emerald-700 pb-0.5">
+                    <h2 class="text-xs font-bold uppercase tracking-wider text-emerald-900">2. Fundamentos de la Formación por Proyectos</h2>
+                </div>
+                <p class="text-slate-700 text-[10px] leading-relaxed">
+                    La formación por proyectos del SENA sustituye la memorización pasiva por el aprendizaje activo y constructivista. Aprender haciendo frente a problemas reales del sector productivo es la única metodología que refleja con fidelidad la industria del desarrollo de software:
+                </p>
+                <div class="grid grid-cols-3 gap-2 text-[9.5px]">
+                    <div class="bg-slate-50 p-1.5 rounded border border-slate-200">
+                        <strong class="text-slate-900 block mb-0.5">Teoría con Propósito</strong>
+                        Conceptos como patrones de arquitectura, APIs o normalización dejan de ser teoría abstracta y se convierten en herramientas indispensables para que el sistema funcione.
+                    </div>
+                    <div class="bg-slate-50 p-1.5 rounded border border-slate-200">
+                        <strong class="text-slate-900 block mb-0.5">Autonomía y Resolución</strong>
+                        Obliga a consultar documentación técnica oficial, depurar errores de forma metódica (*debugging*) y autogestionar entregas sin respuestas prefabricadas.
+                    </div>
+                    <div class="bg-slate-50 p-1.5 rounded border border-slate-200">
+                        <strong class="text-slate-900 block mb-0.5">Enfoque Multidisciplinar</strong>
+                        Enseña a conectar la lógica backend con la experiencia de usuario (UX/UI) y las métricas de negocio: el código solo vale si resuelve una necesidad real del usuario.
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 3: PROYECTO PRODUCTIVO SALESCORE AI -->
+            <section class="space-y-2 text-justify">
+                <div class="border-b border-emerald-700 pb-0.5">
+                    <h2 class="text-xs font-bold uppercase tracking-wider text-emerald-900">3. Proyecto Productivo de Etapa Práctica: SalesCore AI</h2>
+                </div>
+
+                <div class="bg-emerald-50 border border-emerald-200 p-2.5 rounded">
+                    <div class="flex justify-between items-center gap-2">
+                        <div>
+                            <span class="text-[9px] font-bold text-emerald-800 uppercase tracking-wider">Proyecto:</span>
+                            <span class="text-xs font-extrabold text-slate-900 ml-1">SalesCore AI</span>
+                        </div>
+                        <div class="text-[9.5px] text-emerald-900 italic font-medium">
+                            "El contact center B2B de nueva generación: software centrado en el vendedor que automatiza la prospección, ejecutivos de élite que cierran al 110%."
+                        </div>
+                    </div>
+                    <p class="text-[9.5px] text-slate-700 mt-1 leading-relaxed">
+                        <strong class="text-slate-900">Estrategia de Validación (Dogfooding continuo):</strong> Contratar Account Executives (AEs) que cierren tratos comerciales ofreciendo este software y, al mismo tiempo, co-diseñen la herramienta con el equipo de desarrollo. Usamos nuestro propio producto para conseguir clientes: cada fricción o segundo perdido del vendedor en llamada se corrige en el código de inmediato.
+                    </p>
+                </div>
+
+                <!-- 3.1 El Problema -->
+                <div>
+                    <h3 class="font-bold text-slate-900 text-xs mb-1">3.1. El Problema en los Contact Centers Comerciales B2B</h3>
+                    <ul class="text-[10px] space-y-1 text-slate-700 pl-3 list-disc">
+                        <li>
+                            <strong class="text-slate-800">Fricción cognitiva y burnout:</strong> Un vendedor promedio salta entre 5 y 8 pestañas abiertas (CRM, hojas de cálculo, correo, LinkedIn, telefonía VoIP). Gasta el 65% de su día en tareas manuales y copiar datos en vez de hablar y negociar con clientes.
+                        </li>
+                        <li>
+                            <strong class="text-slate-800">Rotación masiva del talento:</strong> Herramientas rígidas, interfaces lentas y bases de prospectos fríos queman al comercial en pocos meses, disparando los costos de contratación y curva de aprendizaje de las empresas.
+                        </li>
+                        <li>
+                            <strong class="text-slate-800">Desconexión entre marketing y ventas:</strong> Los CRM tradicionales priorizan la fiscalización burocrática sobre la agilidad de cierre, dejando a los directivos a ciegas sobre qué objeciones reales frenan la compra durante la llamada.
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 3.2 La Solución -->
+                <div>
+                    <h3 class="font-bold text-slate-900 text-xs mb-1">3.2. Nuestra Solución: Ecosistema Híbrido de Alto Rendimiento</h3>
+                    <div class="space-y-1 text-[9.5px]">
+                        <div class="bg-slate-50 p-2 rounded border border-slate-200">
+                            <strong class="text-slate-900 block mb-0.5">1. Capa de Prospección Autónoma (IA / SDR)</strong>
+                            <p class="text-slate-700">Motores de *crawling* web que detectan señales de compra (rondas de capital, contrataciones clave, cambios de stack). Genera secuencias personalizadas que absorben la voz de la marca cliente y gestiona puntos de contacto omnicanal para entregar reuniones listas para cerrar.</p>
+                        </div>
+                        <div class="bg-slate-50 p-2 rounded border border-slate-200">
+                            <strong class="text-slate-900 block mb-0.5">2. Software Diseñado para la Experiencia del Vendedor (Seller-First UX / SX)</strong>
+                            <p class="text-slate-700">Consola unificada con cero clics innecesarios (todo el contexto del prospecto en una vista antes de timbrar). Copiloto en vivo que escucha la llamada y proyecta respuestas clave (*rebuttals*), datos técnicos y casos de éxito en la milésima de segundo en que surge una objeción, con ergonomía adaptada al estilo del vendedor.</p>
+                        </div>
+                        <div class="bg-slate-50 p-2 rounded border border-slate-200">
+                            <strong class="text-slate-900 block mb-0.5">3. Célula BPO de Account Executives de Alto Rendimiento</strong>
+                            <p class="text-slate-700">El ejecutivo recibe la reunión servida y la estrategia armada, dedicándose únicamente a negociar tratos de alto valor. Multiplica conversiones, percibe mejores comisiones y retroalimenta cuantitativamente a marketing con datos verídicos de llamadas.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer class="border-t border-slate-200 pt-1 text-[9px] text-slate-400 flex justify-between">
+            <span>SENA • Técnico en Programación de Software (Ficha 3607701)</span>
+            <span>Página 2 de 3</span>
+        </footer>
+    </div>
+
+    <!-- ==================== PÁGINA 3 ==================== -->
+    <div class="page">
+        <div>
+            <!-- Header secundario -->
+            <div class="border-b border-slate-200 pb-1.5 mb-2.5 flex justify-between items-center text-[10px] text-slate-500">
+                <span class="font-semibold text-slate-700">Evidencia AA4-EV02: Taller "Mi Programa de Formación - Proyecto Productivo (SENA Empresa / Fondo Emprender)"</span>
+                <span>Aprendiz: Jeison Julián Sosa Rodríguez (C.C. 1014182421)</span>
+            </div>
+
+            <section class="space-y-2 text-justify">
+                <!-- 3.3 Diferenciación -->
+                <div>
+                    <h3 class="font-bold text-slate-900 text-xs mb-1">3.3. Factores Diferenciadores de SalesCore AI</h3>
+                    <div class="grid grid-cols-2 gap-2 text-[9.5px]">
+                        <div class="p-2 bg-slate-50 rounded border border-slate-200">
+                            <strong class="text-slate-900 block mb-0.5">Diseñado para Vender, no para Vigilar</strong>
+                            Los CRM tradicionales son bases de datos lentas pensadas para fiscalizar. SalesCore AI es una cabina de combate creada para destrabar la venta y motivar al comercial.
+                        </div>
+                        <div class="p-2 bg-slate-50 rounded border border-slate-200">
+                            <strong class="text-slate-900 block mb-0.5">Calidad y Retención sobre Volumen Desechable</strong>
+                            Cambiamos el modelo de cientos de operadores quemados por una célula reducida de ejecutivos de élite apoyados en software que rinden el triple.
+                        </div>
+                        <div class="p-2 bg-slate-50 rounded border border-slate-200">
+                            <strong class="text-slate-900 block mb-0.5">Respeto a la Identidad de Marca</strong>
+                            La IA absorbe la cultura y lineamientos del cliente antes del primer contacto, protegiendo su reputación en todos los canales.
+                        </div>
+                        <div class="p-2 bg-slate-50 rounded border border-slate-200">
+                            <strong class="text-slate-900 block mb-0.5">Doble Vía de Monetización</strong>
+                            Facturación por resultados bajo modalidad *Sales-as-a-Service* y comercialización de la plataforma como software bajo suscripción recurrente (SaaS).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3.4 Destino Fondos -->
+                <div>
+                    <h3 class="font-bold text-slate-900 text-xs mb-1">3.4. Destino de los Recursos de Financiación (Fondo Emprender)</h3>
+                    <p class="text-[9.5px] text-slate-600 mb-1">
+                        El capital semilla no reembolsable se concentrará prioritariamente en remunerar el talento clave y sostener la infraestructura técnica:
+                    </p>
+                    <div class="space-y-1.5 text-[9.5px]">
+                        <div class="p-1.5 bg-slate-50 rounded border border-slate-200">
+                            <strong class="text-slate-900 block mb-0.5">Sueldos para Account Executive Testers</strong>
+                            <p class="text-slate-700">Contratación de ejecutivos comerciales dedicados a cerrar cuentas y, al mismo tiempo, evaluar el software en llamadas reales en frío. Su retroalimentación en caliente permite al equipo técnico perfeccionar la ergonomía, la velocidad de respuesta y la precisión del copiloto.</p>
+                        </div>
+                        <div class="p-1.5 bg-slate-50 rounded border border-slate-200">
+                            <strong class="text-slate-900 block mb-0.5">Sueldos para Desarrollo de Software e Ingeniería</strong>
+                            <p class="text-slate-700">Remuneración del equipo técnico a cargo de la arquitectura backend, la interfaz ultrarrápida (Seller-First UX), la integración de modelos de lenguaje para detección de señales de compra y la programación del motor de asistencia en vivo.</p>
+                        </div>
+                        <div class="p-1.5 bg-slate-50 rounded border border-slate-200">
+                            <strong class="text-slate-900 block mb-0.5">Infraestructura Operativa y Telefonía Especializada</strong>
+                            <p class="text-slate-700">Despliegue de servidores en la nube de alta disponibilidad y protocolos VoIP de ultra baja latencia, indispensables para comunicaciones comerciales fluidas y sin interferencias.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECCIÓN 4: CONCLUSIÓN -->
+                <div class="space-y-1.5 mt-2">
+                    <div class="border-b border-emerald-700 pb-0.5">
+                        <h2 class="text-xs font-bold uppercase tracking-wider text-emerald-900">4. Conclusión: La Formación por Proyectos como Incubadora Empresarial</h2>
+                    </div>
+                    <div class="p-2 bg-emerald-50 rounded border border-emerald-300 text-slate-800 italic text-[10px] leading-relaxed text-center font-medium">
+                        "El éxito comercial no depende únicamente de la automatización, sino de cómo la tecnología empodera al talento. No creamos software para fiscalizar vendedores; construimos la herramienta definitiva para que el cerrador opere al 110% de su capacidad, combinando inteligencia de datos con persuasión humana."
+                    </div>
+                    <p class="text-slate-700 text-[10px] leading-relaxed">
+                        La metodología de formación por proyectos del SENA convierte la etapa lectiva en la incubadora oficial de este proyecto. Al conectar las competencias en bases de datos, algoritmos, arquitectura web y metodologías ágiles de la ficha 3607701 con la ejecución de **SalesCore AI**, la formación trasciende el aula y se convierte en el desarrollo de una empresa real con potencial de mercado, cumpliendo con la misión del SENA de formar talento que transforme la productividad del país.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Firma y validación institucional -->
+            <div class="pt-2 mt-2 border-t border-slate-300 flex justify-between items-end text-[10px] text-slate-500">
+                <div>
+                    <p class="font-bold text-slate-800 text-xs">Jeison Julián Sosa Rodríguez</p>
+                    <p>Aprendiz Técnico en Programación de Software • Ficha 3607701</p>
+                    <p>Centro de Servicios y Gestión Empresarial • SENA</p>
+                </div>
+                <div class="text-right">
+                    <p class="font-semibold text-slate-700">Evidencia AA4-EV02: Taller "Mi Programa de Formación"</p>
+                    <p class="text-emerald-700 font-bold">Proyecto Productivo (SENA Empresa / Fondo Emprender)</p>
+                </div>
+            </div>
+        </div>
+
+        <footer class="border-t border-slate-200 pt-1 text-[9px] text-slate-400 flex justify-between">
+            <span>SENA • Técnico en Programación de Software (Ficha 3607701)</span>
+            <span>Página 3 de 3</span>
+        </footer>
+    </div>
+
+</body>
+</html>

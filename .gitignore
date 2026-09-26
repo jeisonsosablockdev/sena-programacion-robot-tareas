@@ -16,4 +16,5 @@ Academic-Engine/scratch/temp_audio/
 Academic-Engine/tools/drive-ingest/models/
 Academic-Engine/tools/drive-ingest/dist/
 dist/
-
+Academic-Engine/scratch/venv/
+Academic-Engine/scratch/*.py
